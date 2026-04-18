@@ -272,6 +272,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  job_design_system:
+    dependency: "direct main"
+    description:
+      path: "packages/job_design_system"
+      relative: true
+    source: path
+    version: "0.0.1"
+  job_design_tokens:
+    dependency: "direct main"
+    description:
+      path: "packages/job_design_tokens"
+      relative: true
+    source: path
+    version: "0.0.1"
   leak_tracker:
     dependency: transitive
     description:

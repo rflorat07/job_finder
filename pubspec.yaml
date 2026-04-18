@@ -24,6 +24,12 @@ dependencies:
   flutter_native_splash: ^2.4.7
 
 
+  # Local Packages
+  job_design_tokens:
+    path: packages/job_design_tokens
+  job_design_system:
+    path: packages/job_design_system
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
