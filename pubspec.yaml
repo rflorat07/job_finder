@@ -1,0 +1,38 @@
+name: job_finder
+description: "Job Finder is a Flutter application that helps users find job opportunities based on their skills and preferences. It provides a user-friendly interface to search for jobs, view job details, and apply for positions directly from the app. The application integrates with various job listing APIs to provide up-to-date job postings and allows users to filter results based on location, industry, and job type."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Navigation
+  go_router: ^17.2.1
+
+  # Images & SVG
+  cached_network_image: ^3.4.1
+  flutter_svg: ^2.2.4
+
+  # Icons
+  iconsax_plus: ^1.0.0
+
+  # Splash screen
+  flutter_native_splash: ^2.4.7
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/
+  - assets/images/
+  - assets/icons/
