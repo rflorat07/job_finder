@@ -7,39 +7,39 @@ import 'primitive_colors.dart';
 class SemanticColorsLight {
   // ========== Surface & Background ==========
   /// Primary application background
-  static const Color background = Color(PrimitiveColors.neutral0);
+  static const Color background = Color(PrimitiveColors.primary500);
 
   /// Surface for cards, containers, elevated elements
-  static const Color surface = Color(PrimitiveColors.neutral0);
+  static const Color surface = Color(PrimitiveColors.greyscale0);
 
   /// Elevated surface for modals, popovers
-  static const Color surfaceElevated = Color(PrimitiveColors.neutral10);
+  static const Color surfaceElevated = Color(PrimitiveColors.greyscale0);
 
   /// Inverse surface for emphasis
   static const Color surfaceInverse = Color(PrimitiveColors.neutral100);
 
   // ========== Text & Foreground ==========
   /// Primary text color - highest contrast
-  static const Color textPrimary = Color(PrimitiveColors.neutral100);
+  static const Color textPrimary = Color(PrimitiveColors.greyscale900);
 
-  /// Secondary text color - medium contrast (70% opacity)
-  static const Color textSecondary = Color(PrimitiveColors.black500);
+  /// Secondary text color
+  static const Color textSecondary = Color(PrimitiveColors.greyscale400);
 
-  /// Tertiary text color - lowest contrast (50% opacity)
-  static const Color textTertiary = Color(PrimitiveColors.neutral70);
+  /// Tertiary text color
+  static const Color textTertiary = Color(PrimitiveColors.primary500);
 
   /// Text on inverse surfaces
-  static const Color textOnInverse = Color(PrimitiveColors.neutral0);
+  static const Color textOnInverse = Color(PrimitiveColors.greyscale0);
 
   /// Disabled text
-  static const Color textDisabled = Color(PrimitiveColors.greyscale500);
+  static const Color textDisabled = Color(PrimitiveColors.greyscale0);
 
   // ========== Brand & Actions ==========
   /// Primary brand color
   static const Color primary = Color(PrimitiveColors.primary500);
 
   /// Primary hover state
-  static const Color primaryHover = Color(PrimitiveColors.primary300);
+  static const Color primaryHover = Color(PrimitiveColors.primary500);
 
   /// Primary pressed state
   static const Color primaryPressed = Color(PrimitiveColors.primary800);
@@ -48,35 +48,35 @@ class SemanticColorsLight {
   static const Color primaryDisabled = Color(PrimitiveColors.greyscale100);
 
   /// Secondary accent
-  static const Color secondary = Color(PrimitiveColors.secondary60);
+  static const Color secondary = Color(PrimitiveColors.greyscale100);
 
   /// Secondary hover
-  static const Color secondaryHover = Color(PrimitiveColors.secondary70);
+  static const Color secondaryHover = Color(PrimitiveColors.greyscale25);
 
   // ========== Semantic States ==========
   /// Success/positive feedback
   static const Color success = Color(PrimitiveColors.success50);
 
   /// Success hover
-  static const Color successHover = Color(PrimitiveColors.success60);
+  static const Color successHover = Color(PrimitiveColors.primary500);
 
   /// Error/negative feedback
   static const Color error = Color(PrimitiveColors.error50);
 
   /// Error hover
-  static const Color errorHover = Color(PrimitiveColors.error60);
+  static const Color errorHover = Color(PrimitiveColors.error100);
 
   /// Warning/caution
   static const Color warning = Color(PrimitiveColors.warning50);
 
   /// Warning hover
-  static const Color warningHover = Color(PrimitiveColors.warning60);
+  static const Color warningHover = Color(PrimitiveColors.warning100);
 
   /// Info/informational
-  static const Color info = Color(PrimitiveColors.info50);
+  static const Color info = Color(PrimitiveColors.warning100);
 
   /// Info hover
-  static const Color infoHover = Color(PrimitiveColors.info60);
+  static const Color infoHover = Color(PrimitiveColors.warning200);
 
   // ========== Borders & Dividers ==========
   /// Primary border color
@@ -93,16 +93,16 @@ class SemanticColorsLight {
 
   // ========== Backgrounds for States ==========
   /// Success background (light)
-  static const Color successBackground = Color(PrimitiveColors.success10);
+  static const Color successBackground = Color(PrimitiveColors.success25);
 
   /// Error background (light)
-  static const Color errorBackground = Color(PrimitiveColors.error10);
+  static const Color errorBackground = Color(PrimitiveColors.error25);
 
   /// Warning background (light)
-  static const Color warningBackground = Color(PrimitiveColors.warning10);
+  static const Color warningBackground = Color(PrimitiveColors.warning25);
 
   /// Info background (light)
-  static const Color infoBackground = Color(PrimitiveColors.info10);
+  static const Color infoBackground = Color(PrimitiveColors.warning25);
 
   /// Primary background (light)
   static const Color primaryBackground = Color(PrimitiveColors.primary100);

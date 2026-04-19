@@ -1,5 +1,13 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+library;
+
+/// ========== Theme ==========
+/// Complete theme configuration for Light and Dark modes
+export 'src/theme/theme.dart';
+
+/// ========== Tokens ==========
+/// Core design tokens: colors, typography, spacing, radius
+export 'src/tokens/tokens.dart';
+
+/// ========== Utils ==========
+/// Utility functions and extensions (future)
+export 'src/utils/utils.dart';

@@ -48,35 +48,35 @@ class SemanticColorsDark {
   static const Color primaryDisabled = Color(PrimitiveColors.greyscale100);
 
   /// Secondary accent (adjusted for dark theme)
-  static const Color secondary = Color(PrimitiveColors.secondary40);
+  static const Color secondary = Color(PrimitiveColors.greyscale400);
 
   /// Secondary hover
-  static const Color secondaryHover = Color(PrimitiveColors.secondary30);
+  static const Color secondaryHover = Color(PrimitiveColors.greyscale300);
 
   // ========== Semantic States ==========
   /// Success/positive feedback
-  static const Color success = Color(PrimitiveColors.success40);
+  static const Color success = Color(PrimitiveColors.success200);
 
   /// Success hover
-  static const Color successHover = Color(PrimitiveColors.success30);
+  static const Color successHover = Color(PrimitiveColors.success300);
 
   /// Error/negative feedback
-  static const Color error = Color(PrimitiveColors.error40);
+  static const Color error = Color(PrimitiveColors.error200);
 
   /// Error hover
-  static const Color errorHover = Color(PrimitiveColors.error30);
+  static const Color errorHover = Color(PrimitiveColors.error300);
 
   /// Warning/caution
-  static const Color warning = Color(PrimitiveColors.warning40);
+  static const Color warning = Color(PrimitiveColors.warning200);
 
   /// Warning hover
-  static const Color warningHover = Color(PrimitiveColors.warning30);
+  static const Color warningHover = Color(PrimitiveColors.warning300);
 
   /// Info/informational
-  static const Color info = Color(PrimitiveColors.info40);
+  static const Color info = Color(PrimitiveColors.warning200);
 
   /// Info hover
-  static const Color infoHover = Color(PrimitiveColors.info30);
+  static const Color infoHover = Color(PrimitiveColors.warning200);
 
   // ========== Borders & Dividers ==========
   /// Primary border color
@@ -93,16 +93,16 @@ class SemanticColorsDark {
 
   // ========== Backgrounds for States ==========
   /// Success background (dark)
-  static const Color successBackground = Color(PrimitiveColors.success80);
+  static const Color successBackground = Color(PrimitiveColors.success100);
 
   /// Error background (dark)
-  static const Color errorBackground = Color(PrimitiveColors.error80);
+  static const Color errorBackground = Color(PrimitiveColors.error100);
 
   /// Warning background (dark)
-  static const Color warningBackground = Color(PrimitiveColors.warning80);
+  static const Color warningBackground = Color(PrimitiveColors.warning100);
 
   /// Info background (dark)
-  static const Color infoBackground = Color(PrimitiveColors.info80);
+  static const Color infoBackground = Color(PrimitiveColors.warning100);
 
   /// Primary background (dark)
   static const Color primaryBackground = Color(PrimitiveColors.primary50);

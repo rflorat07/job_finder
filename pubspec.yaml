@@ -46,12 +46,12 @@ flutter:
   fonts:
   - family: Inter
     fonts:
-      - asset: packages/job_design_system/assets/fonts/Inter/Inter-Regular.ttf
+      - asset: packages/job_design_system/assets/fonts/Inter-Regular.ttf
         weight: 400
-      - asset: packages/job_design_system/assets/fonts/Inter/Inter-Medium.ttf
+      - asset: packages/job_design_system/assets/fonts/Inter-Medium.ttf
         weight: 500
-      - asset: packages/job_design_system/assets/fonts/Inter/Inter-SemiBold.ttf
+      - asset: packages/job_design_system/assets/fonts/Inter-SemiBold.ttf
         weight: 600
-      - asset: packages/job_design_system/assets/fonts/Inter/Inter-Bold.ttf
+      - asset: packages/job_design_system/assets/fonts/Inter-Bold.ttf
         weight: 700
 
