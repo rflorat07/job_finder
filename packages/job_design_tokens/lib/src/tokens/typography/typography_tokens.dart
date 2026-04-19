@@ -7,9 +7,6 @@ abstract class TypographyTokens {
   /// Default font family for the application
   static const String fontFamilyDefault = 'Inter';
 
-  /// Monospace font family for code
-  static const String fontFamilyMono = 'JetBrains Mono';
-
   // ========== Font Sizes (in logical pixels) ==========
   static const double fontSize10 = 10.0;
   static const double fontSize12 = 12.0;
@@ -22,6 +19,7 @@ abstract class TypographyTokens {
   static const double fontSize32 = 32.0;
   static const double fontSize36 = 36.0;
   static const double fontSize40 = 40.0;
+  static const double fontSize48 = 48.0;
 
   // ========== Font Weights ==========
   static const FontWeight fontWeightRegular = FontWeight.w400;
@@ -32,7 +30,8 @@ abstract class TypographyTokens {
   // ========== Line Heights (multiplier of font size) ==========
   static const double lineHeightCompact = 1.2;
   static const double lineHeightNormal = 1.4;
-  static const double lineHeightRelaxed = 1.75;
+  static const double lineHeightRelaxed = 1.5;
+  static const double lineHeightExtraRelaxed = 1.55;
 
   // ========== Letter Spacing ==========
   static const double letterSpacingTight = -0.5;
@@ -44,43 +43,43 @@ abstract class TypographyTokens {
   /// Display Large (h1) - For main page titles
   static const TextStyle displayLarge = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize24,
+    fontSize: fontSize48,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightNormal,
-    letterSpacing: letterSpacingTight,
+    height: lineHeightCompact,
+    letterSpacing: letterSpacingNormal,
   );
 
   /// Display Medium (h2) - For section titles
   static const TextStyle displayMedium = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize18,
+    fontSize: fontSize40,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightNormal,
-    letterSpacing: letterSpacingTight,
+    height: lineHeightCompact,
+    letterSpacing: letterSpacingNormal,
   );
 
   /// Display Small (h3)
   static const TextStyle displaySmall = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize16,
+    fontSize: fontSize32,
     fontWeight: fontWeightSemiBold,
     height: lineHeightNormal,
-    letterSpacing: letterSpacingTight,
+    letterSpacing: letterSpacingNormal,
   );
 
   /// Heading Large (h4) - Card titles
   static const TextStyle headingLarge = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize28,
+    fontSize: fontSize24,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightNormal,
-    letterSpacing: letterSpacingTight,
+    height: lineHeightRelaxed,
+    letterSpacing: letterSpacingNormal,
   );
 
   /// Heading Medium (h5)
   static const TextStyle headingMedium = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize24,
+    fontSize: fontSize20,
     fontWeight: fontWeightSemiBold,
     height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
@@ -89,7 +88,7 @@ abstract class TypographyTokens {
   /// Heading Small (h6)
   static const TextStyle headingSmall = TextStyle(
     fontFamily: fontFamilyDefault,
-    fontSize: fontSize20,
+    fontSize: fontSize28,
     fontWeight: fontWeightSemiBold,
     height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
@@ -99,8 +98,8 @@ abstract class TypographyTokens {
   static const TextStyle bodyLarge = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize18,
-    fontWeight: fontWeightRegular,
-    height: lineHeightNormal,
+    fontWeight: fontWeightSemiBold,
+    height: lineHeightExtraRelaxed,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -108,8 +107,8 @@ abstract class TypographyTokens {
   static const TextStyle bodyMedium = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize16,
-    fontWeight: fontWeightRegular,
-    height: lineHeightNormal,
+    fontWeight: fontWeightSemiBold,
+    height: lineHeightExtraRelaxed,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -117,8 +116,8 @@ abstract class TypographyTokens {
   static const TextStyle bodySmall = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize14,
-    fontWeight: fontWeightRegular,
-    height: lineHeightNormal,
+    fontWeight: fontWeightSemiBold,
+    height: lineHeightExtraRelaxed,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -145,8 +144,8 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize12,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightCompact,
-    letterSpacing: letterSpacingWide,
+    height: lineHeightExtraRelaxed,
+    letterSpacing: letterSpacingNormal,
   );
 
   /// Caption - Very small text, timestamps
@@ -164,15 +163,6 @@ abstract class TypographyTokens {
     fontSize: fontSize10,
     fontWeight: fontWeightRegular,
     height: lineHeightCompact,
-    letterSpacing: letterSpacingNormal,
-  );
-
-  /// Code/Monospace text
-  static const TextStyle code = TextStyle(
-    fontFamily: fontFamilyMono,
-    fontSize: fontSize14,
-    fontWeight: fontWeightRegular,
-    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 }
