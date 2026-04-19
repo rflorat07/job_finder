@@ -1,0 +1,49 @@
+{
+  "shared": {
+    "get_started": "Comenzar"
+  },
+  "onboarding": {
+    "onboarding_title_1": "Te ayudamos a encontrar\ntu trabajo más fácilmente",
+    "onboarding_subtitle_1": "Crea y organiza fácilmente tu ruta profesional ideal.\nEmpieza a explorar ahora.",
+    "onboarding_title_2": "Explora hoy opciones\nprofesionales ilimitadas",
+    "onboarding_subtitle_2": "Descubre nuevas oportunidades laborales y\nconecta con profesionales de tu sector.",
+    "onboarding_title_3": "Encuentra tu trabajo ideal\nfácilmente con WorkHive",
+    "onboarding_subtitle_3": "Recibe recomendaciones de empleo personalizadas y\nmantente al día con las últimas vacantes."
+  },
+  "home": {
+    "home_title": "Inicio",
+    "welcome_home": "¡Bienvenido!",
+    "home_subtitle": "Has completado correctamente el proceso de onboarding."
+  },
+  "auth": {
+    "log_in": "Iniciar sesión",
+    "log_in_subtitle": "Introduce tu correo y contraseña",
+    "email": "Correo electrónico",
+    "email_required": "El correo electrónico es obligatorio",
+    "email_invalid": "Introduce un correo electrónico válido",
+    "password": "Contraseña",
+    "password_required": "La contraseña es obligatoria",
+    "password_too_short": "La contraseña debe tener al menos 6 caracteres",
+    "remember_me": "Recordarme",
+    "forgot_password": "Olvidé mi contraseña",
+    "login_button": "Entrar",
+    "dont_have_account": "¿No tienes una cuenta? ",
+    "sign_up": "Regístrate",
+    "create_account": "Crear cuenta",
+    "create_account_subtitle": "Crea una nueva cuenta para empezar.",
+    "name": "Nombre",
+    "name_required": "El nombre es obligatorio",
+    "confirm_password": "Confirmar contraseña",
+    "confirm_password_required": "Debes confirmar la contraseña",
+    "passwords_do_not_match": "Las contraseñas no coinciden",
+    "create_account_button": "Crear cuenta",
+    "already_have_account": "¿Ya tienes una cuenta? ",
+    "sign_in": "Inicia sesión",
+    "or_continue_with": "O continúa con tu cuenta",
+    "forgot_password_title": "Recuperar contraseña",
+    "forgot_password_subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento\ny recuperar el acceso a tu cuenta.",
+    "send_reset_link": "Enviar enlace de restablecimiento",
+    "back_to_login": "Volver al inicio de sesión",
+    "reset_link_sent": "Se ha enviado un enlace de restablecimiento a tu correo."
+  }
+}

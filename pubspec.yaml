@@ -20,6 +20,9 @@ dependencies:
   # Icons
   iconsax_plus: ^1.0.0
 
+  # Localization
+  easy_localization: ^3.0.8
+
   # Splash screen
   flutter_native_splash: ^2.4.7
 
@@ -42,6 +45,7 @@ flutter:
   - assets/
   - assets/images/
   - assets/icons/
+  - assets/translations/
 
   fonts:
   - family: Inter

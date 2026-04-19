@@ -1,0 +1,49 @@
+{
+  "shared": {
+    "get_started": "Inizia"
+  },
+  "onboarding": {
+    "onboarding_title_1": "Ti aiutiamo a trovare\nil tuo lavoro più facilmente",
+    "onboarding_subtitle_1": "Crea e organizza facilmente il tuo percorso professionale ideale.\nInizia subito a esplorare.",
+    "onboarding_title_2": "Esplora oggi opportunità\ndi carriera senza limiti",
+    "onboarding_subtitle_2": "Scopri nuove opportunità di lavoro e\nconnettiti con professionisti del tuo settore.",
+    "onboarding_title_3": "Trova facilmente il lavoro dei tuoi sogni\ncon WorkHive",
+    "onboarding_subtitle_3": "Ricevi suggerimenti di lavoro personalizzati e\nresta aggiornato sulle ultime offerte."
+  },
+  "home": {
+    "home_title": "Home",
+    "welcome_home": "Benvenuto!",
+    "home_subtitle": "Hai completato con successo il processo di onboarding."
+  },
+  "auth": {
+    "log_in": "Accedi",
+    "log_in_subtitle": "Inserisci email e password",
+    "email": "Email",
+    "email_required": "L'email è obbligatoria",
+    "email_invalid": "Inserisci un'email valida",
+    "password": "Password",
+    "password_required": "La password è obbligatoria",
+    "password_too_short": "La password deve contenere almeno 6 caratteri",
+    "remember_me": "Ricordami",
+    "forgot_password": "Password dimenticata",
+    "login_button": "Accedi",
+    "dont_have_account": "Non hai un account? ",
+    "sign_up": "Registrati",
+    "create_account": "Crea account",
+    "create_account_subtitle": "Crea un nuovo account per iniziare.",
+    "name": "Nome",
+    "name_required": "Il nome è obbligatorio",
+    "confirm_password": "Conferma password",
+    "confirm_password_required": "La conferma della password è obbligatoria",
+    "passwords_do_not_match": "Le password non coincidono",
+    "create_account_button": "Crea account",
+    "already_have_account": "Hai già un account? ",
+    "sign_in": "Accedi",
+    "or_continue_with": "Oppure continua con il tuo account",
+    "forgot_password_title": "Password dimenticata",
+    "forgot_password_subtitle": "Inserisci il tuo indirizzo email per ricevere un link di reimpostazione\ne riottenere l'accesso al tuo account.",
+    "send_reset_link": "Invia link di reimpostazione",
+    "back_to_login": "Torna al login",
+    "reset_link_sent": "Il link per reimpostare la password è stato inviato alla tua email."
+  }
+}

@@ -25,7 +25,9 @@ class _MainAppState extends State<MainApp> {
       darkTheme: DSThemeDark.build(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(body: Center(child: Text('Hello World!'))),
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      home: Scaffold(body: Center(child: Text('home.welcome_home'.tr()))),
     );
   }
 }
