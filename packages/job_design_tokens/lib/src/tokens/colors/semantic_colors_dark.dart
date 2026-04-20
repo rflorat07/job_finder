@@ -34,6 +34,11 @@ class SemanticColorsDark {
   /// Disabled text
   static const Color textDisabled = Color(PrimitiveColors.greyscale500);
 
+  /// Disabled secondary text (dark)
+  static const Color textSecondaryDisabled = Color(
+    PrimitiveColors.greyscale500,
+  );
+
   // ========== Brand & Actions ==========
   /// Primary brand color (adjusted for dark theme)
   static const Color primary = Color(PrimitiveColors.primary500);
@@ -48,7 +53,7 @@ class SemanticColorsDark {
   static const Color primaryDisabled = Color(PrimitiveColors.greyscale100);
 
   /// Secondary accent (adjusted for dark theme)
-  static const Color secondary = Color(PrimitiveColors.greyscale400);
+  static const Color secondary = Color(PrimitiveColors.greyscale0);
 
   /// Secondary hover
   static const Color secondaryHover = Color(PrimitiveColors.greyscale300);
@@ -80,7 +85,7 @@ class SemanticColorsDark {
 
   // ========== Borders & Dividers ==========
   /// Primary border color
-  static const Color border = Color(PrimitiveColors.neutral70);
+  static const Color border = Color(PrimitiveColors.greyscale100);
 
   /// Subtle border (lower contrast)
   static const Color borderSubtle = Color(PrimitiveColors.neutral80);

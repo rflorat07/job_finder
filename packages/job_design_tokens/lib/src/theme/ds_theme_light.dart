@@ -76,6 +76,23 @@ class DSThemeLight {
         ),
       ),
 
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: SemanticColorsLight.primary,
+          disabledBackgroundColor: SemanticColorsLight.primaryDisabled,
+          foregroundColor: SemanticColorsLight.textOnInverse,
+          disabledForegroundColor: SemanticColorsLight.textDisabled,
+          textStyle: TypographyTokens.labelLarge,
+          padding: EdgeInsets.symmetric(
+            horizontal: SpacingTokens.buttonPaddingH,
+            vertical: SpacingTokens.buttonPaddingV,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: RadiusTokens.buttonRadius,
+          ),
+        ),
+      ),
+
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           disabledBackgroundColor: SemanticColorsLight.primaryDisabled,

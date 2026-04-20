@@ -34,6 +34,11 @@ class SemanticColorsLight {
   /// Disabled text
   static const Color textDisabled = Color(PrimitiveColors.greyscale0);
 
+  /// Disabled secondary text
+  static const Color textSecondaryDisabled = Color(
+    PrimitiveColors.greyscale200,
+  );
+
   // ========== Brand & Actions ==========
   /// Primary brand color
   static const Color primary = Color(PrimitiveColors.primary500);

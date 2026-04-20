@@ -29,12 +29,12 @@ abstract class TypographyTokens {
 
   // ========== Line Heights (multiplier of font size) ==========
   static const double lineHeightCompact = 1.2;
-  static const double lineHeightNormal = 1.4;
+  static const double lineHeightNormal = 1.0; // Default line height (1.0)
   static const double lineHeightRelaxed = 1.5;
   static const double lineHeightExtraRelaxed = 1.55;
 
   // ========== Letter Spacing ==========
-  static const double letterSpacingTight = -0.5;
+  static const double letterSpacingTight = -0.2;
   static const double letterSpacingNormal = 0.0;
   static const double letterSpacingWide = 0.5;
 
@@ -45,7 +45,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize48,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -54,7 +54,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize40,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -72,7 +72,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize24,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightRelaxed,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -99,7 +99,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize18,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightExtraRelaxed,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -108,7 +108,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize16,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightExtraRelaxed,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -117,8 +117,17 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize14,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightExtraRelaxed,
-    letterSpacing: letterSpacingNormal,
+    height: lineHeightNormal,
+    letterSpacing: letterSpacingTight,
+  );
+
+  /// Body XSmall - Very small body text
+  static const TextStyle bodyXSmall = TextStyle(
+    fontFamily: fontFamilyDefault,
+    fontSize: fontSize12,
+    fontWeight: fontWeightSemiBold,
+    height: lineHeightNormal,
+    letterSpacing: letterSpacingTight,
   );
 
   /// Label Large - Buttons, labels
@@ -126,7 +135,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize16,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingWide,
   );
 
@@ -135,7 +144,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize14,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingWide,
   );
 
@@ -144,7 +153,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize12,
     fontWeight: fontWeightSemiBold,
-    height: lineHeightExtraRelaxed,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -153,7 +162,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize12,
     fontWeight: fontWeightRegular,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 
@@ -162,7 +171,7 @@ abstract class TypographyTokens {
     fontFamily: fontFamilyDefault,
     fontSize: fontSize10,
     fontWeight: fontWeightRegular,
-    height: lineHeightCompact,
+    height: lineHeightNormal,
     letterSpacing: letterSpacingNormal,
   );
 }

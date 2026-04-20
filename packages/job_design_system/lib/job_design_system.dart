@@ -1,5 +1,5 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+library;
+
+/// ========== Components ==========
+/// Base components consuming design system tokens exclusively
+export 'src/components/components.dart';
