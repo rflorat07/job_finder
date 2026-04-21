@@ -13,6 +13,11 @@ dependencies:
   # Navigation
   go_router: ^17.2.1
 
+  # State Management
+  fpdart: ^1.2.0
+  equatable: ^2.0.8
+  flutter_riverpod: ^3.3.1
+
   # Images & SVG
   cached_network_image: ^3.4.1
   flutter_svg: ^2.2.4
