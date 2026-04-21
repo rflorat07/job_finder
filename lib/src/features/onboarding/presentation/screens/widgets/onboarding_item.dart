@@ -20,29 +20,34 @@ class OnboardingItem extends StatelessWidget {
       children: [
         Expanded(child: Image.asset(image)),
 
-        Column(
-          spacing: SpacingTokens.spacing16,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: context.dsTextTheme.headlineLarge?.copyWith(
-                height: TypographyTokens.lineHeightRelaxed,
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.spacing24,
+          ),
+          child: Column(
+            spacing: SpacingTokens.spacing16,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: context.dsTextTheme.headlineLarge?.copyWith(
+                  height: TypographyTokens.lineHeightRelaxed,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              subtitle,
-              style: context.dsTextTheme.bodySmall?.copyWith(
-                height: TypographyTokens.lineHeightExtraRelaxed,
-                color: context.dsColors.secondary,
+              Text(
+                subtitle,
+                style: context.dsTextTheme.bodySmall?.copyWith(
+                  height: TypographyTokens.lineHeightExtraRelaxed,
+                  color: context.dsColors.secondary,
+                ),
+                maxLines: 3,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
-              maxLines: 3,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

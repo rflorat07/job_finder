@@ -1,3 +1,4 @@
+import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:job_finder/src/imports/imports.dart';
 
 class OnBoardingSkip extends StatelessWidget {
@@ -7,14 +8,17 @@ class OnBoardingSkip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        TextButton(
-          onPressed: () => context.go(AppRoutes.login),
-          child: const Text('Skip'),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(right: SpacingTokens.spacing24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () => context.go(AppRoutes.login),
+            child: Text('onboarding.skip'.tr()),
+          ),
+        ],
+      ),
     );
   }
 }

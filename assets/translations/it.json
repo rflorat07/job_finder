@@ -3,12 +3,13 @@
     "get_started": "Inizia"
   },
   "onboarding": {
-    "onboarding_title_1": "Ti aiutiamo a trovare\nil tuo lavoro più facilmente",
-    "onboarding_subtitle_1": "Crea e organizza facilmente il tuo percorso professionale ideale.\nInizia subito a esplorare.",
-    "onboarding_title_2": "Esplora oggi opportunità\ndi carriera senza limiti",
-    "onboarding_subtitle_2": "Scopri nuove opportunità di lavoro e\nconnettiti con professionisti del tuo settore.",
-    "onboarding_title_3": "Trova facilmente il lavoro dei tuoi sogni\ncon WorkHive",
-    "onboarding_subtitle_3": "Ricevi suggerimenti di lavoro personalizzati e\nresta aggiornato sulle ultime offerte."
+    "skip": "Salta",
+    "onboarding_title_1": "Ti aiutiamo a trovare il tuo lavoro più facilmente",
+    "onboarding_subtitle_1": "Crea e organizza facilmente il tuo percorso professionale ideale. Inizia subito a esplorare.",
+    "onboarding_title_2": "Esplora oggi opportunità di carriera senza limiti",
+    "onboarding_subtitle_2": "Scopri nuove opportunità di lavoro e connettiti con professionisti del tuo settore.",
+    "onboarding_title_3": "Trova facilmente il lavoro dei tuoi sogni con WorkHive",
+    "onboarding_subtitle_3": "Ricevi suggerimenti di lavoro personalizzati e resta aggiornato sulle ultime offerte."
   },
   "home": {
     "home_title": "Home",

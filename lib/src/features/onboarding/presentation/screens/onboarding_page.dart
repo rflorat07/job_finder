@@ -30,44 +30,39 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.dsColors.surface,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.spacing24,
-          ),
-          child: Column(
-            spacing: SpacingTokens.spacing56,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Skip button
-              const OnBoardingSkip(),
+        child: Column(
+          spacing: SpacingTokens.spacing56,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Skip button
+            const OnBoardingSkip(),
 
-              // PageView - takes all available space
-              Expanded(
-                child: PageView.builder(
-                  itemCount: _onboardingData.length,
-                  itemBuilder: (context, index) {
-                    final data = _onboardingData[index];
-                    return OnboardingItem(
-                      image: data['image']!,
-                      title: data['title']!,
-                      subtitle: data['subtitle']!,
-                    );
-                  },
-                ),
+            // PageView - takes all available space
+            Expanded(
+              child: PageView.builder(
+                itemCount: _onboardingData.length,
+                itemBuilder: (context, index) {
+                  final data = _onboardingData[index];
+                  return OnboardingItem(
+                    image: data['image']!,
+                    title: data['title']!,
+                    subtitle: data['subtitle']!,
+                  );
+                },
               ),
+            ),
 
-              // Dot indicators
-              const OnBoardingDotNavigation(),
+            // Dot indicators
+            const OnBoardingDotNavigation(),
 
-              // Next button
-              DSButton(
-                label: '',
-                iconOnly: true,
-                iconLeft: IconsaxPlusLinear.arrow_right_3,
-                onPressed: () {},
-              ),
-            ],
-          ),
+            // Next button
+            DSButton(
+              label: '',
+              iconOnly: true,
+              iconLeft: IconsaxPlusLinear.arrow_right_3,
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
