@@ -35,33 +35,31 @@ class OnboardingPage extends StatelessWidget {
             horizontal: SpacingTokens.spacing24,
           ),
           child: Column(
-            spacing: SpacingTokens.spacing32,
+            spacing: SpacingTokens.spacing56,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Skipping the onboarding flow
+              // Skip button
               const OnBoardingSkip(),
 
-              Flexible(
-                child: FractionallySizedBox(
-                  heightFactor: 0.70, // ajusta este valor (0.0 a 1.0)
-                  child: PageView.builder(
-                    itemCount: _onboardingData.length,
-                    itemBuilder: (context, index) {
-                      final data = _onboardingData[index];
-                      return OnboardingItem(
-                        image: data['image']!,
-                        title: data['title']!,
-                        subtitle: data['subtitle']!,
-                      );
-                    },
-                  ),
+              // PageView - takes all available space
+              Expanded(
+                child: PageView.builder(
+                  itemCount: _onboardingData.length,
+                  itemBuilder: (context, index) {
+                    final data = _onboardingData[index];
+                    return OnboardingItem(
+                      image: data['image']!,
+                      title: data['title']!,
+                      subtitle: data['subtitle']!,
+                    );
+                  },
                 ),
               ),
 
-              /// Dot Navigation SmoothPageIndicator
+              // Dot indicators
               const OnBoardingDotNavigation(),
 
+              // Next button
               DSButton(
                 label: '',
                 iconOnly: true,

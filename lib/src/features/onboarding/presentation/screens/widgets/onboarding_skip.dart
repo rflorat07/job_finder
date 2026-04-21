@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:job_finder/src/imports/imports.dart';
 
 class OnBoardingSkip extends StatelessWidget {
   const OnBoardingSkip({
@@ -10,7 +10,10 @@ class OnBoardingSkip extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        TextButton(onPressed: () {}, child: const Text('Skip')),
+        TextButton(
+          onPressed: () => context.go(AppRoutes.login),
+          child: const Text('Skip'),
+        ),
       ],
     );
   }

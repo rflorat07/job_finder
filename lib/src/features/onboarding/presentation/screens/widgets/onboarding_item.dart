@@ -15,6 +15,7 @@ class OnboardingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       spacing: SpacingTokens.spacing40,
+
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(child: Image.asset(image)),

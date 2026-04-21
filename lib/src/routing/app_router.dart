@@ -16,7 +16,7 @@ final GoRouter appRouter = GoRouter(
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    return AppRoutes.onboarding;
+    return state.fullPath ?? AppRoutes.onboarding;
     // return null;
   },
   routes: <RouteBase>[
