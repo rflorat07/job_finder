@@ -7,7 +7,7 @@ import 'primitive_colors.dart';
 class SemanticColorsDark {
   // ========== Surface & Background ==========
   /// Primary application background (dark)
-  static const Color background = Color(PrimitiveColors.neutral100);
+  static const Color background = Color(PrimitiveColors.greyscale900);
 
   /// Surface for cards, containers, elevated elements (dark)
   static const Color surface = Color(PrimitiveColors.neutral90);
@@ -23,10 +23,10 @@ class SemanticColorsDark {
   static const Color textPrimary = Color(PrimitiveColors.neutral0);
 
   /// Secondary text color - medium contrast (70% opacity light)
-  static const Color textSecondary = Color(PrimitiveColors.neutral20);
+  static const Color textSecondary = Color(PrimitiveColors.greyscale400);
 
   /// Tertiary text color - lowest contrast (50% opacity light)
-  static const Color textTertiary = Color(PrimitiveColors.neutral40);
+  static const Color textTertiary = Color(PrimitiveColors.greyscale300);
 
   /// Text on inverse surfaces (dark)
   static const Color textOnInverse = Color(PrimitiveColors.neutral100);

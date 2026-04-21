@@ -25,6 +25,10 @@ dependencies:
   # Icons
   iconsax_plus: ^1.0.0
 
+
+   # Animations
+  smooth_page_indicator: ^2.0.1
+
   # Localization
   easy_localization: ^3.0.8
 
@@ -50,6 +54,7 @@ flutter:
   - assets/
   - assets/images/
   - assets/icons/
+  - assets/images/onboarding/
   - assets/translations/
 
   fonts:

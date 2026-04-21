@@ -5,3 +5,5 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:fpdart/fpdart.dart' hide State;
 export 'package:go_router/go_router.dart';
 export 'package:iconsax_plus/iconsax_plus.dart';
+export 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    hide ScaleEffect, SlideEffect, SwapEffect;

@@ -196,7 +196,7 @@ class DSButton extends StatelessWidget {
     this.iconOnly = false,
     this.isLoading = false,
     this.isDisabled = false,
-    this.size = DSButtonSize.medium,
+    this.size = DSButtonSize.large,
     this.type = DSButtonType.primary,
   }) : assert(
          !iconOnly || iconLeft != null || iconRight != null || isLoading,
@@ -336,7 +336,7 @@ Widget buttonLightDarkPreview() {
 
           DSButton(
             label: 'Button',
-            size: DSButtonSize.large,
+            size: DSButtonSize.medium,
             iconLeft: Icons.chevron_left,
             iconRight: Icons.chevron_right,
             isDisabled: true,
@@ -345,7 +345,7 @@ Widget buttonLightDarkPreview() {
 
           DSButton(
             label: 'Delete',
-            size: DSButtonSize.large,
+            size: DSButtonSize.small,
             iconOnly: true,
             iconLeft: Icons.chevron_left,
             onPressed: () {},
