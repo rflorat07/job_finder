@@ -1,24 +1,24 @@
-import 'package:job_design_tokens/job_design_tokens.dart';
-import 'package:job_finder/src/imports/imports.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 class OnBoardingSkip extends StatelessWidget {
   const OnBoardingSkip({
     super.key,
+    required this.onSkip,
   });
+
+  final VoidCallback onSkip;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: SpacingTokens.spacing24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () => context.go(AppRoutes.login),
-            child: Text('onboarding.skip'.tr()),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          onPressed: onSkip,
+          child: Text('onboarding.skip'.tr()),
+        ),
+      ],
     );
   }
 }

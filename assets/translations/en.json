@@ -4,11 +4,12 @@
   },
   "onboarding": {
     "skip": "Skip",
+    "get_started": "Get Started",
     "onboarding_title_1": "We help you find \nyour job more easily!",
     "onboarding_subtitle_1": "Effortlessly create and organize your dream \ncareer path. Start exploring now!",
     "onboarding_title_2": "Explore Limitless Career \nOptions Today!",
     "onboarding_subtitle_2": "Discover new career opportunities and connect \nwith professionals in your field.",
-    "onboarding_title_3": "Find your dream job easily \nwith WorkHive!",
+    "onboarding_title_3": "Find your dream job easily!",
     "onboarding_subtitle_3": "Get personalized job recommendations and stay \nupdated with the latest openings."
   },
   "home": {

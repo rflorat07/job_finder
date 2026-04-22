@@ -1,5 +1,6 @@
 {
     "chat.tools.terminal.autoApprove": {
-        "pod": true
+        "pod": true,
+        "npx skills": true
     }
 }

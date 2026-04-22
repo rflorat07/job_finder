@@ -23,7 +23,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.onboarding,
       name: 'onboarding',
-      builder: (context, state) => OnboardingPage(),
+      builder: (context, state) => const OnboardingPage(),
     ),
     GoRoute(
       path: AppRoutes.login,

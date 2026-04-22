@@ -188,7 +188,6 @@ class DSButton extends StatelessWidget {
   const DSButton({
     super.key,
     required this.label,
-    this.width,
     this.height,
     this.onPressed,
     this.iconLeft,
@@ -196,6 +195,7 @@ class DSButton extends StatelessWidget {
     this.iconOnly = false,
     this.isLoading = false,
     this.isDisabled = false,
+    this.width = double.infinity,
     this.size = DSButtonSize.large,
     this.type = DSButtonType.primary,
   }) : assert(
@@ -215,7 +215,7 @@ class DSButton extends StatelessWidget {
     final loaderColor = typeSpec.foregroundColor;
     final isIconOnly = iconOnly;
     final resolvedHeight = height ?? spec.height;
-    final resolvedWidth = isIconOnly ? (width ?? resolvedHeight) : width;
+    final resolvedWidth = isIconOnly ? spec.height : width;
     final iconOnlyData = iconLeft ?? iconRight;
     final hasLeftIcon = iconLeft != null && !isLoading;
     final hasRightIcon = iconRight != null && !isLoading;

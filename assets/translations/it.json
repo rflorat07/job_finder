@@ -4,11 +4,12 @@
   },
   "onboarding": {
     "skip": "Salta",
+    "get_started": "Inizia",
     "onboarding_title_1": "Ti aiutiamo a trovare il tuo lavoro più facilmente",
     "onboarding_subtitle_1": "Crea e organizza facilmente il tuo percorso professionale ideale. Inizia subito a esplorare.",
     "onboarding_title_2": "Esplora oggi opportunità di carriera senza limiti",
     "onboarding_subtitle_2": "Scopri nuove opportunità di lavoro e connettiti con professionisti del tuo settore.",
-    "onboarding_title_3": "Trova facilmente il lavoro dei tuoi sogni con WorkHive",
+    "onboarding_title_3": "Trova facilmente il lavoro dei tuoi sogni",
     "onboarding_subtitle_3": "Ricevi suggerimenti di lavoro personalizzati e resta aggiornato sulle ultime offerte."
   },
   "home": {
