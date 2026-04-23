@@ -67,8 +67,8 @@ abstract class TypographyTokens {
     letterSpacing: letterSpacingNormal,
   );
 
-  /// Heading Large (h4) - Card titles
-  static const TextStyle headingLarge = TextStyle(
+  /// headline Large (h4) - Card titles
+  static const TextStyle headlineLarge = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize24,
     fontWeight: fontWeightSemiBold,
@@ -76,8 +76,8 @@ abstract class TypographyTokens {
     letterSpacing: letterSpacingNormal,
   );
 
-  /// Heading Medium (h5)
-  static const TextStyle headingMedium = TextStyle(
+  /// headline Medium (h5)
+  static const TextStyle headlineMedium = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize20,
     fontWeight: fontWeightSemiBold,
@@ -85,8 +85,8 @@ abstract class TypographyTokens {
     letterSpacing: letterSpacingNormal,
   );
 
-  /// Heading Small (h6)
-  static const TextStyle headingSmall = TextStyle(
+  /// headline Small (h6)
+  static const TextStyle headlineSmall = TextStyle(
     fontFamily: fontFamilyDefault,
     fontSize: fontSize28,
     fontWeight: fontWeightSemiBold,

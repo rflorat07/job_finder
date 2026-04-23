@@ -50,7 +50,7 @@ class DSThemeDark {
       appBarTheme: AppBarTheme(
         backgroundColor: SemanticColorsDark.surface,
         foregroundColor: SemanticColorsDark.textPrimary,
-        titleTextStyle: TypographyTokens.headingMedium.copyWith(
+        titleTextStyle: TypographyTokens.headlineMedium.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
         centerTitle: false,
@@ -189,13 +189,13 @@ class DSThemeDark {
         displaySmall: TypographyTokens.displaySmall.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
-        headlineLarge: TypographyTokens.headingLarge.copyWith(
+        headlineLarge: TypographyTokens.headlineLarge.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
-        headlineMedium: TypographyTokens.headingMedium.copyWith(
+        headlineMedium: TypographyTokens.headlineMedium.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
-        headlineSmall: TypographyTokens.headingSmall.copyWith(
+        headlineSmall: TypographyTokens.headlineSmall.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
         bodyLarge: TypographyTokens.bodyLarge.copyWith(

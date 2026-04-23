@@ -50,7 +50,7 @@ class DSThemeLight {
       appBarTheme: AppBarTheme(
         backgroundColor: SemanticColorsLight.surface,
         foregroundColor: SemanticColorsLight.textPrimary,
-        titleTextStyle: TypographyTokens.headingMedium.copyWith(
+        titleTextStyle: TypographyTokens.headlineMedium.copyWith(
           color: SemanticColorsLight.textPrimary,
         ),
         centerTitle: false,
@@ -206,13 +206,13 @@ class DSThemeLight {
         displaySmall: TypographyTokens.displaySmall.copyWith(
           color: SemanticColorsLight.textPrimary,
         ),
-        headlineLarge: TypographyTokens.headingLarge.copyWith(
+        headlineLarge: TypographyTokens.headlineLarge.copyWith(
           color: SemanticColorsLight.textPrimary,
         ),
-        headlineMedium: TypographyTokens.headingMedium.copyWith(
+        headlineMedium: TypographyTokens.headlineMedium.copyWith(
           color: SemanticColorsLight.textPrimary,
         ),
-        headlineSmall: TypographyTokens.headingSmall.copyWith(
+        headlineSmall: TypographyTokens.headlineSmall.copyWith(
           color: SemanticColorsLight.textPrimary,
         ),
         bodyLarge: TypographyTokens.bodyLarge.copyWith(

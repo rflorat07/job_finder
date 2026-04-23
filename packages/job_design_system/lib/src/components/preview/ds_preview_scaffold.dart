@@ -49,7 +49,7 @@ class DsPreviewScaffold extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (title != null)
-                  Text(title!, style: TypographyTokens.headingSmall),
+                  Text(title!, style: TypographyTokens.headlineSmall),
                 ...children,
               ],
             ),
