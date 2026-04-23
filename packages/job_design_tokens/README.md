@@ -96,7 +96,7 @@ flutter build web
 ```dart
 Color primary = SemanticColorsLight.primary;
 double spacing = SpacingTokens.spacing16;
-TextStyle heading = TypographyTokens.headingMedium;
+TextStyle headline = TypographyTokens.headlineMedium;
 ```
 
 ## ✅ Current Status (v1.0.0)

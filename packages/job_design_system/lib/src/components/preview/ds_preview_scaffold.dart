@@ -39,7 +39,7 @@ class DsPreviewScaffold extends StatelessWidget {
       theme: previewTheme,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: backgroundColor ?? Colors.grey[400],
+        backgroundColor: backgroundColor ?? Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             padding: padding,
