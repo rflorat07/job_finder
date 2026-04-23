@@ -118,4 +118,13 @@ class SemanticColorsDark {
 
   /// Shadow color base
   static const Color shadow = Color(PrimitiveColors.neutral0);
+
+  // ========== Button & Background ==========
+  /// Primary button background (dark)
+  static const Color buttonBackgroundColor = Color(
+    PrimitiveColors.greyscale800,
+  );
+
+  /// Primary button foreground (dark)
+  static const Color buttonForegroundColor = Color(PrimitiveColors.greyscale0);
 }
