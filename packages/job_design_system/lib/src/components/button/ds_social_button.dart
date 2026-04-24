@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:job_design_system/job_design_system.dart';
-import 'package:job_design_system/src/components/preview/ds_preview_scaffold.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 /// Semantic sizes for DS social button variants.
