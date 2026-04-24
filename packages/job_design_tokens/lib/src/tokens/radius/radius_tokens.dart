@@ -12,6 +12,9 @@ abstract class RadiusTokens {
   /// 8 pixels - Small rounding
   static const double sm = 8.0;
 
+  /// 10 pixels - xSmall rounding
+  static const double xsm = 10.0;
+
   /// 12 pixels - Medium rounding
   static const double md = 12.0;
 
@@ -41,6 +44,9 @@ abstract class RadiusTokens {
   /// Small BorderRadius
   static const BorderRadius smRadius = BorderRadius.all(Radius.circular(sm));
 
+  /// Extra small BorderRadius
+  static const BorderRadius xsmRadius = BorderRadius.all(Radius.circular(xsm));
+
   /// Medium BorderRadius
   static const BorderRadius mdRadius = BorderRadius.all(Radius.circular(md));
 
@@ -67,7 +73,7 @@ abstract class RadiusTokens {
   static const BorderRadius buttonRadius = mdRadius;
 
   /// Input field border radius
-  static const BorderRadius inputRadius = mdRadius;
+  static const BorderRadius inputRadius = xsmRadius;
 
   /// Card border radius
   static const BorderRadius cardRadius = lgRadius;

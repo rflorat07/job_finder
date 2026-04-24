@@ -113,6 +113,8 @@ class DSThemeDark {
           horizontal: SpacingTokens.inputPaddingH,
           vertical: SpacingTokens.inputPaddingV,
         ),
+        constraints: BoxConstraints(minHeight: SpacingTokens.inputHeight),
+
         border: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
           borderSide: BorderSide(color: SemanticColorsDark.border),
@@ -127,7 +129,7 @@ class DSThemeDark {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsDark.primary, width: 2),
+          borderSide: BorderSide(color: SemanticColorsDark.primary, width: 1),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
@@ -135,10 +137,11 @@ class DSThemeDark {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsDark.error, width: 2),
+          borderSide: BorderSide(color: SemanticColorsDark.error, width: 1),
         ),
         hintStyle: TypographyTokens.bodyMedium.copyWith(
-          color: SemanticColorsDark.textTertiary,
+          color: SemanticColorsDark.textSecondary,
+          fontWeight: FontWeight.w500,
         ),
         labelStyle: TypographyTokens.labelMedium.copyWith(
           color: SemanticColorsDark.textSecondary,
@@ -157,6 +160,14 @@ class DSThemeDark {
         ),
         prefixIconColor: SemanticColorsDark.textSecondary,
         suffixIconColor: SemanticColorsDark.textSecondary,
+        prefixIconConstraints: BoxConstraints(
+          minWidth: SpacingTokens.spacing24,
+          minHeight: SpacingTokens.spacing24,
+        ),
+        suffixIconConstraints: BoxConstraints(
+          minWidth: SpacingTokens.spacing24,
+          minHeight: SpacingTokens.spacing24,
+        ),
       ),
 
       // ========== Card Theme ==========

@@ -85,10 +85,13 @@ abstract class SpacingTokens {
   static const double buttonGap = spacing8;
 
   /// Input padding (horizontal)
-  static const double inputPaddingH = spacing16;
+  static const double inputPaddingH = spacing12;
 
   /// Input padding (vertical)
   static const double inputPaddingV = spacing12;
+
+  /// Input height
+  static const double inputHeight = spacing48;
 
   /// Card padding
   static const double cardPadding = spacing24;

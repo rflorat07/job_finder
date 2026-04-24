@@ -32,6 +32,7 @@ abstract class TypographyTokens {
   static const double lineHeightNormal = 1.0; // Default line height (1.0)
   static const double lineHeightRelaxed = 1.5;
   static const double lineHeightExtraRelaxed = 1.55;
+  static const double lineHeightInput = 1.60;
 
   // ========== Letter Spacing ==========
   static const double letterSpacingTight = -0.2;

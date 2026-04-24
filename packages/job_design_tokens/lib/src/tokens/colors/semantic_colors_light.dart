@@ -66,7 +66,7 @@ class SemanticColorsLight {
   static const Color successHover = Color(PrimitiveColors.primary500);
 
   /// Error/negative feedback
-  static const Color error = Color(PrimitiveColors.error50);
+  static const Color error = Color(PrimitiveColors.error100);
 
   /// Error hover
   static const Color errorHover = Color(PrimitiveColors.error100);

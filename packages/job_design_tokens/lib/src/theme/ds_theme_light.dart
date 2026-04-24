@@ -130,6 +130,8 @@ class DSThemeLight {
           horizontal: SpacingTokens.inputPaddingH,
           vertical: SpacingTokens.inputPaddingV,
         ),
+        constraints: BoxConstraints(minHeight: SpacingTokens.inputHeight),
+
         border: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
           borderSide: BorderSide(color: SemanticColorsLight.border),
@@ -144,7 +146,7 @@ class DSThemeLight {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsLight.primary, width: 2),
+          borderSide: BorderSide(color: SemanticColorsLight.primary, width: 1),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
@@ -152,22 +154,23 @@ class DSThemeLight {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsLight.error, width: 2),
+          borderSide: BorderSide(color: SemanticColorsLight.error, width: 1),
         ),
         hintStyle: TypographyTokens.bodyMedium.copyWith(
-          color: SemanticColorsLight.textTertiary,
+          color: SemanticColorsLight.textSecondary,
+          fontWeight: FontWeight.w500,
         ),
         labelStyle: TypographyTokens.labelMedium.copyWith(
           color: SemanticColorsLight.textSecondary,
         ),
         floatingLabelStyle: TypographyTokens.labelMedium.copyWith(
-          color: SemanticColorsLight.primary,
+          color: SemanticColorsLight.textPrimary,
         ),
         helperStyle: TypographyTokens.captionSmall.copyWith(
-          color: SemanticColorsLight.textTertiary,
+          color: SemanticColorsLight.textSecondary,
         ),
         counterStyle: TypographyTokens.captionSmall.copyWith(
-          color: SemanticColorsLight.textTertiary,
+          color: SemanticColorsLight.textSecondary,
         ),
         errorStyle: TypographyTokens.captionSmall.copyWith(
           color: SemanticColorsLight.error,
