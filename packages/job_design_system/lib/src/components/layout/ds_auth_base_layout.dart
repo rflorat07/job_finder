@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
@@ -37,70 +38,94 @@ class DSAuthBaseLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SpacingTokens.spacing24,
-                vertical: SpacingTokens.spacing20,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style:
-                        titleTextStyle ??
-                        context.dsTextTheme.headlineLarge?.copyWith(
-                          color: context.dsColors.onPrimary,
-                          height: TypographyTokens.lineHeightRelaxed,
-                        ),
-                  ),
-                  Text(
-                    subtitle,
-                    style:
-                        subtitleTextStyle ??
-                        context.dsTextTheme.bodySmall?.copyWith(
-                          color: const Color(PrimitiveColors.greyscale25),
-                          height: TypographyTokens.lineHeightRelaxed,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: containerColor ?? context.dsColors.surface,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(Sizes.size24),
-                  ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(
+        // On iOS, .light makes the icons white
+        // On Android, we configure it specifically:
+        statusBarColor: Colors.transparent, // Transparent background
+        statusBarIconBrightness: Brightness.light, // White icons (Android)
+        statusBarBrightness: Brightness.dark, // Required for white icons on iOS
+      ),
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: SafeArea(
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.spacing24,
+                  vertical: SpacingTokens.spacing20,
                 ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(Sizes.size24),
-                  ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(
-                      SpacingTokens.spacing24,
-                      SpacingTokens.spacing40,
-                      SpacingTokens.spacing24,
-                      SpacingTokens.spacing40,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style:
+                          titleTextStyle ??
+                          context.dsTextTheme.headlineLarge?.copyWith(
+                            color: context.dsColors.onPrimary,
+                            height: TypographyTokens.lineHeightRelaxed,
+                          ),
                     ),
-                    child: child,
+                    Text(
+                      subtitle,
+                      style:
+                          subtitleTextStyle ??
+                          context.dsTextTheme.bodySmall?.copyWith(
+                            color: const Color(PrimitiveColors.greyscale25),
+                            height: TypographyTokens.lineHeightRelaxed,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: containerColor ?? context.dsColors.surface,
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(Sizes.size24),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(Sizes.size24),
+                    ),
+                    // 1. LayoutBuilder to measure exactly the available white space
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          // 2. ConstrainedBox ensures the content is at least as tall as the screen
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: constraints.maxHeight,
+                            ),
+                            // 3. IntrinsicHeight is the key that allows using Spacer() inside a ScrollView
+                            child: IntrinsicHeight(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingTokens.spacing24,
+                                  vertical: SpacingTokens.spacing40,
+                                ),
+                                child:
+                                    child, // Your content (GetStartedPage) is injected here
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
