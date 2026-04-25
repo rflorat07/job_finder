@@ -1,10 +1,11 @@
 {
   "shared": {
-    "get_started": "Get Started"
+    "continue": "Continue",
+    "get_started": "Get Started",
+    "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt."
   },
   "onboarding": {
     "skip": "Skip",
-    "get_started": "Get Started",
     "onboarding_title_1": "We help you find \nyour job more easily!",
     "onboarding_subtitle_1": "Effortlessly create and organize your dream \ncareer path. Start exploring now!",
     "onboarding_title_2": "Explore Limitless Career \nOptions Today!",
@@ -21,6 +22,8 @@
     "log_in": "Log in",
     "log_in_subtitle": "Enter your email and password",
     "email": "Email",
+    "email_address": "Email Address",
+    "email_hint": "Enter your email",
     "email_required": "Email is required",
     "email_invalid": "Enter a valid email",
     "password": "Password",
@@ -41,11 +44,15 @@
     "create_account_button": "Create Account",
     "already_have_account": "Already have an account? ",
     "sign_in": "Sign In",
-    "or_continue_with": "Or Continue With Account",
+    "or_continue_with": "Or Continue with",
     "forgot_password_title": "Forgot Password",
     "forgot_password_subtitle": "Enter your email address to receive a reset link\nand regain access to your account.",
     "send_reset_link": "Send reset link",
     "back_to_login": "Back to login",
-    "reset_link_sent": "Password reset link sent to your email."
+    "reset_link_sent": "Password reset link sent to your email.",
+    "sign_in_apple": "Sign in with Apple",
+    "sign_in_google": "Sign in with Google",
+    "sign_in_twitter": "Sign in with Twitter",
+    "sign_in_facebook": "Sign in with Facebook"
   }
 }
