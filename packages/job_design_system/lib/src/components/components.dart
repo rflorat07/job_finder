@@ -8,3 +8,4 @@ export 'icon/ds_icon_asset.dart';
 export 'input/ds_text_form_field.dart';
 export 'layout/ds_auth_base_layout.dart';
 export 'preview/ds_preview_scaffold.dart';
+export 'text/ds_rich_text.dart';
