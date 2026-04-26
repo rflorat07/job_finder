@@ -6,6 +6,7 @@ abstract final class AppRoutes {
   AppRoutes._();
 
   static const String onboarding = '/onboarding';
+  static const String getStarted = '/get-started';
   static const String login = '/login';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';

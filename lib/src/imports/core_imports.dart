@@ -9,7 +9,7 @@ export 'package:flutter_native_splash/flutter_native_splash.dart';
 // Project Core — everything exported through shared.dart (theme, extensions,
 // utils, widgets, enums) plus routing and services.
 
-export '../features/auth/presentation/screens/login_screen.dart';
+export '../features/auth/presentation/screens/get_started_screen.dart';
 export '../features/onboarding/presentation/screens/onboarding_page.dart';
 export '../routing/app_router.dart';
 export '../routing/app_routes.dart';

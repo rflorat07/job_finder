@@ -6,6 +6,7 @@ const _protectedRoutes = [AppRoutes.home];
 /// Routes accessible only to unauthenticated users.
 const _authOnlyRoutes = [
   AppRoutes.onboarding,
+  AppRoutes.getStarted,
   AppRoutes.login,
   AppRoutes.signup,
 ];
@@ -16,7 +17,7 @@ final GoRouter appRouter = GoRouter(
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    //return AppRoutes.login;
+    //return AppRoutes.getStarted;
     return state.fullPath ?? AppRoutes.onboarding;
     // return null;
   },
@@ -29,7 +30,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.login,
       name: 'login',
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => const GetStartedScreen(),
     ),
     /*     GoRoute(
       path: AppRoutes.signup,
