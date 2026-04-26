@@ -53,78 +53,114 @@ class DSAuthBaseLayout extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.spacing24,
-                  vertical: SpacingTokens.spacing20,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style:
-                          titleTextStyle ??
-                          context.dsTextTheme.headlineLarge?.copyWith(
-                            color: context.dsColors.onPrimary,
-                            height: TypographyTokens.lineHeightRelaxed,
-                          ),
-                    ),
-                    Text(
-                      subtitle,
-                      style:
-                          subtitleTextStyle ??
-                          context.dsTextTheme.bodySmall?.copyWith(
-                            color: const Color(PrimitiveColors.greyscale25),
-                            height: TypographyTokens.lineHeightRelaxed,
-                          ),
-                    ),
-                  ],
-                ),
+              _AuthHeader(
+                title: title,
+                subtitle: subtitle,
+                titleTextStyle: titleTextStyle,
+                subtitleTextStyle: subtitleTextStyle,
               ),
-
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: containerColor ?? context.dsColors.surface,
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(Sizes.size24),
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(Sizes.size24),
-                    ),
-                    // 1. LayoutBuilder to measure exactly the available white space
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        return SingleChildScrollView(
-                          // 2. ConstrainedBox ensures the content is at least as tall as the screen
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: constraints.maxHeight,
-                            ),
-                            // 3. IntrinsicHeight is the key that allows using Spacer() inside a ScrollView
-                            child: IntrinsicHeight(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: SpacingTokens.spacing24,
-                                  vertical: SpacingTokens.spacing40,
-                                ),
-                                child:
-                                    child, // Your content (GetStartedPage) is injected here
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
+              _AuthScrollableContainer(
+                containerColor: containerColor,
+                child: child,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AuthHeader extends StatelessWidget {
+  const _AuthHeader({
+    required this.title,
+    required this.subtitle,
+    this.titleTextStyle,
+    this.subtitleTextStyle,
+  });
+
+  final String title;
+  final String subtitle;
+  final TextStyle? titleTextStyle;
+  final TextStyle? subtitleTextStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: SpacingTokens.spacing24,
+        vertical: SpacingTokens.spacing20,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style:
+                titleTextStyle ??
+                context.dsTextTheme.headlineLarge?.copyWith(
+                  color: context.dsColors.onPrimary,
+                  height: TypographyTokens.lineHeightRelaxed,
+                ),
+          ),
+          Text(
+            subtitle,
+            style:
+                subtitleTextStyle ??
+                context.dsTextTheme.bodySmall?.copyWith(
+                  color: const Color(PrimitiveColors.greyscale25),
+                  height: TypographyTokens.lineHeightRelaxed,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AuthScrollableContainer extends StatelessWidget {
+  const _AuthScrollableContainer({required this.child, this.containerColor});
+
+  final Widget child;
+  final Color? containerColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: containerColor ?? context.dsColors.surface,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(Sizes.size24),
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(Sizes.size24),
+          ),
+          // 1. LayoutBuilder to measure exactly the available white space
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                // 2. ConstrainedBox ensures the content is at least as tall as the screen
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  // 3. IntrinsicHeight is the key that allows using Spacer() inside a ScrollView
+                  child: IntrinsicHeight(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.spacing24,
+                        vertical: SpacingTokens.spacing40,
+                      ),
+                      child:
+                          child, // Your content (GetStartedPage) is injected here
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
