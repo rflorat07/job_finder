@@ -66,10 +66,12 @@ class DSThemeLight {
         unselectedLabelColor: const Color(PrimitiveColors.greyscale500),
         labelStyle: TypographyTokens.bodyMedium.copyWith(
           color: SemanticColorsLight.primary,
+          height: TypographyTokens.lineHeightExtraRelaxed,
         ),
         unselectedLabelStyle: TypographyTokens.bodyMedium.copyWith(
           color: SemanticColorsLight.textSecondary,
-          fontWeight: FontWeight.w500,
+          fontWeight: TypographyTokens.fontWeightRegular,
+          height: TypographyTokens.lineHeightExtraRelaxed,
         ),
         dividerColor: SemanticColorsLight.border,
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widget_previews.dart';
-import 'package:job_design_system/src/components/text/ds_rich_text.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 class DSAuthTabBarBaseLayout extends StatelessWidget {
@@ -11,9 +10,6 @@ class DSAuthTabBarBaseLayout extends StatelessWidget {
     required this.subtitle,
     required this.tabs,
     required this.tabViews,
-    this.richText,
-    this.linkText,
-    this.onLinkTap,
     this.containerColor,
     this.backgroundColor,
     this.titleTextStyle,
@@ -47,15 +43,6 @@ class DSAuthTabBarBaseLayout extends StatelessWidget {
   /// Base layout container color
   final Color? containerColor;
 
-  ///  Text for the rich text at the bottom of the layout
-  final String? richText;
-
-  ///  Link text for the rich text at the bottom of the layout
-  final String? linkText;
-
-  ///  Callback when the link text is tapped
-  final VoidCallback? onLinkTap;
-
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -81,53 +68,10 @@ class DSAuthTabBarBaseLayout extends StatelessWidget {
                   titleTextStyle: titleTextStyle,
                   subtitleTextStyle: subtitleTextStyle,
                 ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: containerColor ?? context.dsColors.surface,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(Sizes.size24),
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(Sizes.size24),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                          SpacingTokens.spacing24,
-                          SpacingTokens.spacing32,
-                          SpacingTokens.spacing24,
-                          SpacingTokens.spacing40,
-                        ),
-                        child: Column(
-                          children: [
-                            // TabBar
-                            TabBar(
-                              physics: const NeverScrollableScrollPhysics(),
-                              tabs: tabs,
-                            ),
-                            // Content of the Tabs
-                            Expanded(
-                              child: TabBarView(
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: tabViews,
-                              ),
-                            ),
-
-                            // Optional Rich Text at the bottom
-                            if (richText != null && linkText != null)
-                              DSRichText(
-                                text: richText!,
-                                linkText: linkText!,
-                                onLinkTap: onLinkTap ?? () {},
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                _AuthTabContainer(
+                  tabs: tabs,
+                  containerColor: containerColor,
+                  tabViews: tabViews,
                 ),
               ],
             ),
@@ -182,6 +126,63 @@ class _AuthHeader extends StatelessWidget {
                 ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// New private widget for the tab container
+class _AuthTabContainer extends StatelessWidget {
+  const _AuthTabContainer({
+    required this.tabs,
+    required this.containerColor,
+    required this.tabViews,
+  });
+
+  final Color? containerColor;
+  final List<Widget> tabs;
+  final List<Widget> tabViews;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: containerColor ?? context.dsColors.surface,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(Sizes.size24),
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(Sizes.size24),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              SpacingTokens.spacing24,
+              SpacingTokens.spacing32,
+              SpacingTokens.spacing24,
+              SpacingTokens.spacing2,
+            ),
+            child: Column(
+              children: [
+                // TabBar
+                TabBar(
+                  physics: const NeverScrollableScrollPhysics(),
+                  tabs: tabs,
+                ),
+                // Content of the Tabs
+                Expanded(
+                  child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: tabViews,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
