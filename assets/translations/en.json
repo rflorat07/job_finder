@@ -7,11 +7,11 @@
   "onboarding": {
     "skip": "Skip",
     "onboarding_title_1": "We help you find \nyour job more easily!",
-    "onboarding_subtitle_1": "Effortlessly create and organize your dream \ncareer path. Start exploring now!",
+    "onboarding_subtitle_1": "Effortlessly create and organize your dream career path. Start exploring now!",
     "onboarding_title_2": "Explore Limitless Career \nOptions Today!",
-    "onboarding_subtitle_2": "Discover new career opportunities and connect \nwith professionals in your field.",
-    "onboarding_title_3": "Find your dream job easily!",
-    "onboarding_subtitle_3": "Get personalized job recommendations and stay \nupdated with the latest openings."
+    "onboarding_subtitle_2": "Discover new career opportunities and connect with professionals in your field.",
+    "onboarding_title_3": "Find your dream job!",
+    "onboarding_subtitle_3": "Get personalized job recommendations and stay updated with the latest openings."
   },
   "home": {
     "home_title": "Home",
@@ -19,14 +19,13 @@
     "home_subtitle": "You have successfully completed the onboarding process."
   },
   "auth": {
-    "log_in": "Log in",
-    "log_in_subtitle": "Enter your email and password",
     "email": "Email",
     "email_address": "Email Address",
     "email_hint": "Enter your email",
     "email_required": "Email is required",
     "email_invalid": "Enter a valid email",
     "password": "Password",
+    "password_hint": "Enter your password",
     "password_required": "Password is required",
     "password_too_short": "Password must be at least 6 characters",
     "remember_me": "Remember me",
@@ -53,6 +52,18 @@
     "sign_in_apple": "Sign in with Apple",
     "sign_in_google": "Sign in with Google",
     "sign_in_twitter": "Sign in with Twitter",
-    "sign_in_facebook": "Sign in with Facebook"
+    "sign_in_facebook": "Sign in with Facebook",
+    "phone_number": "Phone Number",
+    "phone_number_hint": "Enter your phone number",
+    "phone_number_required": "Phone number is required",
+    "invalid_phone_number": "Enter a valid phone number",
+    "sign_in_phone": "Sign in with Phone"
+  },  
+  "log_in": {
+    "log_in": "Log in",
+    "log_in_subtitle": "Enter your email and password",
+    "welcome_back": "Welcome back 👋 ",
+    "dont_have_account": "Don't have an account? ",
+    "sign_up": "Register"
   }
 }

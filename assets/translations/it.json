@@ -19,14 +19,14 @@
     "home_subtitle": "Hai completato con successo il processo di onboarding."
   },
   "auth": {
-    "log_in": "Accedi",
-    "log_in_subtitle": "Inserisci email e password",
+
     "email": "Email",
     "email_address": "Indirizzo email",
     "email_hint": "Inserisci la tua email",
     "email_required": "L'email è obbligatoria",
     "email_invalid": "Inserisci un'email valida",
     "password": "Password",
+    "password_hint": "Inserisci la tua password",
     "password_required": "La password è obbligatoria",
     "password_too_short": "La password deve contenere almeno 6 caratteri",
     "remember_me": "Ricordami",
@@ -53,6 +53,19 @@
     "sign_in_apple": "Accedi con Apple",
     "sign_in_google": "Accedi con Google",
     "sign_in_twitter": "Accedi con Twitter",
-    "sign_in_facebook": "Accedi con Facebook"
+    "sign_in_facebook": "Accedi con Facebook",
+    "phone_number": "Numero di telefono",
+    "phone_number_hint": "Inserisci il tuo numero di telefono",
+    "phone_number_required": "Il numero di telefono è obbligatorio",
+    "invalid_phone_number": "Inserisci un numero di telefono valido",
+    "sign_in_phone": "Accedi con il telefono"
+    
+  },
+  "log_in": {
+    "log_in": "Accedi",
+    "log_in_subtitle": "Inserisci email e password",
+    "welcome_back": "Bentornato 👋 !",
+    "dont_have_account": "Non hai un account? ",
+    "sign_up": "Registrati"
   }
 }
