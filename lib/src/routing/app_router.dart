@@ -17,8 +17,8 @@ final GoRouter appRouter = GoRouter(
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    //return AppRoutes.getStarted;
-    return state.fullPath ?? AppRoutes.onboarding;
+    return AppRoutes.login;
+    //return state.fullPath ?? AppRoutes.login;
     // return null;
   },
   routes: <RouteBase>[
@@ -28,9 +28,14 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const OnboardingPage(),
     ),
     GoRoute(
+      path: AppRoutes.getStarted,
+      name: 'getStarted',
+      builder: (context, state) => const GetStartedScreen(),
+    ),
+    GoRoute(
       path: AppRoutes.login,
       name: 'login',
-      builder: (context, state) => const GetStartedScreen(),
+      builder: (context, state) => const LoginScreen(),
     ),
     /*     GoRoute(
       path: AppRoutes.signup,
