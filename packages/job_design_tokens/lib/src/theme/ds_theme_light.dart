@@ -58,6 +58,22 @@ class DSThemeLight {
         scrolledUnderElevation: 0,
       ),
 
+      // ========== Tab Bar Theme ==========
+      tabBarTheme: TabBarThemeData(
+        indicatorColor: SemanticColorsLight.primary,
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelColor: SemanticColorsLight.primary,
+        unselectedLabelColor: const Color(PrimitiveColors.greyscale500),
+        labelStyle: TypographyTokens.bodyMedium.copyWith(
+          color: SemanticColorsLight.primary,
+        ),
+        unselectedLabelStyle: TypographyTokens.bodyMedium.copyWith(
+          color: SemanticColorsLight.textSecondary,
+          fontWeight: FontWeight.w500,
+        ),
+        dividerColor: SemanticColorsLight.border,
+      ),
+
       // ========== Button Themes ==========
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
