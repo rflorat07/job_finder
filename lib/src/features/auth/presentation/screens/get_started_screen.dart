@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
@@ -43,7 +44,7 @@ class _GetStartedAuthForm extends StatelessWidget {
         // Continue button
         DSButton(
           label: context.tr('shared.continue'),
-          onPressed: () {},
+          onPressed: () => context.go(AppRoutes.login),
         ),
       ],
     );

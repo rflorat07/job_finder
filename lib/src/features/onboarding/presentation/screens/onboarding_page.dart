@@ -75,7 +75,7 @@ class OnboardingPage extends ConsumerWidget {
 
               // Next button
               DSButton(
-                label: isLastPage ? 'shared.get_started'.tr() : '',
+                label: isLastPage ? context.tr('shared.get_started') : '',
                 iconOnly: !isLastPage,
                 type: DSButtonType.primary,
                 size: DSButtonSize.large,
