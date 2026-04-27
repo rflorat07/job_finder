@@ -143,6 +143,7 @@ class DSSocialButton extends StatelessWidget {
     this.width,
     this.height,
     this.onPressed,
+    this.iconOnly = false,
     this.isDisabled = false,
     this.size = DSSocialButtonSize.medium,
     this.iconAlignment = IconAlignment.start,
@@ -172,6 +173,9 @@ class DSSocialButton extends StatelessWidget {
   /// Alignment of the icon relative to the label
   final IconAlignment iconAlignment;
 
+  /// If true, only the icon will be displayed without the label
+  final bool? iconOnly;
+
   @override
   Widget build(BuildContext context) {
     final sizeSpec = size.spec;
@@ -180,19 +184,15 @@ class DSSocialButton extends StatelessWidget {
     final resolvedWidth = width ?? double.infinity;
 
     return SizedBox(
-      width: resolvedWidth,
+      width: iconOnly == true ? resolvedHeight : resolvedWidth,
       height: resolvedHeight,
-      child: OutlinedButton.icon(
+      child: OutlinedButton(
         onPressed: isDisabled ? null : onPressed,
-        icon: DSIconAsset(
-          assetName: typeSpec.icon,
-          width: sizeSpec.iconSize,
-          height: sizeSpec.iconSize,
-        ),
-        label: Text(label ?? typeSpec.label),
-        iconAlignment: iconAlignment,
         style: OutlinedButton.styleFrom(
-          minimumSize: Size(resolvedWidth, resolvedHeight),
+          padding: iconOnly == true ? EdgeInsets.zero : null,
+          minimumSize: iconOnly == true
+              ? Size(resolvedHeight, resolvedHeight)
+              : Size(resolvedWidth, resolvedHeight),
           backgroundColor: isDisabled
               ? typeSpec.disabledBackgroundColor
               : typeSpec.backgroundColor,
@@ -205,6 +205,36 @@ class DSSocialButton extends StatelessWidget {
           ),
           textStyle: sizeSpec.labelStyle,
         ),
+        child: iconOnly == true
+            ? DSIconAsset(
+                assetName: typeSpec.icon,
+                width: sizeSpec.iconSize,
+                height: sizeSpec.iconSize,
+              )
+            // Cuando no es iconOnly, armamos manualmente la fila para controlar bien los espacios
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (iconAlignment == IconAlignment.start) ...[
+                    DSIconAsset(
+                      assetName: typeSpec.icon,
+                      width: sizeSpec.iconSize,
+                      height: sizeSpec.iconSize,
+                    ),
+                    SizedBox(width: sizeSpec.gap),
+                  ],
+                  Text(label ?? typeSpec.label),
+                  if (iconAlignment == IconAlignment.end) ...[
+                    SizedBox(width: sizeSpec.gap),
+                    DSIconAsset(
+                      assetName: typeSpec.icon,
+                      width: sizeSpec.iconSize,
+                      height: sizeSpec.iconSize,
+                    ),
+                  ],
+                ],
+              ),
       ),
     );
   }
