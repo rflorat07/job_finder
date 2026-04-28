@@ -29,11 +29,11 @@
     "password_required": "Password is required",
     "password_too_short": "Password must be at least 6 characters",
     "remember_me": "Remember me",
-    "forgot_password": "Forgot Password",
+    "forgot_password": "Forgot Password?",
     "login_button": "Login",
     "dont_have_account": "Don't have an account? ",
     "sign_up": "Sign Up",
-    "create_account": "Create Account",
+    "create_account": "Create New Account",
     "create_account_subtitle": "Create a new account to get started.",
     "name": "Name",
     "name_required": "Name is required",
@@ -57,7 +57,10 @@
     "phone_number_hint": "Enter your phone number",
     "phone_number_required": "Phone number is required",
     "invalid_phone_number": "Enter a valid phone number",
-    "sign_in_phone": "Sign in with Phone"
+    "sign_in_phone": "Sign in with Phone",
+    "register": "Register",
+    "terms_and_conditions": "By clicking the “Continue” button I agree to ",
+    "terms_and_conditions_details": "Terms and Conditions, Privacy Policy, and Community Guidelines."
   },  
   "log_in": {
     "log_in": "Log in",

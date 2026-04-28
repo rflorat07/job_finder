@@ -10,6 +10,7 @@ class DSRichText extends StatelessWidget {
     required this.text,
     required this.linkText,
     required this.onLinkTap,
+    this.fontWeight,
   });
 
   ///  Main text content
@@ -20,6 +21,9 @@ class DSRichText extends StatelessWidget {
 
   ///  Callback when the link text is tapped
   final VoidCallback onLinkTap;
+
+  ///  Optional font weight for the link text
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class DSRichText extends StatelessWidget {
             style: context.dsTextTheme.bodySmall?.copyWith(
               color: context.dsColors.primary,
               height: TypographyTokens.lineHeightExtraRelaxed,
+              fontWeight: fontWeight,
             ),
             recognizer: TapGestureRecognizer()..onTap = onLinkTap,
           ),

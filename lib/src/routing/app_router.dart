@@ -8,7 +8,7 @@ const _authOnlyRoutes = [
   AppRoutes.onboarding,
   AppRoutes.getStarted,
   AppRoutes.login,
-  AppRoutes.signup,
+  AppRoutes.register,
 ];
 
 final GoRouter appRouter = GoRouter(
@@ -17,8 +17,8 @@ final GoRouter appRouter = GoRouter(
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    return AppRoutes.login;
-    //return state.fullPath ?? AppRoutes.login;
+    //return AppRoutes.register;
+    return state.fullPath ?? AppRoutes.login;
     // return null;
   },
   routes: <RouteBase>[
@@ -37,11 +37,12 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       builder: (context, state) => const LoginScreen(),
     ),
-    /*     GoRoute(
-      path: AppRoutes.signup,
-      name: 'signup',
-      builder: (context, state) => const SignupScreen(),
+    GoRoute(
+      path: AppRoutes.register,
+      name: 'register',
+      builder: (context, state) => const RegisterScreen(),
     ),
+    /*
     GoRoute(
       path: AppRoutes.forgotPassword,
       name: 'forgotPassword',

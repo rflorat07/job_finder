@@ -33,7 +33,7 @@
     "login_button": "Entrar",
     "dont_have_account": "¿No tienes una cuenta? ",
     "sign_up": "Regístrate",
-    "create_account": "Crear cuenta",
+    "create_account": "Crear una cuenta",
     "create_account_subtitle": "Crea una nueva cuenta para empezar.",
     "name": "Nombre",
     "name_required": "El nombre es obligatorio",
@@ -57,7 +57,10 @@
     "phone_number_hint": "Introduce tu número de teléfono",
     "phone_number_required": "El número de teléfono es obligatorio",
     "invalid_phone_number": "Introduce un número de teléfono válido",
-    "sign_in_phone": "Acceder con el teléfono"
+    "sign_in_phone": "Acceder con el teléfono",
+    "register": "Registrarse",
+    "terms_and_conditions": "Al hacer clic en el botón “Continuar” acepto los ",
+    "terms_and_conditions_details": "Términos y Condiciones, Política de Privacidad y Directrices de la Comunidad."
   },
   "log_in": {
     "log_in": "Iniciar sesión",

@@ -152,7 +152,7 @@ class _AuthScrollableContainer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: SpacingTokens.spacing24,
-                        vertical: SpacingTokens.spacing40,
+                        vertical: SpacingTokens.spacing32,
                       ),
                       child:
                           child, // Your content (GetStartedPage) is injected here

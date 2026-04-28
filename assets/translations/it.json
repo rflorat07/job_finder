@@ -19,7 +19,6 @@
     "home_subtitle": "Hai completato con successo il processo di onboarding."
   },
   "auth": {
-
     "email": "Email",
     "email_address": "Indirizzo email",
     "email_hint": "Inserisci la tua email",
@@ -34,7 +33,7 @@
     "login_button": "Accedi",
     "dont_have_account": "Non hai un account? ",
     "sign_up": "Registrati",
-    "create_account": "Crea account",
+    "create_account": "Crea un nuovo account",
     "create_account_subtitle": "Crea un nuovo account per iniziare.",
     "name": "Nome",
     "name_required": "Il nome è obbligatorio",
@@ -58,7 +57,10 @@
     "phone_number_hint": "Inserisci il tuo numero di telefono",
     "phone_number_required": "Il numero di telefono è obbligatorio",
     "invalid_phone_number": "Inserisci un numero di telefono valido",
-    "sign_in_phone": "Accedi con il telefono"
+    "sign_in_phone": "Accedi con il telefono",
+    "register": "Registrati",
+    "terms_and_conditions": "Cliccando sul pulsante “Continua” accetto i Termini e le Condizioni ",
+    "terms_and_conditions_details": "Termini e Condizioni, Informativa sulla Privacy e Linee Guida della Community."
     
   },
   "log_in": {

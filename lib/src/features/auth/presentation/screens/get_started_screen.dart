@@ -95,10 +95,8 @@ class _GetStartedFooterLink extends StatelessWidget {
     // Sign up link at the bottom
     return DSRichText(
       text: context.tr('auth.dont_have_account'),
-      linkText: context.tr('auth.sign_up'),
-      onLinkTap: () {
-        // Handle sign up tap
-      },
+      linkText: context.tr('auth.register'),
+      onLinkTap: () => context.go(AppRoutes.register),
     );
   }
 }

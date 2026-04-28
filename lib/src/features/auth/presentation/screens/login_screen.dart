@@ -8,36 +8,35 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DSAuthTabBarBaseLayout(
-      backgroundColor: Colors.green,
+    return DSAuthBaseLayout(
       title: context.tr('log_in.welcome_back'),
       subtitle: context.tr('shared.lorem'),
-      tabs: [
-        Tab(text: context.tr('auth.phone_number')),
-        Tab(text: context.tr('auth.email')),
-      ],
-      tabViews: const [
-        PhoneNumberLoginForm(),
-        EmailLoginForm(),
-      ],
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _LoginEmailForm(),
+          Spacer(),
+          _LoginFooterLink(),
+          // Don't have an account link
+        ],
+      ),
     );
   }
 }
 
-class PhoneNumberLoginForm extends StatelessWidget {
-  const PhoneNumberLoginForm({super.key});
+class _LoginEmailForm extends StatelessWidget {
+  const _LoginEmailForm();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.spacing16),
       child: Column(
         spacing: SpacingTokens.spacing16,
         children: [
           DSTextFormField(
-            label: context.tr('auth.phone_number'),
-            hint: context.tr('auth.phone_number_hint'),
-            keyboardType: TextInputType.phone,
+            label: context.tr('auth.email'),
+            hint: context.tr('auth.email_hint'),
+            keyboardType: TextInputType.emailAddress,
           ),
 
           DSTextFormField(
@@ -99,25 +98,24 @@ class PhoneNumberLoginForm extends StatelessWidget {
               ),
             ],
           ),
-
-          const SizedBox(height: SpacingTokens.spacing40),
-
-          DSRichText(
-            text: context.tr('auth.dont_have_account'),
-            linkText: context.tr('auth.sign_up'),
-            onLinkTap: () {},
-          ),
         ],
       ),
     );
   }
 }
 
-class EmailLoginForm extends StatelessWidget {
-  const EmailLoginForm({super.key});
+class _LoginFooterLink extends StatelessWidget {
+  const _LoginFooterLink();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // Sign up link at the bottom
+    return DSRichText(
+      text: context.tr('auth.dont_have_account'),
+      linkText: context.tr('auth.register'),
+      onLinkTap: () {
+        // Handle sign up tap
+      },
+    );
   }
 }
