@@ -51,7 +51,7 @@ class _LoginEmailForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () => context.go(AppRoutes.forgotPassword),
                 child: Padding(
                   padding: const EdgeInsets.only(
                     bottom: SpacingTokens.spacing16,
@@ -113,9 +113,7 @@ class _LoginFooterLink extends StatelessWidget {
     return DSRichText(
       text: context.tr('auth.dont_have_account'),
       linkText: context.tr('auth.register'),
-      onLinkTap: () {
-        // Handle sign up tap
-      },
+      onLinkTap: () => context.go(AppRoutes.register),
     );
   }
 }

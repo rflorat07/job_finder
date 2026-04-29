@@ -47,6 +47,7 @@
     "forgot_password_title": "Password dimenticata",
     "forgot_password_subtitle": "Inserisci il tuo indirizzo email per ricevere un link di reimpostazione\ne riottenere l'accesso al tuo account.",
     "send_reset_link": "Invia link di reimpostazione",
+    "send_code": "Invia codice",
     "back_to_login": "Torna al login",
     "reset_link_sent": "Il link per reimpostare la password è stato inviato alla tua email.",
     "sign_in_apple": "Accedi con Apple",

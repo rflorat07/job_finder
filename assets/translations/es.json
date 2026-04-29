@@ -47,6 +47,7 @@
     "forgot_password_title": "Recuperar contraseña",
     "forgot_password_subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento\ny recuperar el acceso a tu cuenta.",
     "send_reset_link": "Enviar enlace de restablecimiento",
+    "send_code": "Enviar código",
     "back_to_login": "Volver al inicio de sesión",
     "reset_link_sent": "Se ha enviado un enlace de restablecimiento a tu correo.",
     "sign_in_apple": "Acceder con Apple",

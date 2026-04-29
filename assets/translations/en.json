@@ -47,6 +47,7 @@
     "forgot_password_title": "Forgot Password",
     "forgot_password_subtitle": "Enter your email address to receive a reset link\nand regain access to your account.",
     "send_reset_link": "Send reset link",
+    "send_code": "Send code",
     "back_to_login": "Back to login",
     "reset_link_sent": "Password reset link sent to your email.",
     "sign_in_apple": "Sign in with Apple",

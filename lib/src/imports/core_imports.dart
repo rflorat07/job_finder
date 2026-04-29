@@ -6,6 +6,7 @@ export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_native_splash/flutter_native_splash.dart';
 
+export '../features/auth/presentation/screens/forgot_password_screen.dart';
 // Project Core — everything exported through shared.dart (theme, extensions,
 // utils, widgets, enums) plus routing and services.
 
