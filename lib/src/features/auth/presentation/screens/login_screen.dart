@@ -2,6 +2,8 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../../../../shared/helpers/imports.dart';
+import '../providers/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -24,11 +26,30 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginEmailForm extends StatelessWidget {
+class _LoginEmailForm extends ConsumerWidget {
   const _LoginEmailForm();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(
+      loginControllerProvider.select((s) => s.isLoading),
+    );
+    final isVisible = ref.watch(
+      loginControllerProvider.select((s) => s.isPasswordVisible),
+    );
+    final isValid = ref.watch(
+      loginControllerProvider.select((s) => s.isValid),
+    );
+
+    final controller = ref.read(loginControllerProvider.notifier);
+
+    ref.listen<LoginState>(loginControllerProvider, (previous, current) {
+      if (previous?.errorMessage != current.errorMessage &&
+          current.errorMessage != null) {
+        showGlobalToast(message: current.errorMessage!, status: 'error');
+      }
+    });
+
     return SingleChildScrollView(
       child: Column(
         spacing: SpacingTokens.spacing16,
@@ -37,14 +58,21 @@ class _LoginEmailForm extends StatelessWidget {
             label: context.tr('auth.email'),
             hint: context.tr('auth.email_hint'),
             keyboardType: TextInputType.emailAddress,
+            onChanged: controller.updateEmail,
           ),
 
           DSTextFormField(
             label: context.tr('auth.password'),
             hint: context.tr('auth.password_hint'),
             keyboardType: TextInputType.text,
-            suffixIcon: const Icon(IconsaxPlusLinear.eye),
-            obscureText: true,
+            onChanged: controller.updatePassword,
+            suffixIcon: IconButton(
+              icon: Icon(
+                isVisible ? IconsaxPlusLinear.eye_slash : IconsaxPlusLinear.eye,
+              ),
+              onPressed: controller.togglePasswordVisibility,
+            ),
+            obscureText: !isVisible,
           ),
 
           Row(
@@ -69,7 +97,8 @@ class _LoginEmailForm extends StatelessWidget {
 
           DSButton(
             label: context.tr('log_in.log_in'),
-            //onPressed: () {},
+            onPressed: isValid && !isLoading ? controller.login : null,
+            isLoading: isLoading,
           ),
 
           DSDivider(label: context.tr('auth.or_continue_with')),

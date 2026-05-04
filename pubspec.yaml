@@ -26,7 +26,8 @@ dependencies:
   iconsax_plus: ^1.0.0
 
 
-   # Animations
+  # Animations
+  flutter_animate: ^4.5.2
   smooth_page_indicator: ^2.0.1
 
   # Localization

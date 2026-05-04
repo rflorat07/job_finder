@@ -14,12 +14,12 @@ const _authOnlyRoutes = [
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: AppRoutes.login,
+  initialLocation: AppRoutes.onboarding,
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    return AppRoutes.forgotPassword;
-    //return state.fullPath ?? AppRoutes.login;
+    //return AppRoutes.forgotPassword;
+    return state.fullPath ?? AppRoutes.login;
     // return null;
   },
   routes: <RouteBase>[

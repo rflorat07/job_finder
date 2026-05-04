@@ -49,7 +49,7 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
   /// Advances to the next page or completes the onboarding.
   void nextPage(BuildContext context) {
     if (state.isLastPage) {
-      context.go(AppRoutes.getStarted);
+      context.go(AppRoutes.login);
       return;
     }
 
@@ -61,7 +61,7 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
 
   /// Skips the onboarding and navigates to login.
   void skip(BuildContext context) {
-    context.go(AppRoutes.getStarted);
+    context.go(AppRoutes.login);
   }
 }
 
