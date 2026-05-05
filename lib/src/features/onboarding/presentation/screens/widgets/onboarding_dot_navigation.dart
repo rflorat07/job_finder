@@ -1,22 +1,19 @@
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../../imports/imports.dart';
-import '../../providers/onboarding_provider.dart';
 
-class OnBoardingDotNavigation extends ConsumerWidget {
+class OnBoardingDotNavigation extends StatelessWidget {
   const OnBoardingDotNavigation({
     super.key,
     required this.count,
+    required this.activeIndex,
   });
 
   final int count;
+  final int activeIndex;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final activeIndex = ref.watch(
-      onboardingProvider.select((state) => state.currentPage),
-    );
-
+  Widget build(BuildContext context) {
     return AnimatedSmoothIndicator(
       activeIndex: activeIndex,
       count: count,

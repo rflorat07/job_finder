@@ -2,18 +2,55 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:job_finder/src/imports/imports.dart';
 
-import '../providers/onboarding_provider.dart';
 import 'widgets/widgets.dart';
 
-class OnboardingPage extends ConsumerWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(onboardingProvider.notifier);
-    final isLastPage = ref.watch(
-      onboardingProvider.select((state) => state.isLastPage),
-    );
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  int _currentPage = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentPage = index;
+    });
+  }
+
+  void _nextPage() {
+    if (_currentPage < 2) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      context.go(AppRoutes.login);
+    }
+  }
+
+  void _skip() {
+    context.go(AppRoutes.login);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isLastPage = _currentPage == 2;
 
     final onboardingData = [
       {
@@ -45,16 +82,16 @@ class OnboardingPage extends ConsumerWidget {
               const SizedBox(height: SpacingTokens.spacing8),
 
               // Skip button
-              OnBoardingSkip(onSkip: () => notifier.skip(context)),
+              OnBoardingSkip(onSkip: _skip),
 
               const SizedBox(height: SpacingTokens.spacing16),
 
               // PageView - takes all available space
               Expanded(
                 child: PageView.builder(
-                  controller: notifier.pageController,
+                  controller: _pageController,
                   itemCount: onboardingData.length,
-                  onPageChanged: notifier.onPageChanged,
+                  onPageChanged: _onPageChanged,
                   itemBuilder: (context, index) {
                     final data = onboardingData[index];
                     return OnboardingItem(
@@ -69,7 +106,10 @@ class OnboardingPage extends ConsumerWidget {
               const SizedBox(height: SpacingTokens.spacing32),
 
               // Dot indicators
-              OnBoardingDotNavigation(count: onboardingData.length),
+              OnBoardingDotNavigation(
+                count: onboardingData.length,
+                activeIndex: _currentPage,
+              ),
 
               const SizedBox(height: SpacingTokens.spacing48),
 
@@ -80,7 +120,7 @@ class OnboardingPage extends ConsumerWidget {
                 type: DSButtonType.primary,
                 size: DSButtonSize.large,
                 iconLeft: isLastPage ? null : IconsaxPlusLinear.arrow_right_3,
-                onPressed: () => notifier.nextPage(context),
+                onPressed: _nextPage,
               ),
 
               const SizedBox(height: SpacingTokens.spacing24),
