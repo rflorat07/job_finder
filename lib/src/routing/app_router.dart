@@ -36,17 +36,29 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.login,
       name: 'login',
-      builder: (context, state) => const LoginScreen(),
+      pageBuilder: (context, state) => AppTransitions.fade(
+        context: context,
+        state: state,
+        child: const LoginScreen(),
+      ),
     ),
     GoRoute(
       path: AppRoutes.register,
       name: 'register',
-      builder: (context, state) => const RegisterScreen(),
+      pageBuilder: (context, state) => AppTransitions.fade(
+        context: context,
+        state: state,
+        child: const RegisterScreen(),
+      ),
     ),
     GoRoute(
       path: AppRoutes.forgotPassword,
       name: 'forgotPassword',
-      builder: (context, state) => const ForgotPasswordScreen(),
+      pageBuilder: (context, state) => AppTransitions.slideUp(
+        context: context,
+        state: state,
+        child: const ForgotPasswordScreen(),
+      ),
     ),
     /*
     GoRoute(
