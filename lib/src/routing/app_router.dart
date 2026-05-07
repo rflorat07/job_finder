@@ -62,11 +62,6 @@ final GoRouter appRouter = GoRouter(
     ),
     /*
     GoRoute(
-      path: AppRoutes.forgotPassword,
-      name: 'forgotPassword',
-      builder: (context, state) => const ForgotPasswordScreen(),
-    ),
-    GoRoute(
       path: AppRoutes.home,
       name: 'home',
       builder: (context, state) => const HomePage(),

@@ -37,6 +37,20 @@ class AppValidators {
     return null;
   }
 
+  static String? validateConfirmPassword(
+    BuildContext context,
+    String? value,
+    String password,
+  ) {
+    if (value == null || value.isEmpty) {
+      return context.tr('auth.confirm_password_required');
+    }
+    if (value != password) {
+      return context.tr('auth.passwords_do_not_match');
+    }
+    return null;
+  }
+
   /// Checks if string is empty.
   static bool isEmpty(String? s) => s == null || s.trim().isEmpty;
 

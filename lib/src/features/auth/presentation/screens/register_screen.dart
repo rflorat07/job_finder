@@ -2,21 +2,41 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../controllers/controllers.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  late final RegisterViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = RegisterViewModel(); // Aquí inyectas el Repositorio después
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DSAuthBaseLayout(
       title: context.tr('auth.create_account'),
       subtitle: context.tr('shared.lorem'),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _RegisterEmailForm(),
-          Spacer(),
-          _RegisterFooterLink(),
+          _RegisterEmailForm(viewModel: _viewModel),
+          const Spacer(),
+          const _RegisterFooterLink(),
           // Don't have an account link
         ],
       ),
@@ -24,56 +44,136 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class _RegisterEmailForm extends StatelessWidget {
-  const _RegisterEmailForm();
+class _RegisterEmailForm extends StatefulWidget {
+  const _RegisterEmailForm({required this.viewModel});
+
+  final RegisterViewModel viewModel;
+
+  @override
+  State<_RegisterEmailForm> createState() => _RegisterEmailFormState();
+}
+
+class _RegisterEmailFormState extends State<_RegisterEmailForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+
+      widget.viewModel.register(
+        _emailController.text,
+        _passwordController.text,
+        onSuccess: () {
+          showGlobalToast(
+            message: 'Cuenta creada exitosamente',
+            status: 'success',
+          );
+          context.go(AppRoutes.login);
+        },
+        onError: (errorMessage) {
+          showGlobalToast(message: errorMessage, status: 'error');
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        spacing: SpacingTokens.spacing16,
-        children: [
-          DSTextFormField(
-            label: context.tr('auth.email'),
-            hint: context.tr('auth.email_hint'),
-            keyboardType: TextInputType.emailAddress,
-          ),
+      child: ListenableBuilder(
+        listenable: widget.viewModel,
+        builder: (context, _) {
+          final isLoading = widget.viewModel.isLoading;
+          final isPassVisible = widget.viewModel.isPasswordVisible;
+          final isConfirmVisible = widget.viewModel.isConfirmPasswordVisible;
 
-          DSTextFormField(
-            label: context.tr('auth.password'),
-            hint: context.tr('auth.password_hint'),
-            keyboardType: TextInputType.text,
-            suffixIcon: const Icon(IconsaxPlusLinear.eye),
-            obscureText: true,
-          ),
+          return Form(
+            key: _formKey,
+            child: Column(
+              spacing: SpacingTokens.spacing16,
+              children: [
+                DSTextFormField(
+                  controller: _emailController,
+                  label: context.tr('auth.email'),
+                  hint: context.tr('auth.email_hint'),
+                  keyboardType: TextInputType.emailAddress,
+                  enabled: !isLoading,
+                  validator: (val) => AppValidators.validateEmail(context, val),
+                ),
 
-          DSTextFormField(
-            label: context.tr('auth.confirm_password'),
-            hint: context.tr('auth.password_hint'),
-            keyboardType: TextInputType.text,
-            suffixIcon: const Icon(IconsaxPlusLinear.eye),
-            obscureText: true,
-          ),
+                DSTextFormField(
+                  controller: _passwordController,
+                  label: context.tr('auth.password'),
+                  hint: context.tr('auth.password_hint'),
+                  keyboardType: TextInputType.text,
+                  enabled: !isLoading,
+                  obscureText: !isPassVisible,
+                  validator: (val) =>
+                      AppValidators.validatePassword(context, val),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isPassVisible
+                          ? IconsaxPlusLinear.eye_slash
+                          : IconsaxPlusLinear.eye,
+                    ),
+                    onPressed: widget.viewModel.togglePasswordVisibility,
+                  ),
+                ),
 
-          DSRichText(
-            text: context.tr('auth.terms_and_conditions'),
-            fontWeight: TypographyTokens.fontWeightRegular,
-            linkText: context.tr('auth.terms_and_conditions_details'),
-            onLinkTap: () {
-              // Handle terms and conditions tap
-            },
-          ),
+                DSTextFormField(
+                  controller: _confirmPasswordController,
+                  label: context.tr('auth.confirm_password'),
+                  hint: context.tr('auth.password_hint'),
+                  keyboardType: TextInputType.text,
+                  enabled: !isLoading,
+                  obscureText: !isConfirmVisible,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isConfirmVisible
+                          ? IconsaxPlusLinear.eye_slash
+                          : IconsaxPlusLinear.eye,
+                    ),
+                    onPressed: widget.viewModel.toggleConfirmPasswordVisibility,
+                  ),
+                  validator: (val) => AppValidators.validateConfirmPassword(
+                    context,
+                    val,
+                    _passwordController.text,
+                  ),
+                ),
 
-          Padding(
-            padding: const EdgeInsets.only(
-              top: SpacingTokens.spacing24,
+                DSRichText(
+                  text: context.tr('auth.terms_and_conditions'),
+                  fontWeight: TypographyTokens.fontWeightRegular,
+                  linkText: context.tr('auth.terms_and_conditions_details'),
+                  onLinkTap: () {},
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: SpacingTokens.spacing24,
+                  ),
+                  child: DSButton(
+                    label: context.tr('auth.register'),
+                    isLoading: isLoading,
+                    onPressed: isLoading ? null : _submitForm,
+                  ),
+                ),
+              ],
             ),
-            child: DSButton(
-              label: context.tr('auth.register'),
-              //onPressed: () {},
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

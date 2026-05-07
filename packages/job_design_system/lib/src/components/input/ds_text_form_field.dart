@@ -24,6 +24,7 @@ class DSTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.initialValue,
     this.autofocus = false,
+    this.autovalidateMode,
   });
 
   ///  Label text displayed above the input field
@@ -80,6 +81,9 @@ class DSTextFormField extends StatelessWidget {
   /// Whether the input field should autofocus
   final bool autofocus;
 
+  /// Autovalidate mode for the input field
+  final AutovalidateMode? autovalidateMode;
+
   @override
   Widget build(BuildContext context) {
     final dsColors = context.dsColors;
@@ -124,6 +128,8 @@ class DSTextFormField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
           ),
+          autovalidateMode:
+              autovalidateMode ?? AutovalidateMode.onUserInteraction,
         ),
       ],
     );
