@@ -90,7 +90,7 @@ extension on DSButtonType {
         : SemanticColorsLight.textPrimary;
     final textOnInverse = isDark
         ? SemanticColorsLight.textOnInverse
-        : SemanticColorsDark.textOnInverse;
+        : SemanticColorsLight.textOnInverse;
     final textDisabled = isDark
         ? SemanticColorsDark.textDisabled
         : SemanticColorsLight.textDisabled;

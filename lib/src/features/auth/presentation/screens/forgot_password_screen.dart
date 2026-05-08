@@ -13,7 +13,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       title: context.tr('auth.forgot_password_title'),
       showBackButton: true,
       icon: IconsaxPlusLinear.arrow_left_1,
-      onPressed: () => context.go(AppRoutes.otpVerification),
+      onPressed: () => context.go(AppRoutes.login),
       child: Column(
         spacing: SpacingTokens.spacing24,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,27 +100,30 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
 
                 DSButton(
                   label: context.tr('auth.send_code'),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      FocusScope.of(context).unfocus();
-                      _viewModel.sendResetLink(
-                        _emailController.text,
-                        onSuccess: () {
-                          showGlobalToast(
-                            message: 'Código enviado exitosamente',
-                            status: 'success',
-                          );
-                          context.go(AppRoutes.otpVerification);
+                  isLoading: isLoading,
+                  onPressed: isLoading
+                      ? null
+                      : () {
+                          if (_formKey.currentState!.validate()) {
+                            FocusScope.of(context).unfocus();
+                            _viewModel.sendResetLink(
+                              _emailController.text,
+                              onSuccess: () {
+                                showGlobalToast(
+                                  message: 'Código enviado exitosamente',
+                                  status: 'success',
+                                );
+                                context.go(AppRoutes.otpVerification);
+                              },
+                              onError: (errorMessage) {
+                                showGlobalToast(
+                                  message: errorMessage,
+                                  status: 'error',
+                                );
+                              },
+                            );
+                          }
                         },
-                        onError: (errorMessage) {
-                          showGlobalToast(
-                            message: errorMessage,
-                            status: 'error',
-                          );
-                        },
-                      );
-                    }
-                  },
                 ),
               ],
             ),
