@@ -127,4 +127,9 @@ class SemanticColorsLight {
   static const Color buttonForegroundColor = Color(
     PrimitiveColors.greyscale900,
   );
+
+  /// Back button background (dark)
+  static const Color backButtonBackgroundColor = Color(
+    PrimitiveColors.primary400,
+  );
 }

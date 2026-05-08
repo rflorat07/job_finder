@@ -27,15 +27,15 @@ class RegisterViewModel extends ChangeNotifier {
   Future<void> register(
     String email,
     String password, {
-    required Function() onSuccess,
-    required Function(String) onError,
+    required void Function() onSuccess,
+    required void Function(String) onError,
   }) async {
     _isLoading = true;
     notifyListeners();
 
     try {
       // await authRepository.register(email, password);
-      await Future.delayed(const Duration(seconds: 2)); // API Mock
+      await Future<void>.delayed(const Duration(seconds: 2)); // API Mock
 
       onSuccess();
     } catch (e) {

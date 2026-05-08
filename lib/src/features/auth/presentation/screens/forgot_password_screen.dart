@@ -2,6 +2,7 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../controllers/controllers.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -9,8 +10,10 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSAuthBaseLayout(
-      title: context.tr('auth.forgot_password'),
-      subtitle: context.tr('shared.lorem'),
+      title: 'Forgot Password',
+      showBackButton: true,
+      icon: IconsaxPlusLinear.arrow_left_1,
+      onPressed: () => context.go(AppRoutes.login),
       child: Column(
         spacing: SpacingTokens.spacing24,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,33 +42,90 @@ class ForgotPasswordScreen extends StatelessWidget {
           ),
 
           const _ForgotPasswordEmailForm(),
-
-          const Spacer(),
-
-          DSButton(
-            label: context.tr('auth.send_code'),
-            //onPressed: () {},
-          ),
         ],
       ),
     );
   }
 }
 
-class _ForgotPasswordEmailForm extends StatelessWidget {
+class _ForgotPasswordEmailForm extends StatefulWidget {
   const _ForgotPasswordEmailForm();
 
   @override
+  State<_ForgotPasswordEmailForm> createState() =>
+      _ForgotPasswordEmailFormState();
+}
+
+class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
+  late final ForgotPasswordViewModel _viewModel;
+
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = ForgotPasswordViewModel();
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: SpacingTokens.spacing16,
-      children: [
-        DSTextFormField(
-          label: context.tr('auth.email_address'),
-          hint: context.tr('auth.email_hint'),
-          keyboardType: TextInputType.emailAddress,
-        ),
-      ],
+    return Expanded(
+      child: ListenableBuilder(
+        listenable: _viewModel,
+        builder: (context, _) {
+          final isLoading = _viewModel.isLoading;
+
+          return Form(
+            key: _formKey,
+            child: Column(
+              spacing: SpacingTokens.spacing16,
+              children: [
+                DSTextFormField(
+                  label: context.tr('auth.email_address'),
+                  hint: context.tr('auth.email_hint'),
+                  keyboardType: TextInputType.emailAddress,
+                  enabled: !isLoading,
+                  controller: _emailController,
+                  validator: (val) => AppValidators.validateEmail(context, val),
+                ),
+
+                const Spacer(),
+
+                DSButton(
+                  label: context.tr('auth.send_code'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      FocusScope.of(context).unfocus();
+                      _viewModel.sendResetLink(
+                        _emailController.text,
+                        onSuccess: () {
+                          showGlobalToast(
+                            message: 'Código enviado exitosamente',
+                            status: 'success',
+                          );
+                        },
+                        onError: (errorMessage) {
+                          showGlobalToast(
+                            message: errorMessage,
+                            status: 'error',
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

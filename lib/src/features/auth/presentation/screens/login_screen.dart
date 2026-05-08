@@ -82,102 +82,100 @@ class _LoginEmailFormState extends State<_LoginEmailForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListenableBuilder(
-        listenable: widget.viewModel,
-        builder: (context, _) {
-          final isLoading = widget.viewModel.isLoading;
-          final isVisible = widget.viewModel.isPasswordVisible;
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        final isLoading = widget.viewModel.isLoading;
+        final isVisible = widget.viewModel.isPasswordVisible;
 
-          return Form(
-            key: _formKey,
-            child: Column(
-              spacing: SpacingTokens.spacing16,
-              children: [
-                DSTextFormField(
-                  label: context.tr('auth.email'),
-                  hint: context.tr('auth.email_hint'),
-                  keyboardType: TextInputType.emailAddress,
-                  enabled: !isLoading,
-                  validator: (value) =>
-                      AppValidators.validateEmail(context, value),
-                ),
+        return Form(
+          key: _formKey,
+          child: Column(
+            spacing: SpacingTokens.spacing16,
+            children: [
+              DSTextFormField(
+                label: context.tr('auth.email'),
+                hint: context.tr('auth.email_hint'),
+                keyboardType: TextInputType.emailAddress,
+                enabled: !isLoading,
+                validator: (value) =>
+                    AppValidators.validateEmail(context, value),
+              ),
 
-                DSTextFormField(
-                  label: context.tr('auth.password'),
-                  hint: context.tr('auth.password_hint'),
-                  keyboardType: TextInputType.text,
-                  enabled: !isLoading,
-                  validator: (value) =>
-                      AppValidators.validatePassword(context, value),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isVisible
-                          ? IconsaxPlusLinear.eye_slash
-                          : IconsaxPlusLinear.eye,
-                    ),
-                    onPressed: widget.viewModel.togglePasswordVisibility,
+              DSTextFormField(
+                label: context.tr('auth.password'),
+                hint: context.tr('auth.password_hint'),
+                keyboardType: TextInputType.text,
+                enabled: !isLoading,
+                validator: (value) =>
+                    AppValidators.validatePassword(context, value),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isVisible
+                        ? IconsaxPlusLinear.eye_slash
+                        : IconsaxPlusLinear.eye,
                   ),
-                  obscureText: !isVisible,
+                  onPressed: widget.viewModel.togglePasswordVisibility,
                 ),
+                obscureText: !isVisible,
+              ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () => context.go(AppRoutes.forgotPassword),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: SpacingTokens.spacing16,
-                        ),
-                        child: Text(
-                          context.tr('auth.forgot_password'),
-                          style: context.dsTextTheme.bodySmall?.copyWith(
-                            color: context.dsColors.primary,
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () => context.go(AppRoutes.forgotPassword),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: SpacingTokens.spacing16,
+                      ),
+                      child: Text(
+                        context.tr('auth.forgot_password'),
+                        style: context.dsTextTheme.bodySmall?.copyWith(
+                          color: context.dsColors.primary,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                DSButton(
-                  label: context.tr('log_in.log_in'),
-                  onPressed: isLoading ? null : _submitForm,
-                  isLoading: isLoading,
-                ),
+              DSButton(
+                label: context.tr('log_in.log_in'),
+                onPressed: isLoading ? null : _submitForm,
+                isLoading: isLoading,
+              ),
 
-                DSDivider(label: context.tr('auth.or_continue_with')),
+              DSDivider(label: context.tr('auth.or_continue_with')),
 
-                Row(
-                  spacing: SpacingTokens.spacing16,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DSSocialButton(
-                      iconOnly: true,
-                      type: DSSocialButtonType.google,
-                      label: context.tr('auth.sign_in_google'),
-                      onPressed: () {},
-                    ),
-                    DSSocialButton(
-                      iconOnly: true,
-                      type: DSSocialButtonType.apple,
-                      label: context.tr('auth.sign_in_apple'),
-                      onPressed: () {},
-                    ),
-                    DSSocialButton(
-                      iconOnly: true,
-                      type: DSSocialButtonType.facebook,
-                      label: context.tr('auth.sign_in_facebook'),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              Row(
+                spacing: SpacingTokens.spacing16,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DSSocialButton(
+                    iconOnly: true,
+                    type: DSSocialButtonType.google,
+                    label: context.tr('auth.sign_in_google'),
+                    onPressed: () {},
+                  ),
+                  DSSocialButton(
+                    iconOnly: true,
+                    type: DSSocialButtonType.apple,
+                    label: context.tr('auth.sign_in_apple'),
+                    onPressed: () {},
+                  ),
+                  DSSocialButton(
+                    iconOnly: true,
+                    type: DSSocialButtonType.facebook,
+                    label: context.tr('auth.sign_in_facebook'),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -90,91 +90,89 @@ class _RegisterEmailFormState extends State<_RegisterEmailForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListenableBuilder(
-        listenable: widget.viewModel,
-        builder: (context, _) {
-          final isLoading = widget.viewModel.isLoading;
-          final isPassVisible = widget.viewModel.isPasswordVisible;
-          final isConfirmVisible = widget.viewModel.isConfirmPasswordVisible;
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        final isLoading = widget.viewModel.isLoading;
+        final isPassVisible = widget.viewModel.isPasswordVisible;
+        final isConfirmVisible = widget.viewModel.isConfirmPasswordVisible;
 
-          return Form(
-            key: _formKey,
-            child: Column(
-              spacing: SpacingTokens.spacing16,
-              children: [
-                DSTextFormField(
-                  controller: _emailController,
-                  label: context.tr('auth.email'),
-                  hint: context.tr('auth.email_hint'),
-                  keyboardType: TextInputType.emailAddress,
-                  enabled: !isLoading,
-                  validator: (val) => AppValidators.validateEmail(context, val),
-                ),
+        return Form(
+          key: _formKey,
+          child: Column(
+            spacing: SpacingTokens.spacing16,
+            children: [
+              DSTextFormField(
+                controller: _emailController,
+                label: context.tr('auth.email'),
+                hint: context.tr('auth.email_hint'),
+                keyboardType: TextInputType.emailAddress,
+                enabled: !isLoading,
+                validator: (val) => AppValidators.validateEmail(context, val),
+              ),
 
-                DSTextFormField(
-                  controller: _passwordController,
-                  label: context.tr('auth.password'),
-                  hint: context.tr('auth.password_hint'),
-                  keyboardType: TextInputType.text,
-                  enabled: !isLoading,
-                  obscureText: !isPassVisible,
-                  validator: (val) =>
-                      AppValidators.validatePassword(context, val),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isPassVisible
-                          ? IconsaxPlusLinear.eye_slash
-                          : IconsaxPlusLinear.eye,
-                    ),
-                    onPressed: widget.viewModel.togglePasswordVisibility,
+              DSTextFormField(
+                controller: _passwordController,
+                label: context.tr('auth.password'),
+                hint: context.tr('auth.password_hint'),
+                keyboardType: TextInputType.text,
+                enabled: !isLoading,
+                obscureText: !isPassVisible,
+                validator: (val) =>
+                    AppValidators.validatePassword(context, val),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isPassVisible
+                        ? IconsaxPlusLinear.eye_slash
+                        : IconsaxPlusLinear.eye,
                   ),
+                  onPressed: widget.viewModel.togglePasswordVisibility,
                 ),
+              ),
 
-                DSTextFormField(
-                  controller: _confirmPasswordController,
-                  label: context.tr('auth.confirm_password'),
-                  hint: context.tr('auth.password_hint'),
-                  keyboardType: TextInputType.text,
-                  enabled: !isLoading,
-                  obscureText: !isConfirmVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isConfirmVisible
-                          ? IconsaxPlusLinear.eye_slash
-                          : IconsaxPlusLinear.eye,
-                    ),
-                    onPressed: widget.viewModel.toggleConfirmPasswordVisibility,
+              DSTextFormField(
+                controller: _confirmPasswordController,
+                label: context.tr('auth.confirm_password'),
+                hint: context.tr('auth.password_hint'),
+                keyboardType: TextInputType.text,
+                enabled: !isLoading,
+                obscureText: !isConfirmVisible,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isConfirmVisible
+                        ? IconsaxPlusLinear.eye_slash
+                        : IconsaxPlusLinear.eye,
                   ),
-                  validator: (val) => AppValidators.validateConfirmPassword(
-                    context,
-                    val,
-                    _passwordController.text,
-                  ),
+                  onPressed: widget.viewModel.toggleConfirmPasswordVisibility,
                 ),
+                validator: (val) => AppValidators.validateConfirmPassword(
+                  context,
+                  val,
+                  _passwordController.text,
+                ),
+              ),
 
-                DSRichText(
-                  text: context.tr('auth.terms_and_conditions'),
-                  fontWeight: TypographyTokens.fontWeightRegular,
-                  linkText: context.tr('auth.terms_and_conditions_details'),
-                  onLinkTap: () {},
-                ),
+              DSRichText(
+                text: context.tr('auth.terms_and_conditions'),
+                fontWeight: TypographyTokens.fontWeightRegular,
+                linkText: context.tr('auth.terms_and_conditions_details'),
+                onLinkTap: () {},
+              ),
 
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: SpacingTokens.spacing24,
-                  ),
-                  child: DSButton(
-                    label: context.tr('auth.register'),
-                    isLoading: isLoading,
-                    onPressed: isLoading ? null : _submitForm,
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: SpacingTokens.spacing24,
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+                child: DSButton(
+                  label: context.tr('auth.register'),
+                  isLoading: isLoading,
+                  onPressed: isLoading ? null : _submitForm,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
