@@ -19,7 +19,7 @@ class DSThemeDark {
 
         secondary: Color(PrimitiveColors.greyscale400),
         onSecondary: SemanticColorsDark.textPrimary,
-        secondaryContainer: Color(PrimitiveColors.greyscale300),
+        secondaryContainer: Color(PrimitiveColors.greyscale900),
         onSecondaryContainer: SemanticColorsDark.textPrimary,
 
         tertiary: SemanticColorsDark.textDisabled,
@@ -126,7 +126,7 @@ class DSThemeDark {
       // ========== Input Decoration Theme ==========
       inputDecorationTheme: InputDecorationThemeData(
         filled: true,
-        fillColor: SemanticColorsDark.surfaceElevated,
+        fillColor: SemanticColorsDark.buttonBackgroundColor,
         contentPadding: EdgeInsets.symmetric(
           horizontal: SpacingTokens.inputPaddingH,
           vertical: SpacingTokens.inputPaddingV,
@@ -135,15 +135,21 @@ class DSThemeDark {
 
         border: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsDark.border),
+          borderSide: BorderSide(
+            color: SemanticColorsDark.buttonBackgroundColor,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsDark.border),
+          borderSide: BorderSide(
+            color: SemanticColorsDark.buttonBackgroundColor,
+          ),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,
-          borderSide: BorderSide(color: SemanticColorsDark.borderSubtle),
+          borderSide: BorderSide(
+            color: SemanticColorsDark.buttonBackgroundColor,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: RadiusTokens.inputRadius,

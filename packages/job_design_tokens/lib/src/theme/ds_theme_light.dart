@@ -19,7 +19,7 @@ class DSThemeLight {
 
         secondary: SemanticColorsLight.textSecondary,
         onSecondary: SemanticColorsLight.textOnInverse,
-        secondaryContainer: Color(PrimitiveColors.neutral40),
+        secondaryContainer: Color(PrimitiveColors.greyscale0),
         onSecondaryContainer: SemanticColorsLight.textPrimary,
 
         tertiary: SemanticColorsLight.textDisabled,
@@ -143,7 +143,7 @@ class DSThemeLight {
       // ========== Input Decoration Theme ==========
       inputDecorationTheme: InputDecorationThemeData(
         filled: true,
-        fillColor: SemanticColorsLight.surface,
+        fillColor: SemanticColorsLight.buttonBackgroundColor,
         contentPadding: EdgeInsets.symmetric(
           horizontal: SpacingTokens.inputPaddingH,
           vertical: SpacingTokens.inputPaddingV,

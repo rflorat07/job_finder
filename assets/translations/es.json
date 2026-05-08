@@ -61,7 +61,12 @@
     "sign_in_phone": "Acceder con el teléfono",
     "register": "Registrarse",
     "terms_and_conditions": "Al hacer clic en el botón “Continuar” acepto los ",
-    "terms_and_conditions_details": "Términos y Condiciones, Política de Privacidad y Directrices de la Comunidad."
+    "terms_and_conditions_details": "Términos y Condiciones, Política de Privacidad y Directrices de la Comunidad.",
+    "otp_verification_title": "Verificación OTP",
+    "otp_verification_subtitle": "Introduce el código OTP enviado a tu correo electrónico para restablecer la contraseña.",
+    "otp_verification_resend_code": "Reenviar código",
+    "otp_verification_not_received_the_code": "¿No has recibido el código? ",
+    "otp_verify": "Verificar"
   },
   "log_in": {
     "log_in": "Iniciar sesión",

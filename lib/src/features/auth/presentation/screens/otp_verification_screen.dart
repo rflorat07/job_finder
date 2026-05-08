@@ -10,68 +10,74 @@ class OtpVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSAuthBaseLayout(
-      title: 'Forgot Password',
+      title: context.tr('auth.forgot_password_title'),
       showBackButton: true,
       icon: IconsaxPlusLinear.arrow_left_1,
       onPressed: () => context.go(AppRoutes.login),
-      child: Column(
+      child: const Column(
         spacing: SpacingTokens.spacing24,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            spacing: SpacingTokens.spacing4,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                context.tr('auth.otp_verification'),
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: TypographyTokens.fontWeightBold,
-                  height: TypographyTokens.lineHeightRelaxed,
-                ),
-              ),
-
-              Text(
-                context.tr('shared.lorem'),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: context.dsColors.secondary,
-                  fontWeight: TypographyTokens.fontWeightRegular,
-                  height: TypographyTokens.lineHeightExtraRelaxed,
-                ),
-              ),
-            ],
-          ),
-
-          const _ForgotPasswordEmailForm(),
+          _OtpVerificationHeader(),
+          _OtpVerificationForm(),
         ],
       ),
     );
   }
 }
 
-class _ForgotPasswordEmailForm extends StatefulWidget {
-  const _ForgotPasswordEmailForm();
+class _OtpVerificationForm extends StatefulWidget {
+  const _OtpVerificationForm();
 
   @override
-  State<_ForgotPasswordEmailForm> createState() =>
-      _ForgotPasswordEmailFormState();
+  State<_OtpVerificationForm> createState() => _OtpVerificationFormState();
 }
 
-class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
-  late final ForgotPasswordViewModel _viewModel;
+class _OtpVerificationFormState extends State<_OtpVerificationForm> {
+  late final OtpVerificationViewModel _viewModel;
 
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _otpController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _viewModel = ForgotPasswordViewModel();
+    _viewModel = OtpVerificationViewModel();
   }
 
   @override
   void dispose() {
     _viewModel.dispose();
+    _otpController.dispose();
     super.dispose();
+  }
+
+  void _verifyOtp(String pinCode) {
+    if (pinCode.length == 5) {
+      FocusScope.of(context).unfocus();
+
+      _viewModel.verifyCode(
+        pinCode,
+        onSuccess: () {
+          showGlobalToast(message: 'Success!', status: 'success');
+          // context.go(AppRoutes.resetPassword);
+        },
+        onError: (error) {
+          showGlobalToast(message: error, status: 'error');
+          _otpController.clear();
+        },
+      );
+    }
+  }
+
+  void _resendCode() {
+    _viewModel.resendCode(
+      onCodeResent: () => showGlobalToast(
+        message: 'A new code has been sent to your email.',
+        status: 'success',
+      ),
+      onError: (error) => showGlobalToast(message: error, status: 'error'),
+    );
   }
 
   @override
@@ -85,47 +91,84 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
           return Form(
             key: _formKey,
             child: Column(
-              spacing: SpacingTokens.spacing16,
+              spacing: SpacingTokens.spacing32,
               children: [
-                DSTextFormField(
-                  label: context.tr('auth.email_address'),
-                  hint: context.tr('auth.email_hint'),
-                  keyboardType: TextInputType.emailAddress,
-                  enabled: !isLoading,
-                  controller: _emailController,
-                  validator: (val) => AppValidators.validateEmail(context, val),
+                DSOtpInput(
+                  controller: _otpController,
+                  length: 5,
                 ),
+
+                _OtpVerificationLink(onLinkTap: () => _resendCode()),
 
                 const Spacer(),
 
                 DSButton(
-                  label: context.tr('auth.send_code'),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      FocusScope.of(context).unfocus();
-                      _viewModel.sendResetLink(
-                        _emailController.text,
-                        onSuccess: () {
-                          showGlobalToast(
-                            message: 'Código enviado exitosamente',
-                            status: 'success',
-                          );
-                        },
-                        onError: (errorMessage) {
-                          showGlobalToast(
-                            message: errorMessage,
-                            status: 'error',
-                          );
-                        },
-                      );
-                    }
-                  },
+                  label: context.tr('auth.otp_verify'),
+                  isLoading: isLoading,
+                  onPressed: isLoading
+                      ? null
+                      : () => _verifyOtp(_otpController.text),
                 ),
               ],
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class _OtpVerificationLink extends StatelessWidget {
+  const _OtpVerificationLink({required this.onLinkTap});
+
+  final VoidCallback onLinkTap;
+
+  @override
+  Widget build(BuildContext context) {
+    // Sign up link at the bottom
+    return DSRichText(
+      text: context.tr('auth.otp_verification_not_received_the_code'),
+      linkText: context.tr('auth.otp_verification_resend_code'),
+      onLinkTap: onLinkTap,
+    );
+  }
+}
+
+class _OtpVerificationHeader extends StatelessWidget {
+  const _OtpVerificationHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    // Sign up link at the bottom
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const DSIconAsset(
+          width: Sizes.size64,
+          height: Sizes.size64,
+          assetName: 'assets/icons/otp_verification.svg',
+        ),
+
+        const SizedBox(height: SpacingTokens.spacing32),
+
+        Text(
+          context.tr('auth.otp_verification_title'),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            fontWeight: TypographyTokens.fontWeightBold,
+            height: TypographyTokens.lineHeightRelaxed,
+          ),
+        ),
+
+        Text(
+          context.tr('auth.otp_verification_subtitle'),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.dsColors.secondary,
+            fontWeight: TypographyTokens.fontWeightRegular,
+            height: TypographyTokens.lineHeightExtraRelaxed,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

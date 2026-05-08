@@ -10,7 +10,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSAuthBaseLayout(
-      title: 'Forgot Password',
+      title: context.tr('auth.forgot_password_title'),
       showBackButton: true,
       icon: IconsaxPlusLinear.arrow_left_1,
       onPressed: () => context.go(AppRoutes.otpVerification),

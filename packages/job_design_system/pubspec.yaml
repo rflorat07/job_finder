@@ -10,7 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   flutter_svg: ^2.2.0
+
+  pinput: ^6.0.2
+
   job_design_tokens:
     path: ../job_design_tokens
 

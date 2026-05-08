@@ -61,7 +61,12 @@
     "sign_in_phone": "Sign in with Phone",
     "register": "Register",
     "terms_and_conditions": "By clicking the “Continue” button I agree to ",
-    "terms_and_conditions_details": "Terms and Conditions, Privacy Policy, and Community Guidelines."
+    "terms_and_conditions_details": "Terms and Conditions, Privacy Policy, and Community Guidelines.",
+    "otp_verification_title": "OTP Verification",
+    "otp_verification_subtitle": "Enter the OTP code sent to your email address \nto reset your password.",
+    "otp_verification_resend_code": "Resend code",
+    "otp_verification_not_received_the_code": "Haven't received the code? ",
+    "otp_verify": "Verify"
   },  
   "log_in": {
     "log_in": "Log in",

@@ -60,7 +60,7 @@ class DSAuthBaseLayout extends StatelessWidget {
         statusBarBrightness: Brightness.dark, // Required for white icons on iOS
       ),
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? context.dsColors.primary,
         body: SafeArea(
           bottom: false,
           child: Column(
@@ -80,7 +80,8 @@ class DSAuthBaseLayout extends StatelessWidget {
                       subtitleTextStyle: subtitleTextStyle,
                     ),
               _AuthScrollableContainer(
-                containerColor: containerColor,
+                containerColor:
+                    containerColor ?? context.dsColors.secondaryContainer,
                 child: child,
               ),
             ],
