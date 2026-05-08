@@ -1,5 +1,6 @@
 import 'package:job_design_tokens/job_design_tokens.dart';
-import 'package:job_finder/src/imports/core_imports.dart';
+
+import 'imports/imports.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

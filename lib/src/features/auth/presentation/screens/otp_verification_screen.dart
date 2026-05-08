@@ -4,8 +4,8 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 import '../../../../imports/imports.dart';
 import '../controllers/controllers.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class OtpVerificationScreen extends StatelessWidget {
+  const OtpVerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +13,17 @@ class ForgotPasswordScreen extends StatelessWidget {
       title: 'Forgot Password',
       showBackButton: true,
       icon: IconsaxPlusLinear.arrow_left_1,
-      onPressed: () => context.go(AppRoutes.otpVerification),
+      onPressed: () => context.go(AppRoutes.login),
       child: Column(
         spacing: SpacingTokens.spacing24,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             spacing: SpacingTokens.spacing4,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                context.tr('auth.email_hint'),
+                context.tr('auth.otp_verification'),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: TypographyTokens.fontWeightBold,
                   height: TypographyTokens.lineHeightRelaxed,
@@ -110,7 +110,6 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
                             message: 'Código enviado exitosamente',
                             status: 'success',
                           );
-                          context.go(AppRoutes.otpVerification);
                         },
                         onError: (errorMessage) {
                           showGlobalToast(

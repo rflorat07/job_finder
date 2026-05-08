@@ -1,5 +1,4 @@
 import '../../../imports/imports.dart';
-import 'imports.dart';
 
 /// Enum for toast positions.
 enum ToastPosition { top, bottom }

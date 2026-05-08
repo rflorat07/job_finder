@@ -16,7 +16,7 @@ class LoginViewModel extends ChangeNotifier {
   Future<void> login(
     String email,
     String password, {
-    required Function(String) onError,
+    required void Function(String) onError,
   }) async {
     _isLoading = true;
     notifyListeners();

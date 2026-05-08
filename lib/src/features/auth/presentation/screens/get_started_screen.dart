@@ -1,8 +1,7 @@
-import 'package:go_router/go_router.dart';
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
-import '../../../../imports/core_imports.dart';
+import '../../../../imports/imports.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
