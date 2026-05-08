@@ -6,7 +6,7 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 /// Semantic sizes for DS button variants.
 enum DSButtonSize { xsmall, small, medium, large }
 
-enum DSButtonType { primary, secondary, tertiary, destructive }
+enum DSButtonType { primary, secondary, tertiary, destructive, back }
 
 class _DSButtonSizeSpec {
   const _DSButtonSizeSpec({
@@ -142,6 +142,13 @@ extension on DSButtonType {
         return _DSButtonTypeSpec(
           foregroundColor: textOnInverse,
           backgroundColor: error,
+          disabledForegroundColor: textDisabled,
+          disabledBackgroundColor: primaryDisabled,
+        );
+      case DSButtonType.back:
+        return _DSButtonTypeSpec(
+          foregroundColor: textOnInverse,
+          backgroundColor: SemanticColorsDark.backButtonBackgroundColor,
           disabledForegroundColor: textDisabled,
           disabledBackgroundColor: primaryDisabled,
         );

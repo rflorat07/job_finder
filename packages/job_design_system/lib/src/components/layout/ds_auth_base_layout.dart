@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widget_previews.dart';
+import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 class DSAuthBaseLayout extends StatelessWidget {
   const DSAuthBaseLayout({
     super.key,
     required this.title,
-    required this.subtitle,
     required this.child,
+    this.icon,
+    this.subtitle,
+    this.onPressed,
+    this.showBackButton,
     this.containerColor,
     this.backgroundColor,
     this.titleTextStyle,
@@ -22,7 +26,7 @@ class DSAuthBaseLayout extends StatelessWidget {
   final TextStyle? titleTextStyle;
 
   ///  Base layout subtitle
-  final String subtitle;
+  final String? subtitle;
 
   ///  Base layout subtitle text style
   final TextStyle? subtitleTextStyle;
@@ -30,11 +34,20 @@ class DSAuthBaseLayout extends StatelessWidget {
   ///  Base layout child widget
   final Widget child;
 
+  ///  Base layout show back button (default: false)
+  final bool? showBackButton;
+
   ///  Base layout background color
   final Color? backgroundColor;
 
   ///  Base layout container color
   final Color? containerColor;
+
+  ///  Base layout back button icon (default: Icons.arrow_back_ios_new)
+  final IconData? icon;
+
+  ///  Base layout back button onPressed callback
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +66,19 @@ class DSAuthBaseLayout extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _AuthHeader(
-                title: title,
-                subtitle: subtitle,
-                titleTextStyle: titleTextStyle,
-                subtitleTextStyle: subtitleTextStyle,
-              ),
+              (showBackButton ?? false)
+                  ? _AuthBackButtonHeader(
+                      title: title,
+                      icon: icon,
+                      titleTextStyle: titleTextStyle,
+                      onPressed: onPressed,
+                    )
+                  : _AuthHeader(
+                      title: title,
+                      subtitle: subtitle,
+                      titleTextStyle: titleTextStyle,
+                      subtitleTextStyle: subtitleTextStyle,
+                    ),
               _AuthScrollableContainer(
                 containerColor: containerColor,
                 child: child,
@@ -74,13 +94,13 @@ class DSAuthBaseLayout extends StatelessWidget {
 class _AuthHeader extends StatelessWidget {
   const _AuthHeader({
     required this.title,
-    required this.subtitle,
     this.titleTextStyle,
+    this.subtitle,
     this.subtitleTextStyle,
   });
 
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final TextStyle? titleTextStyle;
   final TextStyle? subtitleTextStyle;
 
@@ -104,15 +124,67 @@ class _AuthHeader extends StatelessWidget {
                   height: TypographyTokens.lineHeightRelaxed,
                 ),
           ),
+          if (subtitle != null)
+            Text(
+              subtitle!,
+              style:
+                  subtitleTextStyle ??
+                  context.dsTextTheme.bodySmall?.copyWith(
+                    color: const Color(PrimitiveColors.greyscale25),
+                    height: TypographyTokens.lineHeightRelaxed,
+                  ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AuthBackButtonHeader extends StatelessWidget {
+  const _AuthBackButtonHeader({
+    this.icon,
+    this.onPressed,
+    this.titleTextStyle,
+    required this.title,
+  });
+
+  final String title;
+  final IconData? icon;
+  final TextStyle? titleTextStyle;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: SpacingTokens.spacing24,
+        vertical: SpacingTokens.spacing20,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          DSButton(
+            label: '',
+            iconOnly: true,
+            size: DSButtonSize.small,
+            type: DSButtonType.back,
+            iconLeft: icon ?? Icons.arrow_back_ios_new,
+            onPressed: onPressed ?? () => Navigator.maybePop(context),
+          ),
           Text(
-            subtitle,
+            title,
             style:
-                subtitleTextStyle ??
-                context.dsTextTheme.bodySmall?.copyWith(
-                  color: const Color(PrimitiveColors.greyscale25),
+                titleTextStyle ??
+                context.dsTextTheme.bodyLarge?.copyWith(
+                  color: context.dsColors.onPrimary,
                   height: TypographyTokens.lineHeightRelaxed,
+                  fontWeight: TypographyTokens.fontWeightBold,
                 ),
           ),
+          const SizedBox(
+            width: Sizes.size40,
+          ), // Placeholder to balance the back button
         ],
       ),
     );
