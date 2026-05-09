@@ -75,14 +75,14 @@ class _RegisterEmailFormState extends State<_RegisterEmailForm> {
         _emailController.text,
         _passwordController.text,
         onSuccess: () {
-          showGlobalToast(
+          DSToast.showSuccess(
+            context: context,
             message: 'Cuenta creada exitosamente',
-            status: 'success',
           );
           context.go(AppRoutes.login);
         },
         onError: (errorMessage) {
-          showGlobalToast(message: errorMessage, status: 'error');
+          DSToast.showError(context: context, message: errorMessage);
         },
       );
     }

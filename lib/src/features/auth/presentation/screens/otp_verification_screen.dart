@@ -59,11 +59,11 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
       _viewModel.verifyCode(
         pinCode,
         onSuccess: () {
-          showGlobalToast(message: 'Success!', status: 'success');
+          DSToast.showSuccess(context: context, message: 'Success!');
           // context.go(AppRoutes.resetPassword);
         },
         onError: (error) {
-          showGlobalToast(message: error, status: 'error');
+          DSToast.showError(context: context, message: error);
           _otpController.clear();
         },
       );
@@ -72,11 +72,11 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
 
   void _resendCode() {
     _viewModel.resendCode(
-      onCodeResent: () => showGlobalToast(
+      onCodeResent: () => DSToast.showSuccess(
+        context: context,
         message: 'A new code has been sent to your email.',
-        status: 'success',
       ),
-      onError: (error) => showGlobalToast(message: error, status: 'error'),
+      onError: (error) => DSToast.showError(context: context, message: error),
     );
   }
 

@@ -74,7 +74,7 @@ class _LoginEmailFormState extends State<_LoginEmailForm> {
         _emailController.text,
         _passwordController.text,
         onError: (errorMessage) {
-          showGlobalToast(message: errorMessage, status: 'error');
+          DSToast.showError(context: context, message: errorMessage);
         },
       );
     }

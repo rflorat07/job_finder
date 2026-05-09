@@ -109,16 +109,16 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
                             _viewModel.sendResetLink(
                               _emailController.text,
                               onSuccess: () {
-                                showGlobalToast(
+                                DSToast.showSuccess(
+                                  context: context,
                                   message: 'Código enviado exitosamente',
-                                  status: 'success',
                                 );
                                 context.go(AppRoutes.otpVerification);
                               },
                               onError: (errorMessage) {
-                                showGlobalToast(
+                                DSToast.showError(
+                                  context: context,
                                   message: errorMessage,
-                                  status: 'error',
                                 );
                               },
                             );
