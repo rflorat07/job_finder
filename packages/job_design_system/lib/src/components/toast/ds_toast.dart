@@ -47,7 +47,7 @@ class DSToast {
       primaryColor: context.dsColors.error,
       backgroundColor: context.dsColors.surface,
       autoCloseDuration: const Duration(seconds: 4),
-      showProgressBar: true,
+      showProgressBar: false,
     );
   }
 }

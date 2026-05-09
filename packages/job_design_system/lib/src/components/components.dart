@@ -4,6 +4,7 @@ library;
 export 'button/ds_button.dart';
 export 'button/ds_social_button.dart';
 export 'container/ds_rounded_container.dart';
+export 'dialog/ds_success_dialog.dart';
 export 'divider/ds_divider.dart';
 export 'icon/ds_icon_asset.dart';
 export 'input/ds_text_form_field.dart';
