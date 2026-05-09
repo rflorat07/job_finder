@@ -66,7 +66,9 @@
     "otp_verification_subtitle": "Introduce el código OTP enviado a tu correo electrónico para restablecer la contraseña.",
     "otp_verification_resend_code": "Reenviar código",
     "otp_verification_not_received_the_code": "¿No has recibido el código? ",
-    "otp_verify": "Verificar"
+    "otp_verify": "Verificar",
+    "registration_successful_title": "¡Registro exitoso!",
+    "registration_successful_subtitle": "Ahora puedes iniciar sesión y comenzar a explorar todas las funciones que ofrecemos."
   },
   "log_in": {
     "log_in": "Iniciar sesión",

@@ -66,7 +66,9 @@
     "otp_verification_subtitle": "Inserisci il codice OTP inviato al tuo indirizzo email per reimpostare la password.",
     "otp_verification_resend_code": "Reinvia codice",
     "otp_verification_not_received_the_code": "Non hai ricevuto il codice? ",
-    "otp_verify": "Verifica"
+    "otp_verify": "Verifica",
+    "registration_successful_title": "Registrazione riuscita!",
+    "registration_successful_subtitle": "Ora puoi accedere e iniziare a esplorare tutte le funzionalità che offriamo."
   },
   "log_in": {
     "log_in": "Accedi",

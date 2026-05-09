@@ -66,10 +66,12 @@
     "otp_verification_subtitle": "Enter the OTP code sent to your email address \nto reset your password.",
     "otp_verification_resend_code": "Resend code",
     "otp_verification_not_received_the_code": "Haven't received the code? ",
-    "otp_verify": "Verify"
+    "otp_verify": "Verify",
+    "registration_successful_title": "Registration Successful!",
+    "registration_successful_subtitle": "You can now log in and start exploring all the features we offer."
   },  
   "log_in": {
-    "log_in": "Log in",
+    "log_in": "Login",
     "log_in_subtitle": "Enter your email and password",
     "welcome_back": "Welcome back 👋 ",
     "dont_have_account": "Don't have an account? ",

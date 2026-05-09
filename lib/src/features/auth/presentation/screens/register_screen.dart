@@ -75,11 +75,17 @@ class _RegisterEmailFormState extends State<_RegisterEmailForm> {
         _emailController.text,
         _passwordController.text,
         onSuccess: () {
-          DSToast.showSuccess(
-            context: context,
-            message: 'Cuenta creada exitosamente',
+          // La Vista (UI) reacciona al éxito
+          DSSuccessDialog.show(
+            context,
+            title: context.tr('auth.registration_successful_title'),
+            subtitle: context.tr('auth.registration_successful_subtitle'),
+            buttonText: context.tr('auth.login_button'),
+            onPressed: () {
+              // Cuando el usuario le da al botón, lo llevamos al login
+              context.go(AppRoutes.login);
+            },
           );
-          context.go(AppRoutes.login);
         },
         onError: (errorMessage) {
           DSToast.showError(context: context, message: errorMessage);
