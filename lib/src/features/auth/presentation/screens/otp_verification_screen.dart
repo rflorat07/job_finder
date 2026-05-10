@@ -60,7 +60,7 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
         pinCode,
         onSuccess: () {
           DSToast.showSuccess(context: context, message: 'Success!');
-          // context.go(AppRoutes.resetPassword);
+          context.go(AppRoutes.newPassword);
         },
         onError: (error) {
           DSToast.showError(context: context, message: error);

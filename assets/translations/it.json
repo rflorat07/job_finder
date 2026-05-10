@@ -1,5 +1,6 @@
 {
   "shared": {
+    "submit": "Invia",
     "continue": "Continua",
     "get_started": "Inizia",
     "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt."
@@ -68,7 +69,8 @@
     "otp_verification_not_received_the_code": "Non hai ricevuto il codice? ",
     "otp_verify": "Verifica",
     "registration_successful_title": "Registrazione riuscita!",
-    "registration_successful_subtitle": "Ora puoi accedere e iniziare a esplorare tutte le funzionalità che offriamo."
+    "registration_successful_subtitle": "Ora puoi accedere e iniziare a esplorare tutte le funzionalità che offriamo.",
+    "create_new_password": "Crea nuova password"
   },
   "log_in": {
     "log_in": "Accedi",

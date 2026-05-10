@@ -1,5 +1,6 @@
 {
   "shared": {
+    "submit": "Submit",
     "continue": "Continue",
     "get_started": "Get Started",
     "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt."
@@ -68,7 +69,9 @@
     "otp_verification_not_received_the_code": "Haven't received the code? ",
     "otp_verify": "Verify",
     "registration_successful_title": "Registration Successful!",
-    "registration_successful_subtitle": "You can now log in and start exploring all the features we offer."
+    "registration_successful_subtitle": "You can now log in and start exploring all the features we offer.",
+    "create_new_password": "Create New Password"
+
   },  
   "log_in": {
     "log_in": "Login",

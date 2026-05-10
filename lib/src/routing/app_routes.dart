@@ -11,5 +11,6 @@ abstract final class AppRoutes {
   static const String register = '/register';
   static const String forgotPassword = '/forgot-password';
   static const String otpVerification = '/otp-verification';
+  static const String newPassword = '/new-password';
   static const String home = '/';
 }

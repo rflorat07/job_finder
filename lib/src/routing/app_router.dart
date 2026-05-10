@@ -11,6 +11,7 @@ const _authOnlyRoutes = [
   AppRoutes.register,
   AppRoutes.forgotPassword,
   AppRoutes.otpVerification,
+  AppRoutes.newPassword,
 ];
 
 final GoRouter appRouter = GoRouter(
@@ -19,7 +20,7 @@ final GoRouter appRouter = GoRouter(
   redirect: (context, state) {
     //final container = ProviderScope.containerOf(context, listen: false);
     //final session = container.read(sessionProvider);
-    //return AppRoutes.otpVerification;
+    //return AppRoutes.newPassword;
     return state.fullPath ?? AppRoutes.login;
     // return null;
   },
@@ -68,6 +69,15 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const OtpVerificationScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.newPassword,
+      name: 'newPassword',
+      pageBuilder: (context, state) => AppTransitions.fade(
+        context: context,
+        state: state,
+        child: const NewPasswordScreen(),
       ),
     ),
     /*
