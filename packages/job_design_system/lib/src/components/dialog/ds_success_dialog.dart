@@ -42,7 +42,7 @@ class DSSuccessDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(RadiusTokens.xl2),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.dsColors.secondaryContainer,
       surfaceTintColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -77,7 +77,7 @@ class DSSuccessDialog extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontWeight: TypographyTokens.fontWeightBold,
-                color: Color(PrimitiveColors.greyscale900),
+                color: context.dsColors.onSurface,
               ),
               textAlign: TextAlign.center,
             ),

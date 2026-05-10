@@ -80,8 +80,7 @@ class DSAuthBaseLayout extends StatelessWidget {
                       subtitleTextStyle: subtitleTextStyle,
                     ),
               _AuthScrollableContainer(
-                containerColor:
-                    containerColor ?? context.dsColors.secondaryContainer,
+                containerColor: containerColor,
                 child: child,
               ),
             ],
@@ -204,7 +203,7 @@ class _AuthScrollableContainer extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: containerColor ?? context.dsColors.surface,
+          color: containerColor ?? context.dsColors.secondaryContainer,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(Sizes.size24),
           ),
