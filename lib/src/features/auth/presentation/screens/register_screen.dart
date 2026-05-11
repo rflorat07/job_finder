@@ -2,6 +2,8 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/auth_remote_datasource.dart';
+import '../../data/repositories/auth_repository_impl.dart';
 import '../controllers/controllers.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,7 +19,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    _viewModel = RegisterViewModel(); // Aquí inyectas el Repositorio después
+    // Inyección manual de dependencias
+    final remoteDataSource = SupabaseAuthRemoteDataSource();
+    final authRepository = AuthRepositoryImpl(remoteDataSource);
+
+    _viewModel = RegisterViewModel(authRepository: authRepository);
   }
 
   @override

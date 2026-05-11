@@ -36,6 +36,12 @@ dependencies:
   # Splash screen
   flutter_native_splash: ^2.4.7
 
+  # Networking
+  supabase_flutter: ^2.12.4
+
+  # Environment Variables
+  flutter_dotenv: ^6.0.1
+
 
   # Local Packages
   job_design_tokens:
@@ -52,6 +58,7 @@ flutter:
   uses-material-design: true
 
   assets:
+  - .env
   - assets/
   - assets/images/
   - assets/icons/

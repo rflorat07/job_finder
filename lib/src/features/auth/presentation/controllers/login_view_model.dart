@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../domain/repositories/auth_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
+  final AuthRepository authRepository;
+
+  LoginViewModel({required this.authRepository});
+
   bool _isLoading = false;
   bool _isPasswordVisible = false;
 
@@ -12,7 +19,8 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Recibe la data lista y validada
+  /// Attempts to authenticate the user.
+  /// Calls [onError] with a human-readable message if the login fails.
   Future<void> login(
     String email,
     String password, {
@@ -21,9 +29,14 @@ class LoginViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
-      await Future<void>.delayed(const Duration(seconds: 2)); // Simulando API
+      // We wait for the repository to do the actual work
+      await authRepository.signInWithEmail(email: email, password: password);
+    } on AuthException catch (e) {
+      // Supabase specific errors
+      onError(e.message);
     } catch (e) {
-      onError(e.toString());
+      // Generic errors (e.g. no internet)
+      onError('An error occurred during login.');
     } finally {
       _isLoading = false;
       notifyListeners(); // Ocultamos el spinner

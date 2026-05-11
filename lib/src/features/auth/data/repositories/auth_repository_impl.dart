@@ -1,48 +1,37 @@
-import '../../../../imports/imports.dart';
-import '../../domain/entities/user.dart';
-import '../../domain/repositories/repositories.dart';
-import '../datasources/local_datasource.dart';
-import '../models/user_model.dart';
+import '../../domain/entities/user_entity.dart';
+import '../../domain/repositories/auth_repository.dart';
+import '../datasources/auth_remote_datasource.dart';
 
+/// The concrete implementation of the AuthRepository.
+/// Orchestrates DataSources and catches lowest-level errors.
 class AuthRepositoryImpl implements AuthRepository {
-  final LocalDatasource _localDatasource;
+  final AuthRemoteDataSource remoteDataSource;
 
-  AuthRepositoryImpl(this._localDatasource);
+  // We inject the remote datasource so we can easily mock it in tests
+  AuthRepositoryImpl(this.remoteDataSource);
 
   @override
-  FutureEither<User> signInWithEmailAndPassword({
+  Future<UserEntity> signInWithEmail({
     required String email,
     required String password,
   }) async {
-    final result = await _localDatasource.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
-    return result.fold(
-      (failure) => Left(failure),
-      (userModel) => Right(userModel.toEntity()),
-    );
+    // In the future, you could check for network connectivity here before calling the datasource
+    return await remoteDataSource.signIn(email, password);
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
-  }
-
-  @override
-  FutureEither<User> signUpWithEmailAndPassword({
+  Future<UserEntity> signUpWithEmail({
     required String email,
     required String password,
-  }) {
-    // TODO: implement signUpWithEmailAndPassword
-    throw UnimplementedError();
+  }) async {
+    return await remoteDataSource.signUp(email, password);
   }
-}
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepositoryImpl(
-    LocalDatasource(),
-  );
-});
+  @override
+  Future<void> signOut() async {
+    return await remoteDataSource.signOut();
+  }
+
+  @override
+  Stream<bool> get authStateChanges => remoteDataSource.authStateChanges;
+}

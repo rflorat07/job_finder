@@ -1,4 +1,26 @@
+import 'dart:async';
+
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../imports/imports.dart';
+
+/// Helper tool to convert a Stream into a Listenable for GoRouter
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen(
+      (dynamic _) => notifyListeners(),
+    );
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
 
 /// Routes that require an authenticated session.
 const _protectedRoutes = [AppRoutes.home];
@@ -17,12 +39,36 @@ const _authOnlyRoutes = [
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: AppRoutes.onboarding,
+
+  // 1. Tell GoRouter to recreate the navigation state whenever this stream emits a value.
+  // We use our Supabase.instance auth changes.
+  refreshListenable: GoRouterRefreshStream(
+    Supabase.instance.client.auth.onAuthStateChange,
+  ),
+
   redirect: (context, state) {
-    //final container = ProviderScope.containerOf(context, listen: false);
-    //final session = container.read(sessionProvider);
-    //return AppRoutes.newPassword;
-    return state.fullPath ?? AppRoutes.login;
-    // return null;
+    // 2. Check the current session status synchronously
+    final session = Supabase.instance.client.auth.currentSession;
+    final isLoggedIn = session != null;
+
+    final currentPath = state.fullPath ?? '';
+    final isGoingToProtected = _protectedRoutes.contains(currentPath);
+    final isGoingToAuthOnly = _authOnlyRoutes.contains(currentPath);
+
+    // 3. Logic Rules:
+    // If the user is NOT logged in and tries to access a protected area -> Kick to Login
+    if (!isLoggedIn && isGoingToProtected) {
+      return AppRoutes.login;
+    }
+
+    // If the user IS logged in and tries to access onboarding/login/register -> Force to Home
+    if (isLoggedIn && isGoingToAuthOnly) {
+      // NOTE: Make sure the AppRoutes.home route is uncommented in your routes array!
+      return AppRoutes.home;
+    }
+
+    // If none of the conditions match, allow the navigation
+    return null;
   },
   routes: <RouteBase>[
     GoRoute(
@@ -80,11 +126,10 @@ final GoRouter appRouter = GoRouter(
         child: const NewPasswordScreen(),
       ),
     ),
-    /*
     GoRoute(
       path: AppRoutes.home,
       name: 'home',
-      builder: (context, state) => const HomePage(),
-    ), */
+      builder: (context, state) => const HomeScreen(),
+    ),
   ],
 );

@@ -1,10 +1,14 @@
 // lib/src/features/auth/presentation/controllers/register_view_model.dart
 
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../domain/repositories/auth_repository.dart';
 
 class RegisterViewModel extends ChangeNotifier {
-  // final AuthRepository authRepository;
-  // RegisterViewModel({required this.authRepository});
+  final AuthRepository authRepository;
+
+  RegisterViewModel({required this.authRepository});
 
   bool _isLoading = false;
   bool _isPasswordVisible = false;
@@ -24,6 +28,8 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Attempts to register a new user.
+  /// Calls [onSuccess] if successful, or [onError] with a message if it fails.
   Future<void> register(
     String email,
     String password, {
@@ -34,12 +40,14 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // await authRepository.register(email, password);
-      await Future<void>.delayed(const Duration(seconds: 2)); // API Mock
-
+      await authRepository.signUpWithEmail(email: email, password: password);
       onSuccess();
+    } on AuthException catch (e) {
+      // Supabase specific errors
+      onError(e.message);
     } catch (e) {
-      onError(e.toString());
+      // Generic errors
+      onError('An error occurred during registration.');
     } finally {
       _isLoading = false;
       notifyListeners();

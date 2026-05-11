@@ -2,6 +2,8 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/auth_remote_datasource.dart';
+import '../../data/repositories/auth_repository_impl.dart';
 import '../controllers/controllers.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +19,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _viewModel = LoginViewModel();
+
+    final remoteDataSource = SupabaseAuthRemoteDataSource();
+    final authRepository = AuthRepositoryImpl(remoteDataSource);
+
+    _viewModel = LoginViewModel(authRepository: authRepository);
   }
 
   @override
@@ -94,6 +100,7 @@ class _LoginEmailFormState extends State<_LoginEmailForm> {
             spacing: SpacingTokens.spacing16,
             children: [
               DSTextFormField(
+                controller: _emailController,
                 label: context.tr('auth.email'),
                 hint: context.tr('auth.email_hint'),
                 keyboardType: TextInputType.emailAddress,
@@ -103,6 +110,7 @@ class _LoginEmailFormState extends State<_LoginEmailForm> {
               ),
 
               DSTextFormField(
+                controller: _passwordController,
                 label: context.tr('auth.password'),
                 hint: context.tr('auth.password_hint'),
                 keyboardType: TextInputType.text,
