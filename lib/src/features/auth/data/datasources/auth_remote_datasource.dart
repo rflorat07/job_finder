@@ -7,6 +7,8 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> signIn(String email, String password);
   Future<UserModel> signUp(String email, String password);
   Future<void> signOut();
+  Future<void> sendOtpToEmail(String email);
+  Future<UserModel> verifyEmailOtp(String email, String token);
   Stream<bool> get authStateChanges;
 }
 
@@ -37,6 +39,24 @@ class SupabaseAuthRemoteDataSource implements AuthRemoteDataSource {
 
   @override
   Future<void> signOut() async => await _client.auth.signOut();
+
+  @override
+  Future<void> sendOtpToEmail(String email) async {
+    await _client.auth.signInWithOtp(email: email);
+  }
+
+  @override
+  Future<UserModel> verifyEmailOtp(String email, String token) async {
+    // We specify OtpType.email to tell Supabase we are validating a 6-digit pin from email
+    final response = await _client.auth.verifyOTP(
+      email: email,
+      token: token,
+      type: OtpType.email,
+    );
+    if (response.user == null)
+      throw Exception('Verification failed. Invalid or expired token.');
+    return UserModel.fromSupabase(response.user!);
+  }
 
   @override
   Stream<bool> get authStateChanges =>

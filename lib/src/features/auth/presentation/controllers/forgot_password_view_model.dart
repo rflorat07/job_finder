@@ -1,6 +1,13 @@
 import 'package:job_finder/src/imports/imports.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../domain/repositories/auth_repository.dart';
 
 class ForgotPasswordViewModel extends ChangeNotifier {
+  final AuthRepository authRepository;
+
+  ForgotPasswordViewModel({required this.authRepository});
+
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
@@ -14,12 +21,12 @@ class ForgotPasswordViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // await authRepository.sendPasswordResetEmail(email);
-      await Future<void>.delayed(const Duration(seconds: 2)); // API Mock
-
+      await authRepository.sendOtpToEmail(email: email);
       onSuccess();
+    } on AuthException catch (e) {
+      onError(e.message);
     } catch (e) {
-      onError(e.toString());
+      onError('An error occurred while sending the code.');
     } finally {
       _isLoading = false;
       notifyListeners();

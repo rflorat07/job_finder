@@ -111,11 +111,15 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.otpVerification,
       name: 'otpVerification',
-      pageBuilder: (context, state) => AppTransitions.fade(
-        context: context,
-        state: state,
-        child: const OtpVerificationScreen(),
-      ),
+      pageBuilder: (context, state) {
+        // Obtenemos el email pasado desde ForgotPassword
+        final email = state.extra as String? ?? '';
+        return AppTransitions.fade(
+          context: context,
+          state: state,
+          child: OtpVerificationScreen(email: email),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.newPassword,

@@ -2,10 +2,34 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/auth_remote_datasource.dart';
+import '../../data/repositories/auth_repository_impl.dart';
 import '../controllers/controllers.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  late final ForgotPasswordViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    final remoteDataSource = SupabaseAuthRemoteDataSource();
+    final authRepository = AuthRepositoryImpl(remoteDataSource);
+
+    _viewModel = ForgotPasswordViewModel(authRepository: authRepository);
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +65,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ],
           ),
 
-          const _ForgotPasswordEmailForm(),
+          _ForgotPasswordEmailForm(viewModel: _viewModel),
         ],
       ),
     );
@@ -49,7 +73,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 }
 
 class _ForgotPasswordEmailForm extends StatefulWidget {
-  const _ForgotPasswordEmailForm();
+  final ForgotPasswordViewModel viewModel;
+  const _ForgotPasswordEmailForm({required this.viewModel});
 
   @override
   State<_ForgotPasswordEmailForm> createState() =>
@@ -57,20 +82,12 @@ class _ForgotPasswordEmailForm extends StatefulWidget {
 }
 
 class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
-  late final ForgotPasswordViewModel _viewModel;
-
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    _viewModel = ForgotPasswordViewModel();
-  }
-
-  @override
   void dispose() {
-    _viewModel.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -78,9 +95,9 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListenableBuilder(
-        listenable: _viewModel,
+        listenable: widget.viewModel,
         builder: (context, _) {
-          final isLoading = _viewModel.isLoading;
+          final isLoading = widget.viewModel.isLoading;
 
           return Form(
             key: _formKey,
@@ -106,14 +123,18 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
                       : () {
                           if (_formKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
-                            _viewModel.sendResetLink(
+                            widget.viewModel.sendResetLink(
                               _emailController.text,
                               onSuccess: () {
                                 DSToast.showSuccess(
                                   context: context,
                                   message: 'Código enviado exitosamente',
                                 );
-                                context.go(AppRoutes.otpVerification);
+                                // Pasamos el correo a la siguiente vista
+                                context.go(
+                                  AppRoutes.otpVerification,
+                                  extra: _emailController.text,
+                                );
                               },
                               onError: (errorMessage) {
                                 DSToast.showError(

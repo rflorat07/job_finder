@@ -2,10 +2,14 @@ import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/auth_remote_datasource.dart';
+import '../../data/repositories/auth_repository_impl.dart';
 import '../controllers/controllers.dart';
 
 class OtpVerificationScreen extends StatelessWidget {
-  const OtpVerificationScreen({super.key});
+  final String email;
+
+  const OtpVerificationScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +18,12 @@ class OtpVerificationScreen extends StatelessWidget {
       showBackButton: true,
       icon: IconsaxPlusLinear.arrow_left_1,
       onPressed: () => context.go(AppRoutes.login),
-      child: const Column(
+      child: Column(
         spacing: SpacingTokens.spacing24,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _OtpVerificationHeader(),
-          _OtpVerificationForm(),
+          const _OtpVerificationHeader(),
+          _OtpVerificationForm(email: email),
         ],
       ),
     );
@@ -27,7 +31,8 @@ class OtpVerificationScreen extends StatelessWidget {
 }
 
 class _OtpVerificationForm extends StatefulWidget {
-  const _OtpVerificationForm();
+  final String email;
+  const _OtpVerificationForm({required this.email});
 
   @override
   State<_OtpVerificationForm> createState() => _OtpVerificationFormState();
@@ -42,7 +47,11 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
   @override
   void initState() {
     super.initState();
-    _viewModel = OtpVerificationViewModel();
+    // Manual Dependency Injection
+    final remoteDataSource = SupabaseAuthRemoteDataSource();
+    final authRepository = AuthRepositoryImpl(remoteDataSource);
+
+    _viewModel = OtpVerificationViewModel(authRepository: authRepository);
   }
 
   @override
@@ -53,14 +62,17 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
   }
 
   void _verifyOtp(String pinCode) {
-    if (pinCode.length == 5) {
+    if (pinCode.length == 5 || pinCode.length == 6) {
       FocusScope.of(context).unfocus();
 
       _viewModel.verifyCode(
+        widget.email,
         pinCode,
         onSuccess: () {
           DSToast.showSuccess(context: context, message: 'Success!');
-          context.go(AppRoutes.newPassword);
+          context.go(
+            AppRoutes.home,
+          ); // After OTP verification, Supabase logs us in directly
         },
         onError: (error) {
           DSToast.showError(context: context, message: error);
@@ -72,6 +84,7 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
 
   void _resendCode() {
     _viewModel.resendCode(
+      widget.email,
       onCodeResent: () => DSToast.showSuccess(
         context: context,
         message: 'A new code has been sent to your email.',

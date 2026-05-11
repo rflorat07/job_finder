@@ -33,5 +33,18 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<void> sendOtpToEmail({required String email}) async {
+    return await remoteDataSource.sendOtpToEmail(email);
+  }
+
+  @override
+  Future<UserEntity> verifyEmailOtp({
+    required String email,
+    required String token,
+  }) async {
+    return await remoteDataSource.verifyEmailOtp(email, token);
+  }
+
+  @override
   Stream<bool> get authStateChanges => remoteDataSource.authStateChanges;
 }
