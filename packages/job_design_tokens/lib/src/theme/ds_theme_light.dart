@@ -270,6 +270,13 @@ class DSThemeLight {
         ),
         shape: RoundedRectangleBorder(borderRadius: RadiusTokens.mdRadius),
       ),
+
+      // ========== Linear Progress Indicator Theme =========
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: SemanticColorsLight.primary,
+        linearTrackColor: SemanticColorsLight.secondary,
+        linearMinHeight: Sizes.size5,
+      ),
     );
   }
 }

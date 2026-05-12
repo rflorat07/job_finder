@@ -10,6 +10,9 @@ abstract class Sizes {
   /// 4 pixels (1/2 unit)
   static const double size4 = 4.0;
 
+  /// 5 pixels (5/8 unit)
+  static const double size5 = 5.0;
+
   /// 6 pixels (3/4 unit)
   static const double size6 = 6.0;
 

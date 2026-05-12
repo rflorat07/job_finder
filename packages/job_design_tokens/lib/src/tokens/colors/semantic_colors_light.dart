@@ -128,8 +128,19 @@ class SemanticColorsLight {
     PrimitiveColors.greyscale900,
   );
 
-  /// Back button background (dark)
+  /// Back button background (light)
   static const Color backButtonBackgroundColor = Color(
     PrimitiveColors.primary400,
+  );
+
+  // ========== Linear Progress Indicator Theme ==========
+  /// Primary color for linear progress indicators (light)
+  static const Color linearProgressIndicatorColor = Color(
+    PrimitiveColors.primary500,
+  );
+
+  /// Track color for linear progress indicators (light)
+  static const Color linearProgressIndicatorTrackColor = Color(
+    PrimitiveColors.greyscale100,
   );
 }
