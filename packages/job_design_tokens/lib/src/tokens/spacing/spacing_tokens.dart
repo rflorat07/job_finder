@@ -37,6 +37,9 @@ abstract class SpacingTokens {
   /// 40 pixels (5 units)
   static const double spacing40 = 40.0;
 
+  /// 44 pixels (5.5 units)
+  static const double spacing44 = 44.0;
+
   /// 48 pixels (6 units)
   static const double spacing48 = 48.0;
 

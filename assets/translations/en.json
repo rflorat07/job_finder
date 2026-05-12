@@ -83,7 +83,9 @@
   "setup_account": {
     "setup_account_title": "Where do you come from?",
     "setup_account_subtitle": "Select your country of residence to personalize your experience and provide you with relevant content and services.",
-    "select_country": "Select your country",
+    "select_your_country": "Select your country",
+    "select_country": "Select Country",
+    "search_country": "Search country...",
     "country": "Country",
     "continue": "Continue"
   }

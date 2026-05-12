@@ -4,6 +4,7 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 import '../../../../imports/imports.dart';
 import '../../domain/entities/entities.dart';
 import '../controllers/controllers.dart';
+import '../widgets/widgets.dart';
 
 class SetupAccountStep extends StatefulWidget {
   const SetupAccountStep({super.key});
@@ -27,14 +28,19 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
     super.dispose();
   }
 
-  void _showCountrySelector() {
-    // TODO: En el próximo paso levantaremos el Modal BottomSheet aquí
-    print('Abrir Selector de Paises');
+  Future<void> _showCountrySelector() async {
+    final selectedCountry = await CountrySelectionBottomSheet.show(
+      context,
+      initialSelection: _viewModel.selectedCountry,
+    );
+
+    if (selectedCountry != null) {
+      _viewModel.selectCountry(selectedCountry);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // 1. Envolvemos todo en el ListenableBuilder para escuchar al ViewModel
     return ListenableBuilder(
       listenable: _viewModel,
       builder: (context, _) {
@@ -45,7 +51,7 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
           subtitle: context.tr('setup_account.setup_account_subtitle'),
           bottomAction: DSButton(
             onPressed: _viewModel.isStep1Valid
-                ? () => print('Ir a Step 2')
+                ? () {} //TODO: Navegar al siguiente paso
                 : null,
             label: context.tr('setup_account.continue'),
           ),
@@ -101,7 +107,7 @@ class _CountrySelectorInput extends StatelessWidget {
             Expanded(
               child: selectedCountry == null
                   ? Text(
-                      context.tr('setup_account.select_country'),
+                      context.tr('setup_account.select_your_country'),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: context.dsColors.secondary,
                         fontWeight: TypographyTokens.fontWeightRegular,

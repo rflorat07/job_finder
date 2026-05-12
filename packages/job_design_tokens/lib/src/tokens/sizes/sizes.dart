@@ -40,6 +40,9 @@ abstract class Sizes {
   /// 40 pixels (5 units)
   static const double size40 = 40.0;
 
+  /// 44 pixels (5.5 units)
+  static const double size44 = 44.0;
+
   /// 48 pixels (6 units)
   static const double size48 = 48.0;
 
