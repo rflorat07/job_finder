@@ -53,8 +53,9 @@ class SupabaseAuthRemoteDataSource implements AuthRemoteDataSource {
       token: token,
       type: OtpType.email,
     );
-    if (response.user == null)
+    if (response.user == null) {
       throw Exception('Verification failed. Invalid or expired token.');
+    }
     return UserModel.fromSupabase(response.user!);
   }
 

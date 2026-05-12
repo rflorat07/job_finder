@@ -79,5 +79,11 @@
     "welcome_back": "Welcome back 👋 ",
     "dont_have_account": "Don't have an account? ",
     "sign_up": "Register"
+  },
+  "setup_account": {
+    "setup_account_title": "Where do you come from?",
+    "setup_account_subtitle": "Select your country of residence to personalize your experience and provide you with relevant content and services.",
+    "select_country": "Select your country",
+    "continue": "Continue"
   }
 }

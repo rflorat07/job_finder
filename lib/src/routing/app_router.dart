@@ -23,7 +23,7 @@ class GoRouterRefreshStream extends ChangeNotifier {
 }
 
 /// Routes that require an authenticated session.
-const _protectedRoutes = [AppRoutes.home];
+const _protectedRoutes = [AppRoutes.home, AppRoutes.setupAccount];
 
 /// Routes accessible only to unauthenticated users.
 const _authOnlyRoutes = [
@@ -64,7 +64,7 @@ final GoRouter appRouter = GoRouter(
     // If the user IS logged in and tries to access onboarding/login/register -> Force to Home
     if (isLoggedIn && isGoingToAuthOnly) {
       // NOTE: Make sure the AppRoutes.home route is uncommented in your routes array!
-      return AppRoutes.home;
+      return AppRoutes.setupAccount;
     }
 
     // If none of the conditions match, allow the navigation
@@ -129,6 +129,11 @@ final GoRouter appRouter = GoRouter(
         state: state,
         child: const NewPasswordScreen(),
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.setupAccount,
+      name: 'setupAccount',
+      builder: (context, state) => const SetupAccountStep(),
     ),
     GoRoute(
       path: AppRoutes.home,

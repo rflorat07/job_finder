@@ -78,6 +78,12 @@
     "welcome_back": "¡Bienvenido de nuevo 👋!",
     "dont_have_account": "¿No tienes una cuenta? ",
     "sign_up": "Regístrate"
+  },
+  "setup_account": {
+    "setup_account_title": "¿De dónde eres?",
+    "setup_account_subtitle": "Selecciona tu país de residencia para personalizar tu experiencia y proporcionarte contenido y servicios relevantes.",
+    "select_country": "Selecciona tu país",
+    "continue": "Continuar"
   }
   
 }
