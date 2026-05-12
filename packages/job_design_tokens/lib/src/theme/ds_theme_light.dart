@@ -243,7 +243,7 @@ class DSThemeLight {
           color: SemanticColorsLight.textPrimary,
         ),
         bodySmall: TypographyTokens.bodySmall.copyWith(
-          color: SemanticColorsLight.textSecondary,
+          color: SemanticColorsLight.textPrimary,
         ),
         labelLarge: TypographyTokens.labelLarge.copyWith(
           color: SemanticColorsLight.textPrimary,

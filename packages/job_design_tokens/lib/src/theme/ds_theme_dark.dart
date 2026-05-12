@@ -240,7 +240,7 @@ class DSThemeDark {
           color: SemanticColorsDark.textPrimary,
         ),
         bodySmall: TypographyTokens.bodySmall.copyWith(
-          color: SemanticColorsDark.textSecondary,
+          color: SemanticColorsDark.textPrimary,
         ),
         labelLarge: TypographyTokens.labelLarge.copyWith(
           color: SemanticColorsDark.textPrimary,

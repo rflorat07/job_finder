@@ -100,6 +100,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                             context.dsTextTheme.bodySmall?.copyWith(
                               height: TypographyTokens.lineHeightExtraRelaxed,
                               fontWeight: TypographyTokens.fontWeightRegular,
+                              color: context.dsColors.secondary,
                             ),
                       ),
                     ],
