@@ -42,8 +42,8 @@ class SetupAccountViewModel extends ChangeNotifier {
     if (_selectedExpertises.contains(expertise)) {
       _selectedExpertises.remove(expertise);
     } else {
-      // Optional constraint: Limit the number of selected expertises to 3
-      if (_selectedExpertises.length < 3) {
+      // Optional constraint: Limit the number of selected expertises to 5
+      if (_selectedExpertises.length < 5) {
         _selectedExpertises.add(expertise);
       }
     }

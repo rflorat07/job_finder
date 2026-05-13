@@ -30,6 +30,9 @@ abstract class RadiusTokens {
   /// 32 pixels - 3X large rounding
   static const double xl3 = 32.0;
 
+  /// 100 pixels - Radius 100 rounding
+  static const double radius100 = 100.0;
+
   /// 9999 pixels - Fully rounded (pill/capsule shape)
   static const double full = 9999.0;
 
@@ -62,6 +65,11 @@ abstract class RadiusTokens {
   /// 3X large BorderRadius
   static const BorderRadius xl3Radius = BorderRadius.all(Radius.circular(xl3));
 
+  /// 4X large BorderRadius
+  static const BorderRadius border100Radius = BorderRadius.all(
+    Radius.circular(radius100),
+  );
+
   /// Fully rounded BorderRadius (pill shape)
   static const BorderRadius fullRadius = BorderRadius.all(
     Radius.circular(full),
@@ -85,5 +93,5 @@ abstract class RadiusTokens {
   static const BorderRadius tooltipRadius = smRadius;
 
   /// Chip border radius
-  static const BorderRadius chipRadius = fullRadius;
+  static const BorderRadius chipRadius = border100Radius;
 }

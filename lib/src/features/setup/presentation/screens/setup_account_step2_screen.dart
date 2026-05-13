@@ -45,26 +45,10 @@ class _SetupAccountStep2ScreenState extends State<SetupAccountStep2Screen> {
               final isSelected = widget.viewModel.isExpertiseSelected(
                 expertise,
               );
-              return FilterChip(
-                label: Text(expertise.name),
-                selected: isSelected,
+              return DSFilterChip(
+                label: expertise.name,
+                isSelected: isSelected,
                 onSelected: (_) => widget.viewModel.toggleExpertise(expertise),
-                selectedColor: context.dsColors.primary,
-                checkmarkColor: context.dsColors.onPrimary,
-                labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: isSelected
-                      ? context.dsColors.onPrimary
-                      : context.dsColors.onSurface,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(RadiusTokens.lg),
-                  side: BorderSide(
-                    color: isSelected
-                        ? Colors.transparent
-                        : context.dsColors.outlineVariant,
-                  ),
-                ),
-                backgroundColor: context.dsColors.surface,
               );
             }).toList(),
           ),
