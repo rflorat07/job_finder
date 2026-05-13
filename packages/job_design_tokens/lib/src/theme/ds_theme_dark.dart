@@ -272,7 +272,7 @@ class DSThemeDark {
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: SemanticColorsDark.linearProgressIndicatorColor,
         linearTrackColor: SemanticColorsDark.linearProgressIndicatorTrackColor,
-        linearMinHeight: Sizes.size5,
+        linearMinHeight: SizesTokens.size5,
       ),
     );
   }

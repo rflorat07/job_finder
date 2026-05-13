@@ -151,12 +151,12 @@ class _AuthTabContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: containerColor ?? context.dsColors.surface,
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(Sizes.size24),
+            top: Radius.circular(SizesTokens.size24),
           ),
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(Sizes.size24),
+            top: Radius.circular(SizesTokens.size24),
           ),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(

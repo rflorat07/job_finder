@@ -183,7 +183,7 @@ class _AuthBackButtonHeader extends StatelessWidget {
                 ),
           ),
           const SizedBox(
-            width: Sizes.size40,
+            width: SizesTokens.size40,
           ), // Placeholder to balance the back button
         ],
       ),
@@ -205,12 +205,12 @@ class _AuthScrollableContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: containerColor ?? context.dsColors.secondaryContainer,
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(Sizes.size24),
+            top: Radius.circular(SizesTokens.size24),
           ),
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(Sizes.size24),
+            top: Radius.circular(SizesTokens.size24),
           ),
           // 1. LayoutBuilder to measure exactly the available white space
           child: LayoutBuilder(

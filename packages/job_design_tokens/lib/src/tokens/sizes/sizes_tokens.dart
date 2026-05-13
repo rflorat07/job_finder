@@ -1,6 +1,6 @@
 /// Sizes tokens - Consistent measurements for heights, widths, and other dimensional properties.
 /// Uses an 8px base unit scaled into a comprehensive sizing scale.
-abstract class Sizes {
+abstract class SizesTokens {
   /// 0 pixels (zero size)
   static const double zero = 0.0;
 

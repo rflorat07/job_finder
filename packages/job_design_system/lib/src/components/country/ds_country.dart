@@ -38,7 +38,7 @@ class DSCountry extends StatelessWidget {
         ),
         child: Row(
           children: [
-            DSIconAsset(width: Sizes.size40, assetName: countryFlagAsset),
+            DSIconAsset(width: SizesTokens.size40, assetName: countryFlagAsset),
             const SizedBox(width: SpacingTokens.spacing16),
             Expanded(
               child: Text(
@@ -51,7 +51,7 @@ class DSCountry extends StatelessWidget {
             ),
             isSelected
                 ? DSIconAsset(
-                    height: Sizes.size20,
+                    height: SizesTokens.size20,
                     assetName: 'assets/icons/check.svg',
                   )
                 : const SizedBox.shrink(),

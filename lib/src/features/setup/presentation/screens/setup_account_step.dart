@@ -56,6 +56,7 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
             label: context.tr('setup_account.continue'),
           ),
           child: Column(
+            spacing: SpacingTokens.spacing8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -64,8 +65,6 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
                   fontWeight: TypographyTokens.fontWeightMedium,
                 ),
               ),
-
-              const SizedBox(height: SpacingTokens.spacing8),
 
               _CountrySelectorInput(
                 selectedCountry: _viewModel.selectedCountry,
@@ -117,7 +116,9 @@ class _CountrySelectorInput extends StatelessWidget {
                       children: [
                         Text(
                           selectedCountry!.flagEmoji,
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(
+                            fontSize: TypographyTokens.fontSize24,
+                          ),
                         ),
                         const SizedBox(width: SpacingTokens.spacing12),
                         Text(

@@ -107,15 +107,15 @@ class _CountrySelectionBottomSheetState
                     onTap: () => Navigator.of(context).pop(),
                     borderRadius: BorderRadius.circular(RadiusTokens.lg),
                     child: Container(
-                      width: Sizes.size44,
-                      height: Sizes.size44,
+                      width: SizesTokens.size44,
+                      height: SizesTokens.size44,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: context.dsColors.surface,
                       ),
                       child: Icon(
                         Icons.close,
-                        size: Sizes.size20,
+                        size: SizesTokens.size20,
                         color: context.dsColors.onSurface,
                       ),
                     ),
@@ -130,7 +130,7 @@ class _CountrySelectionBottomSheetState
                     ),
                   ),
 
-                  const SizedBox(width: Sizes.size44),
+                  const SizedBox(width: SizesTokens.size44),
                 ],
               ),
             ),

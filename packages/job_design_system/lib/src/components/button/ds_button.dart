@@ -48,32 +48,32 @@ extension on DSButtonSize {
       case DSButtonSize.xsmall:
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
-          height: Sizes.size32,
-          iconSize: Sizes.size16,
+          height: SizesTokens.size32,
+          iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodyXSmall,
           radiusSize: RadiusTokens.full, // Pill shape
         );
       case DSButtonSize.small:
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
-          height: Sizes.size40,
-          iconSize: Sizes.size16,
+          height: SizesTokens.size40,
+          iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodySmall,
           radiusSize: RadiusTokens.full,
         );
       case DSButtonSize.medium:
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
-          height: Sizes.size48,
-          iconSize: Sizes.size20,
+          height: SizesTokens.size48,
+          iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
         );
       case DSButtonSize.large:
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
-          height: Sizes.size52,
-          iconSize: Sizes.size20,
+          height: SizesTokens.size52,
+          iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
         );

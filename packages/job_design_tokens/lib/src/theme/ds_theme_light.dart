@@ -275,7 +275,7 @@ class DSThemeLight {
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: SemanticColorsLight.primary,
         linearTrackColor: SemanticColorsLight.secondary,
-        linearMinHeight: Sizes.size5,
+        linearMinHeight: SizesTokens.size5,
       ),
     );
   }

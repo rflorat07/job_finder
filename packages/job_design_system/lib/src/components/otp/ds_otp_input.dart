@@ -23,8 +23,8 @@ class DSOtpInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: Sizes.size52,
-      height: Sizes.size48,
+      width: SizesTokens.size52,
+      height: SizesTokens.size48,
       textStyle: context.dsTextTheme.headlineMedium?.copyWith(
         color: context.dsColors.onSurface,
         fontWeight: TypographyTokens.fontWeightMedium,

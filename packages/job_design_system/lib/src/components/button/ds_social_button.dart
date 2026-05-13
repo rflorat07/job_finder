@@ -64,8 +64,8 @@ extension on DSSocialButtonSize {
       case DSSocialButtonSize.medium:
         return _DSSocialButtonSizeSpec(
           gap: SpacingTokens.spacing12,
-          height: Sizes.size48,
-          iconSize: Sizes.size20,
+          height: SizesTokens.size48,
+          iconSize: SizesTokens.size20,
           radiusSize: RadiusTokens.full,
           labelStyle: TypographyTokens.bodyMedium,
         );

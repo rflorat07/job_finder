@@ -56,7 +56,9 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
       bottomNavigationBar: bottomAction != null
           ? SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.size24),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SizesTokens.size24,
+                ),
                 child: bottomAction,
               ),
             )
@@ -66,10 +68,12 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LinearProgressIndicator(value: currentStep / totalSteps),
-            const SizedBox(height: Sizes.size24),
+            const SizedBox(height: SizesTokens.size24),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.size24),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SizesTokens.size24,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,7 +85,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                         type: DSButtonType.secondary,
                         iconLeft: icon ?? Icons.arrow_back_ios_new,
                       ),
-                      const SizedBox(height: Sizes.size24),
+                      const SizedBox(height: SizesTokens.size24),
                     ],
                     Text(
                       title,
@@ -92,7 +96,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                           ),
                     ),
                     if (subtitle != null) ...[
-                      const SizedBox(height: Sizes.size4),
+                      const SizedBox(height: SizesTokens.size4),
                       Text(
                         subtitle!,
                         style:
@@ -104,7 +108,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                             ),
                       ),
                     ],
-                    const SizedBox(height: Sizes.size32),
+                    const SizedBox(height: SizesTokens.size32),
                     child,
                   ],
                 ),
