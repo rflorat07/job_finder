@@ -1,1 +1,2 @@
-export 'setup_account_step.dart';
+export 'setup_account_step1_screen.dart';
+export 'setup_account_step2_screen.dart';

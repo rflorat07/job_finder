@@ -6,14 +6,15 @@ import '../../domain/entities/entities.dart';
 import '../controllers/controllers.dart';
 import '../widgets/widgets.dart';
 
-class SetupAccountStep extends StatefulWidget {
-  const SetupAccountStep({super.key});
+class SetupAccountStep1Screen extends StatefulWidget {
+  const SetupAccountStep1Screen({super.key});
 
   @override
-  State<SetupAccountStep> createState() => _SetupAccountStepState();
+  State<SetupAccountStep1Screen> createState() =>
+      _SetupAccountStep1ScreenState();
 }
 
-class _SetupAccountStepState extends State<SetupAccountStep> {
+class _SetupAccountStep1ScreenState extends State<SetupAccountStep1Screen> {
   late final SetupAccountViewModel _viewModel;
 
   @override
@@ -39,6 +40,10 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
     }
   }
 
+  void _onNextStep() {
+    context.push(AppRoutes.setupAccountStep2, extra: _viewModel);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -46,13 +51,11 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
       builder: (context, _) {
         return DSSetupAccountBaseLayout(
           currentStep: 1,
-          totalSteps: 4,
+          totalSteps: _viewModel.totalSteps,
           title: context.tr('setup_account.setup_account_title'),
           subtitle: context.tr('setup_account.setup_account_subtitle'),
           bottomAction: DSButton(
-            onPressed: _viewModel.isStep1Valid
-                ? () {} //TODO: Navegar al siguiente paso
-                : null,
+            onPressed: _viewModel.isStep1Valid ? _onNextStep : null,
             label: context.tr('setup_account.continue'),
           ),
           child: Column(
@@ -65,7 +68,6 @@ class _SetupAccountStepState extends State<SetupAccountStep> {
                   fontWeight: TypographyTokens.fontWeightMedium,
                 ),
               ),
-
               _CountrySelectorInput(
                 selectedCountry: _viewModel.selectedCountry,
                 onTap: _showCountrySelector,
@@ -114,11 +116,10 @@ class _CountrySelectorInput extends StatelessWidget {
                     )
                   : Row(
                       children: [
-                        Text(
-                          selectedCountry!.flagEmoji,
-                          style: const TextStyle(
-                            fontSize: TypographyTokens.fontSize24,
-                          ),
+                        DSIconAsset(
+                          width: SizesTokens.size32,
+                          assetName:
+                              'assets/flags/${selectedCountry!.code.toLowerCase()}.svg',
                         ),
                         const SizedBox(width: SpacingTokens.spacing12),
                         Text(

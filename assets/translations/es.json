@@ -86,7 +86,10 @@
     "select_country": "Seleccionar país",
     "search_country": "Buscar país...",
     "country": "País",
-    "continue": "Continuar"
+    "what_is_your_expertise": "¿Cuál es tu área de experiencia?",
+    "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
+    "continue": "Continuar",
+    "skip": "Omitir"
   }
   
 }

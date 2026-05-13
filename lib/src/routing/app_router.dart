@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../features/setup/presentation/controllers/setup_account_view_model.dart';
 import '../imports/imports.dart';
 
 /// Helper tool to convert a Stream into a Listenable for GoRouter
@@ -23,7 +24,13 @@ class GoRouterRefreshStream extends ChangeNotifier {
 }
 
 /// Routes that require an authenticated session.
-const _protectedRoutes = [AppRoutes.home, AppRoutes.setupAccount];
+const _protectedRoutes = [
+  AppRoutes.home,
+  AppRoutes.setupAccountStep1,
+  AppRoutes.setupAccountStep2,
+  AppRoutes.setupAccountStep3,
+  AppRoutes.setupAccountStep4,
+];
 
 /// Routes accessible only to unauthenticated users.
 const _authOnlyRoutes = [
@@ -64,7 +71,7 @@ final GoRouter appRouter = GoRouter(
     // If the user IS logged in and tries to access onboarding/login/register -> Force to Home
     if (isLoggedIn && isGoingToAuthOnly) {
       // NOTE: Make sure the AppRoutes.home route is uncommented in your routes array!
-      return AppRoutes.setupAccount;
+      return AppRoutes.setupAccountStep1;
     }
 
     // If none of the conditions match, allow the navigation
@@ -131,9 +138,21 @@ final GoRouter appRouter = GoRouter(
       ),
     ),
     GoRoute(
-      path: AppRoutes.setupAccount,
-      name: 'setupAccount',
-      builder: (context, state) => const SetupAccountStep(),
+      path: AppRoutes.setupAccountStep1,
+      name: 'setupAccountStep1',
+      builder: (context, state) => const SetupAccountStep1Screen(),
+    ),
+    GoRoute(
+      path: AppRoutes.setupAccountStep2,
+      name: 'setupAccountStep2',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as SetupAccountViewModel;
+        return AppTransitions.fade(
+          context: context,
+          state: state,
+          child: SetupAccountStep2Screen(viewModel: viewModel),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.home,

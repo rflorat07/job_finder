@@ -157,8 +157,8 @@ class _OtpVerificationHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const DSIconAsset(
-          width: Sizes.size64,
-          height: Sizes.size64,
+          width: SizesTokens.size64,
+          height: SizesTokens.size64,
           assetName: 'assets/icons/otp_verification.svg',
         ),
 

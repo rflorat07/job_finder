@@ -87,6 +87,9 @@
     "select_country": "Select Country",
     "search_country": "Search country...",
     "country": "Country",
-    "continue": "Continue"
+    "what_is_your_expertise": "What is your Expertise?",
+    "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
+    "continue": "Continue",
+    "skip": "Skip"
   }
 }

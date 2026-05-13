@@ -13,5 +13,8 @@ abstract final class AppRoutes {
   static const String otpVerification = '/otp-verification';
   static const String newPassword = '/new-password';
   static const String home = '/';
-  static const String setupAccount = '/setup-account';
+  static const String setupAccountStep1 = '/setup-account/step-1';
+  static const String setupAccountStep2 = '/setup-account/step-2';
+  static const String setupAccountStep3 = '/setup-account/step-3';
+  static const String setupAccountStep4 = '/setup-account/step-4';
 }

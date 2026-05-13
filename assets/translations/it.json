@@ -86,6 +86,9 @@
     "select_country": "Seleziona paese",
     "search_country": "Cerca paese...",
     "country": "Paese",
-    "continue": "Continua"
+    "what_is_your_expertise": "Qual è la tua specializzazione?",
+    "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
+    "continue": "Continua",
+    "skip": "Salta"
   }
 }
