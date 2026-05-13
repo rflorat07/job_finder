@@ -143,4 +143,10 @@ class SemanticColorsDark {
   static const Color linearProgressIndicatorTrackColor = Color(
     PrimitiveColors.greyscale700,
   );
+
+  // ========== Filter Chip Theme ==========
+  /// Selected color for filter chips (dark)
+  static const Color filterChipSelectedColor = Color(
+    PrimitiveColors.greyscale800,
+  );
 }

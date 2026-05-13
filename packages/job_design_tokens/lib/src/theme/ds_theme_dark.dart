@@ -9,6 +9,8 @@ class DSThemeDark {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
 
       // ========== Color Scheme ==========
       colorScheme: ColorScheme.dark(
@@ -273,6 +275,35 @@ class DSThemeDark {
         color: SemanticColorsDark.linearProgressIndicatorColor,
         linearTrackColor: SemanticColorsDark.linearProgressIndicatorTrackColor,
         linearMinHeight: SizesTokens.size5,
+      ),
+
+      // ========== Filter Chip Theme ==========
+      chipTheme: ChipThemeData(
+        pressElevation: 0,
+        backgroundColor: SemanticColorsDark.surface,
+        selectedColor: SemanticColorsDark.filterChipSelectedColor,
+        secondarySelectedColor: SemanticColorsDark.filterChipSelectedColor,
+        padding: const EdgeInsets.symmetric(
+          horizontal: SizesTokens.size24,
+          vertical: SizesTokens.size8,
+        ),
+        labelStyle: TypographyTokens.bodySmall.copyWith(
+          color: WidgetStateColor.resolveWith((Set<WidgetState> states) {
+            if (states.contains(WidgetState.selected)) {
+              return SemanticColorsDark.primary;
+            }
+            return SemanticColorsDark.textSecondary;
+          }),
+          fontWeight: TypographyTokens.fontWeightMedium,
+          height: TypographyTokens.lineHeightExtraRelaxed,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: RadiusTokens.chipRadius),
+        side: WidgetStateBorderSide.resolveWith((Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
+            return BorderSide(color: SemanticColorsDark.primary);
+          }
+          return BorderSide(color: SemanticColorsDark.surface);
+        }),
       ),
     );
   }

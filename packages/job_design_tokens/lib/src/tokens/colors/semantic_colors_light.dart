@@ -143,4 +143,8 @@ class SemanticColorsLight {
   static const Color linearProgressIndicatorTrackColor = Color(
     PrimitiveColors.greyscale100,
   );
+
+  // ========== Filter Chip Theme ==========
+  /// Selected color for filter chips (light)
+  static const Color filterChipSelectedColor = Color(PrimitiveColors.primary50);
 }

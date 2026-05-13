@@ -3,6 +3,7 @@ library;
 
 export 'button/ds_button.dart';
 export 'button/ds_social_button.dart';
+export 'chip/ds_filter_chip.dart';
 export 'container/ds_rounded_container.dart';
 export 'country/ds_country.dart';
 export 'dialog/ds_success_dialog.dart';
