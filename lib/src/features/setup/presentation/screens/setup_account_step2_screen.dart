@@ -34,9 +34,19 @@ class _SetupAccountStep2ScreenState extends State<SetupAccountStep2Screen> {
           totalSteps: widget.viewModel.totalSteps,
           title: context.tr('setup_account.what_is_your_expertise'),
           subtitle: context.tr('setup_account.what_is_your_expertise_subtitle'),
-          bottomAction: DSButton(
-            onPressed: widget.viewModel.isStep2Valid ? _onNextStep : null,
-            label: context.tr('setup_account.continue'),
+          bottomAction: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DSButton(
+                onPressed: widget.viewModel.isStep2Valid ? _onNextStep : null,
+                label: context.tr('setup_account.continue'),
+              ),
+              DSButton(
+                onPressed: _onNextStep,
+                label: context.tr('setup_account.skip'),
+                type: DSButtonType.tertiary,
+              ),
+            ],
           ),
           child: Wrap(
             spacing: SpacingTokens.spacing8,
