@@ -1,12 +1,12 @@
 {
   "shared": {
+    "skip": "Skip",
     "submit": "Submit",
     "continue": "Continue",
     "get_started": "Get Started",
     "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt."
   },
   "onboarding": {
-    "skip": "Skip",
     "onboarding_title_1": "We help you find \nyour job more easily!",
     "onboarding_subtitle_1": "Effortlessly create and organize your dream career path. Start exploring now!",
     "onboarding_title_2": "Explore Limitless Career \nOptions Today!",
@@ -89,7 +89,9 @@
     "country": "Country",
     "what_is_your_expertise": "What is your Expertise?",
     "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
-    "continue": "Continue",
-    "skip": "Skip"
+    "follow_official_account": "Follow some official Account",
+    "follow_official_account_subtitle": "Follow some official accounts to get personalized content and job recommendations based on your interests and preferences.",
+    "follow": "Follow",
+    "following": "Following"
   }
 }

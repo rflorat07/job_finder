@@ -56,7 +56,7 @@ class _SetupAccountStep1ScreenState extends State<SetupAccountStep1Screen> {
           subtitle: context.tr('setup_account.setup_account_subtitle'),
           bottomAction: DSButton(
             onPressed: _viewModel.isStep1Valid ? _onNextStep : null,
-            label: context.tr('setup_account.continue'),
+            label: context.tr('shared.continue'),
           ),
           child: Column(
             spacing: SpacingTokens.spacing8,

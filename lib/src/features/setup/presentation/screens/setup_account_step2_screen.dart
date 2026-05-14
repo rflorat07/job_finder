@@ -39,11 +39,11 @@ class _SetupAccountStep2ScreenState extends State<SetupAccountStep2Screen> {
             children: [
               DSButton(
                 onPressed: widget.viewModel.isStep2Valid ? _onNextStep : null,
-                label: context.tr('setup_account.continue'),
+                label: context.tr('shared.continue'),
               ),
               DSButton(
                 onPressed: _onNextStep,
-                label: context.tr('setup_account.skip'),
+                label: context.tr('shared.skip'),
                 type: DSButtonType.tertiary,
               ),
             ],

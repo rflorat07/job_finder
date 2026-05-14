@@ -16,7 +16,7 @@ class OnBoardingSkip extends StatelessWidget {
       children: [
         TextButton(
           onPressed: onSkip,
-          child: Text('onboarding.skip'.tr()),
+          child: Text(context.tr('shared.skip')),
         ),
       ],
     );

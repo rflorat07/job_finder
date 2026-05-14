@@ -1,5 +1,6 @@
 {
   "shared": {
+    "skip": "Omitir",
     "submit": "Enviar",
     "continue": "Continuar",
     "get_started": "Comenzar",
@@ -88,8 +89,10 @@
     "country": "País",
     "what_is_your_expertise": "¿Cuál es tu área de experiencia?",
     "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
-    "continue": "Continuar",
-    "skip": "Omitir"
+    "follow_official_account": "Seguir algunas cuentas oficiales",
+    "follow_official_account_subtitle": "Sigue algunas cuentas oficiales para obtener contenido personalizado y recomendaciones de empleo basadas en tus intereses y preferencias.",
+    "follow": "Seguir",
+    "following": "Siguiendo"
   }
   
 }

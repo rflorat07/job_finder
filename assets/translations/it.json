@@ -1,5 +1,6 @@
 {
   "shared": {
+    "skip": "Salta",
     "submit": "Invia",
     "continue": "Continua",
     "get_started": "Inizia",
@@ -88,7 +89,9 @@
     "country": "Paese",
     "what_is_your_expertise": "Qual è la tua specializzazione?",
     "what_is_your_expertise_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.",
-    "continue": "Continua",
-    "skip": "Salta"
+    "follow_official_account": "Segui alcune account ufficiali",
+    "follow_official_account_subtitle": "Segui alcune account ufficiali per ottenere contenuti personalizzati e raccomandazioni di lavoro basate sui tuoi interessi e preferenze.",
+    "follow": "Segui",
+    "following": "Seguendo"
   }
 }
