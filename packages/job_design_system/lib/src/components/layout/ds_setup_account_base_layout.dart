@@ -115,7 +115,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                             ),
                       ),
                     ],
-                    const SizedBox(height: SizesTokens.size32),
+                    const SizedBox(height: SizesTokens.size28),
                     child,
                   ],
                 ),

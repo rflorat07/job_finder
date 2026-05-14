@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/country_entity.dart';
-import '../../domain/entities/expertise_entity.dart';
+import '../../domain/entities/entities.dart';
 
 class SetupAccountViewModel extends ChangeNotifier {
   final int totalSteps = 4;
@@ -12,11 +11,19 @@ class SetupAccountViewModel extends ChangeNotifier {
   // Step 2: Selected expertise categories
   final List<ExpertiseEntity> _selectedExpertises = [];
 
-  CountryEntity? get selectedCountry => _selectedCountry;
+  // Step 3: Selected official accounts
+  final List<OfficialAccountEntity> _selectedOfficialAccounts = [];
 
   /// Returns a read-only list of selected expertises
   List<ExpertiseEntity> get selectedExpertises =>
       List.unmodifiable(_selectedExpertises);
+
+  /// Returns a read-only list of selected official accounts
+  List<OfficialAccountEntity> get selectedOfficialAccounts =>
+      List.unmodifiable(_selectedOfficialAccounts);
+
+  /// Returns the currently selected country (or null if none)
+  CountryEntity? get selectedCountry => _selectedCountry;
 
   /// Checks if the first step (Country Selection) is valid
   bool get isStep1Valid => _selectedCountry != null;
@@ -53,5 +60,20 @@ class SetupAccountViewModel extends ChangeNotifier {
   /// Checks if a specific expertise is selected
   bool isExpertiseSelected(ExpertiseEntity expertise) {
     return _selectedExpertises.contains(expertise);
+  }
+
+  /// Toggles the selection of an official account
+  void toggleOfficialAccount(OfficialAccountEntity officialAccount) {
+    if (_selectedOfficialAccounts.contains(officialAccount)) {
+      _selectedOfficialAccounts.remove(officialAccount);
+    } else {
+      _selectedOfficialAccounts.add(officialAccount);
+    }
+    notifyListeners();
+  }
+
+  /// Checks if a specific official account is selected
+  bool isOfficialAccountSelected(OfficialAccountEntity officialAccount) {
+    return _selectedOfficialAccounts.contains(officialAccount);
   }
 }
