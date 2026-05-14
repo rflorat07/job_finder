@@ -147,4 +147,10 @@ class SemanticColorsLight {
   // ========== Filter Chip Theme ==========
   /// Selected color for filter chips (light)
   static const Color filterChipSelectedColor = Color(PrimitiveColors.primary50);
+
+  // ========== Company Theme ==========
+  /// Background color for company names (light)
+  static const Color companyBackgroundColor = Color(
+    PrimitiveColors.greyscale50,
+  );
 }

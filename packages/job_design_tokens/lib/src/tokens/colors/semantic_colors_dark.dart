@@ -149,4 +149,10 @@ class SemanticColorsDark {
   static const Color filterChipSelectedColor = Color(
     PrimitiveColors.greyscale800,
   );
+
+  // ========== Company Theme ==========
+  /// Background color for company names (dark)
+  static const Color companyBackgroundColor = Color(
+    PrimitiveColors.greyscale800,
+  );
 }
