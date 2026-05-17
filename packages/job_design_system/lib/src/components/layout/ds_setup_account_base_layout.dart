@@ -86,10 +86,10 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                   children: [
                     if (onPressed != null) ...[
                       DSButton(
-                        label: '',
                         onPressed: onPressed,
                         iconOnly: true,
-                        type: DSButtonType.primary,
+                        state: DSButtonState.primary,
+                        type: DSButtonType.tertiary,
                         icon: Icon(icon ?? Icons.arrow_back_ios_new),
                       ),
                       const SizedBox(height: SizesTokens.size24),
