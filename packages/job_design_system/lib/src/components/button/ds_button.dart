@@ -416,6 +416,7 @@ class DSButton extends StatelessWidget {
       height: resolvedHeight,
       child: iconOnly
           ? IconButton.filled(
+              tooltip: label,
               onPressed: isDisabled || isLoading ? null : onPressed,
               icon: isLoading ? loadingIndicator : icon!,
               style: buttonStyle.copyWith(
