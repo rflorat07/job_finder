@@ -69,7 +69,10 @@ class SemanticColorsLight {
   static const Color error = Color(PrimitiveColors.error100);
 
   /// Error hover
-  static const Color errorHover = Color(PrimitiveColors.error100);
+  static const Color errorHover = Color(PrimitiveColors.error200);
+
+  /// Error disabled
+  static const Color errorDisabled = Color(PrimitiveColors.error25);
 
   /// Warning/caution
   static const Color warning = Color(PrimitiveColors.warning50);
@@ -112,6 +115,11 @@ class SemanticColorsLight {
   /// Primary background (light)
   static const Color primaryBackground = Color(PrimitiveColors.primary100);
 
+  /// Secondary disabled background (light)
+  static const Color secondaryDisabledBackground = Color(
+    PrimitiveColors.greyscale0,
+  );
+
   // ========== Overlays & Shadows ==========
   /// Overlay for modals (with opacity applied elsewhere)
   static const Color overlay = Color(PrimitiveColors.neutral100);
@@ -131,6 +139,11 @@ class SemanticColorsLight {
   /// Back button background (light)
   static const Color backButtonBackgroundColor = Color(
     PrimitiveColors.primary400,
+  );
+
+  /// Default button background (light)
+  static const Color defaultButtonBackgroundColor = Color(
+    PrimitiveColors.primary50,
   );
 
   // ========== Linear Progress Indicator Theme ==========

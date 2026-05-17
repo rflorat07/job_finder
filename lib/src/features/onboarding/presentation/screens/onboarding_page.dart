@@ -83,9 +83,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     iconOnly: !_controller.isLastPage,
                     type: DSButtonType.primary,
                     size: DSButtonSize.large,
-                    iconLeft: _controller.isLastPage
+                    icon: _controller.isLastPage
                         ? null
-                        : IconsaxPlusLinear.arrow_right_3,
+                        : const Icon(IconsaxPlusLinear.arrow_right_3),
                     onPressed: () => _controller.nextPage(context),
                   ),
 

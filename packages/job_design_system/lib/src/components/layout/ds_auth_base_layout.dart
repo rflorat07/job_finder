@@ -168,8 +168,8 @@ class _AuthBackButtonHeader extends StatelessWidget {
             label: '',
             iconOnly: true,
             size: DSButtonSize.small,
-            type: DSButtonType.back,
-            iconLeft: icon ?? Icons.arrow_back_ios_new,
+            type: DSButtonType.primary,
+            icon: Icon(icon ?? Icons.arrow_back_ios_new),
             onPressed: onPressed ?? () => Navigator.maybePop(context),
           ),
           Text(

@@ -6,11 +6,16 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 /// Semantic sizes for DS button variants.
 enum DSButtonSize { xsmall, small, medium, large }
 
-enum DSButtonType { primary, secondary, tertiary, destructive, back, standard }
+/// Semantic states for DS button variants.
+enum DSButtonState { primary, hover, focused, disabled }
+
+/// Visual style variants for DS buttons.
+enum DSButtonType { primary, secondary, tertiary, destructive }
 
 class _DSButtonSizeSpec {
   const _DSButtonSizeSpec({
     required this.gap,
+    required this.width,
     required this.height,
     required this.iconSize,
     required this.labelStyle,
@@ -19,6 +24,7 @@ class _DSButtonSizeSpec {
 
   final double gap;
   final double height;
+  final double width;
   final double iconSize;
   final TextStyle labelStyle;
   final double radiusSize;
@@ -28,17 +34,27 @@ class _DSButtonTypeSpec {
   const _DSButtonTypeSpec({
     required this.foregroundColor,
     required this.backgroundColor,
+    required this.hoverBackgroundColor,
+    required this.hoverForegroundColor,
     required this.disabledForegroundColor,
     required this.disabledBackgroundColor,
-    this.borderSide,
+    required this.focusedBackgroundColor,
+    required this.focusedForegroundColor,
+    this.focusedBorderSide,
+    this.defaultBorderSide,
     this.disabledBorderSide,
   });
 
   final Color foregroundColor;
   final Color backgroundColor;
+  final Color hoverBackgroundColor;
+  final Color hoverForegroundColor;
+  final BorderSide? focusedBorderSide;
+  final Color focusedForegroundColor;
+  final Color focusedBackgroundColor;
   final Color disabledForegroundColor;
   final Color disabledBackgroundColor;
-  final BorderSide? borderSide;
+  final BorderSide? defaultBorderSide;
   final BorderSide? disabledBorderSide;
 }
 
@@ -49,6 +65,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size32,
+          width: double.infinity,
           iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodyXSmall,
           radiusSize: RadiusTokens.full, // Pill shape
@@ -57,6 +74,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size40,
+          width: double.infinity,
           iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodySmall,
           radiusSize: RadiusTokens.full,
@@ -65,6 +83,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size48,
+          width: double.infinity,
           iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
@@ -73,6 +92,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size52,
+          width: double.infinity,
           iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
@@ -85,82 +105,176 @@ extension on DSButtonType {
   _DSButtonTypeSpec spec(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
 
-    final textPrimary = isDark
-        ? SemanticColorsDark.textPrimary
-        : SemanticColorsLight.textPrimary;
-    final textOnInverse = isDark
-        ? SemanticColorsLight.textOnInverse
-        : SemanticColorsLight.textOnInverse;
-    final textDisabled = isDark
-        ? SemanticColorsDark.textDisabled
-        : SemanticColorsLight.textDisabled;
-    final textSecondaryDisabled = isDark
-        ? SemanticColorsDark.textSecondaryDisabled
-        : SemanticColorsLight.textSecondaryDisabled;
-    final primary = isDark
+    // Type primary
+    final primaryBackgroundColor = isDark
+        ? SemanticColorsDark.defaultButtonBackgroundColor
+        : SemanticColorsLight.defaultButtonBackgroundColor;
+
+    final primaryForegroundColor = isDark
         ? SemanticColorsDark.primary
         : SemanticColorsLight.primary;
-    final primaryDisabled = isDark
+
+    final primaryDisabledBackgroundColor = isDark
         ? SemanticColorsDark.primaryDisabled
         : SemanticColorsLight.primaryDisabled;
-    final secondary = isDark
+
+    final primaryDisabledForegroundColor = isDark
+        ? SemanticColorsDark.textDisabled
+        : SemanticColorsLight.textDisabled;
+
+    final hoverBackgroundColor = isDark
+        ? SemanticColorsDark.primaryHover
+        : SemanticColorsLight.primaryHover;
+
+    final hoverForegroundColor = isDark
+        ? SemanticColorsDark.textPrimary
+        : SemanticColorsLight.textDisabled;
+
+    // Type secondary
+    final secondaryBackgroundColor = isDark
         ? SemanticColorsDark.secondary
-        : SemanticColorsLight.secondary;
-    final secondaryDisabled = isDark
-        ? SemanticColorsDark.secondary
-        : SemanticColorsLight.secondary;
-    final border = isDark
+        : SemanticColorsLight.buttonBackgroundColor;
+
+    final secondaryForegroundColor = isDark
+        ? SemanticColorsDark.textPrimary
+        : SemanticColorsLight.buttonForegroundColor;
+
+    final secondaryHoverBackgroundColor = isDark
+        ? SemanticColorsDark.secondaryHover
+        : SemanticColorsLight.secondaryHover;
+
+    final secondaryHoverForegroundColor = isDark
+        ? SemanticColorsDark.textPrimary
+        : SemanticColorsLight.buttonForegroundColor;
+
+    final secondaryDefaultBorderSide = isDark
         ? SemanticColorsDark.border
         : SemanticColorsLight.border;
-    final error = isDark ? SemanticColorsDark.error : SemanticColorsLight.error;
-    final standard = isDark
-        ? SemanticColorsDark.buttonBackgroundColor
-        : SemanticColorsLight.buttonBackgroundColor;
+
+    final secondaryDisabledBackgroundColor = isDark
+        ? SemanticColorsDark.secondaryDisabledBackground
+        : SemanticColorsLight.secondaryDisabledBackground;
+
+    final secondaryDisabledForegroundColor = isDark
+        ? SemanticColorsDark.textSecondaryDisabled
+        : SemanticColorsLight.textSecondaryDisabled;
+
+    // Type destructive
+    final destructiveBackgroundColor = isDark
+        ? SemanticColorsDark.error
+        : SemanticColorsLight.error;
+
+    final destructiveForegroundColor = isDark
+        ? SemanticColorsDark.textPrimary
+        : SemanticColorsLight.textOnInverse;
+
+    final destructiveHoverBackgroundColor = isDark
+        ? SemanticColorsDark.errorHover
+        : SemanticColorsLight.errorHover;
+
+    final destructiveHoverForegroundColor = isDark
+        ? SemanticColorsDark.textPrimary
+        : SemanticColorsLight.textOnInverse;
+
+    final destructiveDisabledBackgroundColor = isDark
+        ? SemanticColorsDark.errorDisabled
+        : SemanticColorsLight.errorDisabled;
+
+    final destructiveDisabledForegroundColor = isDark
+        ? SemanticColorsDark.textDisabled
+        : SemanticColorsLight.textDisabled;
 
     switch (this) {
       case DSButtonType.primary:
         return _DSButtonTypeSpec(
-          foregroundColor: textOnInverse,
-          backgroundColor: primary,
-          disabledForegroundColor: textDisabled,
-          disabledBackgroundColor: primaryDisabled,
+          // State standard
+          foregroundColor: primaryForegroundColor,
+          backgroundColor: primaryBackgroundColor,
+
+          // State hover
+          hoverForegroundColor: hoverForegroundColor,
+          hoverBackgroundColor: hoverBackgroundColor,
+
+          // State focused
+          focusedForegroundColor: hoverForegroundColor,
+          focusedBackgroundColor: hoverBackgroundColor,
+          focusedBorderSide: BorderSide(
+            color: primaryBackgroundColor,
+            width: 3,
+          ),
+
+          // State disabled
+          disabledForegroundColor: primaryDisabledForegroundColor,
+          disabledBackgroundColor: primaryDisabledBackgroundColor,
         );
+
       case DSButtonType.secondary:
         return _DSButtonTypeSpec(
-          foregroundColor: textPrimary,
-          backgroundColor: secondary,
-          disabledForegroundColor: textSecondaryDisabled,
-          disabledBackgroundColor: secondaryDisabled,
-          borderSide: BorderSide(color: border),
-          disabledBorderSide: BorderSide(color: border),
+          // State standard
+          foregroundColor: secondaryForegroundColor,
+          backgroundColor: secondaryBackgroundColor,
+          defaultBorderSide: BorderSide(color: secondaryDefaultBorderSide),
+
+          // State hover
+          hoverForegroundColor: secondaryHoverForegroundColor,
+          hoverBackgroundColor: secondaryHoverBackgroundColor,
+
+          // State focused
+          focusedForegroundColor: secondaryForegroundColor,
+          focusedBackgroundColor: secondaryBackgroundColor,
+          focusedBorderSide: BorderSide(
+            color: primaryBackgroundColor,
+            width: 3,
+          ),
+
+          // State disabled
+          disabledForegroundColor: secondaryDisabledForegroundColor,
+          disabledBackgroundColor: secondaryDisabledBackgroundColor,
+          disabledBorderSide: BorderSide(
+            color: secondaryDisabledForegroundColor,
+          ),
         );
+
       case DSButtonType.tertiary:
         return _DSButtonTypeSpec(
-          foregroundColor: primary,
-          backgroundColor: Colors.transparent,
-          disabledForegroundColor: textDisabled,
-          disabledBackgroundColor: Colors.transparent,
+          // State standard
+          foregroundColor: secondaryForegroundColor,
+          backgroundColor: secondaryBackgroundColor,
+
+          // State hover
+          hoverBackgroundColor: secondaryHoverBackgroundColor,
+          hoverForegroundColor: secondaryHoverForegroundColor,
+
+          // State focused
+          focusedForegroundColor: secondaryHoverForegroundColor,
+          focusedBackgroundColor: secondaryHoverBackgroundColor,
+
+          // State disabled
+          disabledForegroundColor: secondaryDisabledForegroundColor,
+          disabledBackgroundColor: secondaryDisabledBackgroundColor,
         );
+
       case DSButtonType.destructive:
         return _DSButtonTypeSpec(
-          foregroundColor: textOnInverse,
-          backgroundColor: error,
-          disabledForegroundColor: textDisabled,
-          disabledBackgroundColor: primaryDisabled,
-        );
-      case DSButtonType.back:
-        return _DSButtonTypeSpec(
-          foregroundColor: textOnInverse,
-          backgroundColor: SemanticColorsDark.backButtonBackgroundColor,
-          disabledForegroundColor: textDisabled,
-          disabledBackgroundColor: primaryDisabled,
-        );
-      case DSButtonType.standard:
-        return _DSButtonTypeSpec(
-          foregroundColor: textPrimary,
-          backgroundColor: standard,
-          disabledForegroundColor: textDisabled,
-          disabledBackgroundColor: primaryDisabled,
+          // State standard
+          foregroundColor: destructiveForegroundColor,
+          backgroundColor: destructiveBackgroundColor,
+
+          // State hover
+          hoverBackgroundColor: destructiveHoverBackgroundColor,
+          hoverForegroundColor: destructiveHoverForegroundColor,
+
+          // State focused
+          focusedForegroundColor: destructiveForegroundColor,
+          focusedBackgroundColor: destructiveBackgroundColor,
+          focusedBorderSide: BorderSide(
+            color: primaryBackgroundColor,
+            width: 3,
+          ),
+
+          // State disabled
+          disabledForegroundColor: destructiveDisabledForegroundColor,
+          disabledBackgroundColor: destructiveDisabledBackgroundColor,
         );
     }
   }
@@ -169,17 +283,30 @@ extension on DSButtonType {
 /// Primary elevated button component that consumes design system tokens.
 /// No hardcoded values - all styling from tokens.
 class DSButton extends StatelessWidget {
+  const DSButton({
+    super.key,
+    this.icon,
+    this.label,
+    this.width,
+    this.height,
+    this.onPressed,
+    this.iconAlignment,
+    this.iconOnly = false,
+    this.isLoading = false,
+    this.isDisabled = false,
+    this.size = DSButtonSize.large,
+    this.type = DSButtonType.primary,
+    this.state = DSButtonState.hover,
+  }) : assert(
+         !iconOnly || (icon != null),
+         'Icon must be provided when iconOnly is true',
+       );
+
   /// Label text for the button
-  final String label;
+  final String? label;
 
   /// Callback when button is pressed
   final VoidCallback? onPressed;
-
-  /// Optional icon to display at the start of the label
-  final IconData? iconLeft;
-
-  /// Optional icon to display at the end of the label
-  final IconData? iconRight;
 
   /// Whether the button is in a loading state
   final bool isLoading;
@@ -193,143 +320,125 @@ class DSButton extends StatelessWidget {
   /// Visual style variant of the button
   final DSButtonType type;
 
+  /// Visual style variant of the button
+  final DSButtonState state;
+
   /// Optional custom width
   final double? width;
 
   /// Optional custom height
   final double? height;
 
-  /// Whether the button should be rendered as an icon-only button (circular)
+  /// Whether the button should be rendered as an icon-only
   final bool iconOnly;
 
-  const DSButton({
-    super.key,
-    required this.label,
-    this.height,
-    this.onPressed,
-    this.iconLeft,
-    this.iconRight,
-    this.iconOnly = false,
-    this.isLoading = false,
-    this.isDisabled = false,
-    this.width = double.infinity,
-    this.size = DSButtonSize.large,
-    this.type = DSButtonType.primary,
-  }) : assert(
-         !iconOnly || iconLeft != null || iconRight != null || isLoading,
-         'iconOnly requires iconLeft or iconRight unless loading',
-       ),
-       assert(
-         !iconOnly || iconLeft == null || iconRight == null,
-         'iconOnly supports a single icon. Pass iconLeft or iconRight, not both.',
-       );
+  /// Optional icon to display when [iconOnly] is true
+  final Widget? icon;
+
+  /// Optional alignment for the icon when [iconOnly] is true
+  final IconAlignment? iconAlignment;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final spec = size.spec;
-    final typeSpec = type.spec(theme.brightness);
-    final loaderColor = typeSpec.foregroundColor;
-    final isIconOnly = iconOnly;
-    final resolvedHeight = height ?? spec.height;
-    final resolvedWidth = isIconOnly ? spec.height : width;
-    final iconOnlyData = iconLeft ?? iconRight;
-    final hasLeftIcon = iconLeft != null && !isLoading;
-    final hasRightIcon = iconRight != null && !isLoading;
-    final sideSlotWidth = spec.iconSize + spec.gap;
+    final stateSpec = state;
+    final sizeSpec = size.spec;
+    final typeSpec = type.spec(context.dsTheme.brightness);
+    final resolvedHeight = height ?? sizeSpec.height;
+    final resolvedWidth = iconOnly ? sizeSpec.height : width ?? sizeSpec.width;
 
     final loadingIndicator = SizedBox(
       width: SpacingTokens.spacing16,
       height: SpacingTokens.spacing16,
       child: CircularProgressIndicator(
         strokeWidth: 2,
-        valueColor: AlwaysStoppedAnimation(loaderColor),
+        valueColor: AlwaysStoppedAnimation(typeSpec.disabledForegroundColor),
       ),
     );
 
-    final buttonContent = Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (hasLeftIcon) ...[
-          Icon(iconLeft, size: spec.iconSize),
-          SizedBox(width: spec.gap),
-        ] else if (hasRightIcon)
-          SizedBox(width: sideSlotWidth),
-
-        if (isLoading)
-          loadingIndicator
-        else
-          Text(label, style: spec.labelStyle),
-
-        if (hasRightIcon) ...[
-          SizedBox(width: spec.gap),
-          Icon(iconRight, size: spec.iconSize),
-        ] else if (hasLeftIcon)
-          SizedBox(width: sideSlotWidth),
-      ],
-    );
-
-    final iconOnlyContent = isLoading
-        ? loadingIndicator
-        : Icon(iconOnlyData, size: spec.iconSize);
-
     final buttonStyle = ButtonStyle(
       elevation: const WidgetStatePropertyAll(0),
+
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
           return typeSpec.disabledBackgroundColor;
         }
 
-        return typeSpec.backgroundColor;
+        switch (stateSpec) {
+          case DSButtonState.primary:
+            return typeSpec.backgroundColor;
+          case DSButtonState.hover:
+            return typeSpec.hoverBackgroundColor;
+          case DSButtonState.focused:
+            return typeSpec.focusedBackgroundColor;
+          case DSButtonState.disabled:
+            return typeSpec.disabledBackgroundColor;
+        }
       }),
+
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
           return typeSpec.disabledForegroundColor;
         }
 
-        return typeSpec.foregroundColor;
+        switch (stateSpec) {
+          case DSButtonState.primary:
+            return typeSpec.foregroundColor;
+          case DSButtonState.hover:
+            return typeSpec.hoverForegroundColor;
+          case DSButtonState.focused:
+            return typeSpec.focusedForegroundColor;
+          case DSButtonState.disabled:
+            return typeSpec.disabledForegroundColor;
+        }
       }),
+
       side: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return typeSpec.disabledBorderSide ??
-              typeSpec.borderSide ??
-              BorderSide.none;
+          return typeSpec.disabledBorderSide ?? BorderSide.none;
         }
 
-        return typeSpec.borderSide ?? BorderSide.none;
+        return typeSpec.defaultBorderSide ?? BorderSide.none;
       }),
+
       padding: WidgetStatePropertyAll(
-        isIconOnly
-            ? EdgeInsets.zero
-            : EdgeInsets.symmetric(horizontal: SpacingTokens.spacing16),
+        EdgeInsets.symmetric(horizontal: SpacingTokens.spacing16),
       ),
+
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(spec.radiusSize),
+          borderRadius: BorderRadius.circular(sizeSpec.radiusSize),
         ),
       ),
     );
 
-    return Container(
+    return SizedBox(
       width: resolvedWidth,
       height: resolvedHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spec.radiusSize),
-      ),
-      child: FilledButton(
-        onPressed: isDisabled || isLoading ? null : onPressed,
-        style: buttonStyle,
-        child: isIconOnly
-            ? Semantics(
-                button: true,
-                enabled: !(isDisabled || isLoading),
-                label: label,
-                child: iconOnlyContent,
-              )
-            : buttonContent,
-      ),
+      child: iconOnly
+          ? IconButton.filled(
+              onPressed: isDisabled || isLoading ? null : onPressed,
+              icon: isLoading ? loadingIndicator : icon!,
+              style: buttonStyle.copyWith(
+                padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+              ),
+            )
+          : icon != null
+          ? FilledButton.icon(
+              onPressed: isDisabled || isLoading ? null : onPressed,
+              iconAlignment: iconAlignment,
+              icon: isLoading ? loadingIndicator : icon!,
+              label: isLoading
+                  ? SizedBox.shrink()
+                  : Text(label ?? '', style: sizeSpec.labelStyle),
+              style: buttonStyle,
+            )
+          : FilledButton(
+              onPressed: isDisabled || isLoading ? null : onPressed,
+              style: buttonStyle,
+              child: isLoading
+                  ? loadingIndicator
+                  : Text(label ?? '', style: sizeSpec.labelStyle),
+            ),
     );
   }
 }
@@ -339,67 +448,67 @@ class DSButton extends StatelessWidget {
 Widget buttonLightDarkPreview() {
   return DsPreviewScaffold(
     children: [
-      Row(
-        spacing: SpacingTokens.spacing16,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DSButton(
-            label: 'Button',
-            size: DSButtonSize.large,
-            iconLeft: Icons.chevron_left,
-            iconRight: Icons.chevron_right,
-            onPressed: () {},
-          ),
-
-          DSButton(
-            label: 'Button',
-            size: DSButtonSize.medium,
-            iconLeft: Icons.chevron_left,
-            iconRight: Icons.chevron_right,
-            isDisabled: true,
-            onPressed: () {},
-          ),
-
-          DSButton(
-            label: 'Delete',
-            size: DSButtonSize.small,
-            iconOnly: true,
-            iconLeft: Icons.chevron_left,
-            onPressed: () {},
-          ),
-        ],
+      DSButton(
+        label: 'Button',
+        onPressed: () {},
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
+      ),
+      DSButton(
+        label: 'Button',
+        onPressed: () {},
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
+        type: DSButtonType.secondary,
+      ),
+      DSButton(
+        label: 'Button',
+        onPressed: () {},
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
+        type: DSButtonType.tertiary,
+      ),
+      DSButton(
+        label: 'Button',
+        onPressed: () {},
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
+        type: DSButtonType.destructive,
       ),
 
       Row(
-        spacing: SpacingTokens.spacing16,
-        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: SpacingTokens.spacing12,
         children: [
           DSButton(
-            label: 'Button',
-            size: DSButtonSize.large,
-            type: DSButtonType.secondary,
-            iconLeft: Icons.chevron_left,
-            iconRight: Icons.chevron_right,
             onPressed: () {},
-          ),
-
-          DSButton(
-            label: 'Button',
-            size: DSButtonSize.large,
-            type: DSButtonType.secondary,
-            iconLeft: Icons.chevron_left,
-            iconRight: Icons.chevron_right,
-            isDisabled: true,
-            onPressed: () {},
-          ),
-
-          DSButton(
-            label: 'Delete',
-            size: DSButtonSize.large,
-            type: DSButtonType.secondary,
             iconOnly: true,
-            iconLeft: Icons.chevron_left,
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: SizesTokens.size20,
+            ),
+          ),
+          DSButton(
             onPressed: () {},
+            iconOnly: true,
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: SizesTokens.size20,
+            ),
+            type: DSButtonType.secondary,
+          ),
+          DSButton(
+            onPressed: () {},
+            iconOnly: true,
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: SizesTokens.size20,
+            ),
+            type: DSButtonType.tertiary,
+          ),
+          DSButton(
+            onPressed: () {},
+            iconOnly: true,
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: SizesTokens.size20,
+            ),
+            type: DSButtonType.destructive,
           ),
         ],
       ),
