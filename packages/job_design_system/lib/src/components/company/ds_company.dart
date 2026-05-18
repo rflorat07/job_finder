@@ -35,21 +35,17 @@ class DsCompany extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (logoUrl != null) ...[
-          DSRoundedContainer(
+          DSButton(
             width: SizesTokens.size56,
-            height: SizesTokens.size56,
-            backgroundColor: context.dsIsDarkMode
-                ? SemanticColorsDark.companyBackgroundColor
-                : SemanticColorsLight.companyBackgroundColor,
-            borderRadius: BorderRadius.circular(SizesTokens.size28),
-            child: Center(
-              child: DSIconAsset(
-                assetName: logoUrl!,
-                width: SizesTokens.size24,
-                height: SizesTokens.size24,
-              ),
+            iconOnly: true,
+            icon: DSIconAsset(
+              assetName: logoUrl!,
+              width: SizesTokens.size24,
+              height: SizesTokens.size24,
             ),
+            state: DSButtonState.disabled,
           ),
+
           const SizedBox(width: SpacingTokens.spacing16),
         ],
 
@@ -66,7 +62,7 @@ class DsCompany extends StatelessWidget {
               if (followersCount != null) ...[
                 const SizedBox(height: SpacingTokens.spacing4),
                 Text(
-                  '${followersCount!.toStringAsFixed(0)} Followers',
+                  '${followersCount!.toCompactFormat()} Followers',
                   style: TypographyTokens.bodySmall.copyWith(
                     color: SemanticColorsLight.textSecondary,
                   ),
@@ -76,15 +72,13 @@ class DsCompany extends StatelessWidget {
           ),
         ),
 
-        Flexible(
-          child: DSButton(
-            onPressed: () => onSelected?.call(!(isFollowed ?? false)),
-            label: isFollowed == true ? 'Following' : 'Follow',
-            type: isFollowed == true
-                ? DSButtonType.primary
-                : DSButtonType.secondary,
-            size: DSButtonSize.xsmall,
-          ),
+        DSButton(
+          onPressed: () => onSelected?.call(!(isFollowed ?? false)),
+          label: isFollowed == true ? 'Following' : 'Follow',
+          state: isFollowed == true
+              ? DSButtonState.hover
+              : DSButtonState.primary,
+          size: DSButtonSize.xsmall,
         ),
       ],
     );
