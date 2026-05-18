@@ -14,6 +14,15 @@ class SetupAccountViewModel extends ChangeNotifier {
   // Step 3: Selected official accounts
   final List<OfficialAccountEntity> _selectedOfficialAccounts = [];
 
+  // Step 4: Form Fields
+  String _fullName = '';
+  String _username = '';
+  String _bio = '';
+
+  String get fullName => _fullName;
+  String get username => _username;
+  String get bio => _bio;
+
   /// Returns a read-only list of selected expertises
   List<ExpertiseEntity> get selectedExpertises =>
       List.unmodifiable(_selectedExpertises);
@@ -31,6 +40,9 @@ class SetupAccountViewModel extends ChangeNotifier {
   /// Checks if the second step (Expertise Selection) is valid
   /// (e.g. at least 1, max 3)
   bool get isStep2Valid => _selectedExpertises.isNotEmpty;
+
+  /// Checks if the fourth step (Form) is valid
+  bool get isStep4Valid => _fullName.isNotEmpty && _username.isNotEmpty;
 
   /// Updates the selected country and notifies the UI to re-render
   void selectCountry(CountryEntity country) {
@@ -75,5 +87,28 @@ class SetupAccountViewModel extends ChangeNotifier {
   /// Checks if a specific official account is selected
   bool isOfficialAccountSelected(OfficialAccountEntity officialAccount) {
     return _selectedOfficialAccounts.contains(officialAccount);
+  }
+
+  void updateFullName(String value) {
+    _fullName = value;
+    notifyListeners();
+  }
+
+  void updateUsername(String value) {
+    _username = value;
+    notifyListeners();
+  }
+
+  void updateBio(String value) {
+    _bio = value;
+    notifyListeners();
+  }
+
+  Future<void> completeSetup() async {
+    // TODO: Send data to Supabase
+    // - _selectedCountry
+    // - _selectedExpertises
+    // - _selectedOfficialAccounts
+    // - _fullName, _username, _bio
   }
 }

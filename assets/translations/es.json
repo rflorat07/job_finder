@@ -92,7 +92,15 @@
     "follow_official_account": "Seguir algunas cuentas oficiales",
     "follow_official_account_subtitle": "Sigue algunas cuentas oficiales para obtener contenido personalizado y recomendaciones de empleo basadas en tus intereses y preferencias.",
     "follow": "Seguir",
-    "following": "Siguiendo"
+    "following": "Siguiendo",
+    "complete_profile": "Completa tu Perfil",
+    "complete_profile_subtitle": "Rellena los últimos detalles para completar la configuración de tu cuenta.",
+    "full_name": "Nombre Completo",
+    "full_name_hint": "Ingresa tu nombre completo",
+    "username": "Nombre de usuario",
+    "username_hint": "Ingresa tu nombre de usuario",
+    "bio": "Biografía",
+    "bio_hint": "Escribe una breve biografía sobre ti",
+    "finish": "Finalizar"
   }
-  
 }

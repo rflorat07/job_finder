@@ -167,6 +167,18 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: AppRoutes.setupAccountStep4,
+      name: 'setupAccountStep4',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as SetupAccountViewModel;
+        return AppTransitions.fade(
+          context: context,
+          state: state,
+          child: SetupAccountStep4Screen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
       path: AppRoutes.home,
       name: 'home',
       builder: (context, state) => const HomeScreen(),

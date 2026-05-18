@@ -43,23 +43,5 @@ class OfficialAccountEntity {
       logoUrl: 'assets/icons/shopify.svg',
       followersCount: 9000,
     ),
-    OfficialAccountEntity(
-      id: '3',
-      name: 'Google',
-      logoUrl: 'assets/icons/google.svg',
-      followersCount: 9000,
-    ),
-    OfficialAccountEntity(
-      id: '4',
-      name: 'Netflix',
-      logoUrl: 'assets/icons/netflix.svg',
-      followersCount: 9000,
-    ),
-    OfficialAccountEntity(
-      id: '5',
-      name: 'Shopify',
-      logoUrl: 'assets/icons/shopify.svg',
-      followersCount: 9000,
-    ),
   ];
 }

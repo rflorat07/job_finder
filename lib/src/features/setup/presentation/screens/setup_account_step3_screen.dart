@@ -20,7 +20,7 @@ class SetupAccountStep3Screen extends StatefulWidget {
 
 class _SetupAccountStep3ScreenState extends State<SetupAccountStep3Screen> {
   void _onNextStep() {
-    // context.push(AppRoutes.setupAccountStep4, extra: widget.viewModel);
+    context.push(AppRoutes.setupAccountStep4, extra: widget.viewModel);
   }
 
   @override

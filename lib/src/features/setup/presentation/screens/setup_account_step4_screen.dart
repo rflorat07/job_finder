@@ -1,0 +1,97 @@
+import 'package:job_design_system/job_design_system.dart';
+import 'package:job_design_tokens/job_design_tokens.dart';
+
+import '../../../../imports/imports.dart';
+import '../controllers/controllers.dart';
+
+class SetupAccountStep4Screen extends StatefulWidget {
+  final SetupAccountViewModel viewModel;
+
+  const SetupAccountStep4Screen({
+    super.key,
+    required this.viewModel,
+  });
+
+  @override
+  State<SetupAccountStep4Screen> createState() =>
+      _SetupAccountStep4ScreenState();
+}
+
+class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
+  final _fullNameController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _bioController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _fullNameController.text = widget.viewModel.fullName;
+    _usernameController.text = widget.viewModel.username;
+    _bioController.text = widget.viewModel.bio;
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _usernameController.dispose();
+    _bioController.dispose();
+    super.dispose();
+  }
+
+  void _onFinish() async {
+    // LLamar al viewModel para enviar todos los datos a la DB.
+    await widget.viewModel.completeSetup();
+
+    // Navegar al Home luego de completar
+    if (mounted) {
+      context.go(AppRoutes.home);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        return DSSetupAccountBaseLayout(
+          currentStep: 4,
+          onPressed: () => context.canPop() ? context.pop() : null,
+          totalSteps: widget.viewModel.totalSteps,
+          title: context.tr('setup_account.complete_profile'),
+          subtitle: context.tr('setup_account.complete_profile_subtitle'),
+          bottomAction: DSButton(
+            onPressed: widget.viewModel.isStep4Valid ? _onFinish : null,
+            label: context.tr('setup_account.finish'),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: SpacingTokens.spacing16,
+            children: [
+              DSTextFormField(
+                controller: _fullNameController,
+                label: context.tr('setup_account.full_name'),
+                hint: context.tr('setup_account.full_name_hint'),
+                onChanged: widget.viewModel.updateFullName,
+              ),
+              DSTextFormField(
+                controller: _usernameController,
+                label: context.tr('setup_account.username'),
+                hint: context.tr('setup_account.username_hint'),
+                onChanged: widget.viewModel.updateUsername,
+                keyboardType: TextInputType.name,
+              ),
+              DSTextFormField(
+                controller: _bioController,
+                label: context.tr('setup_account.bio'),
+                hint: context.tr('setup_account.bio_hint'),
+                onChanged: widget.viewModel.updateBio,
+                maxLines: 3,
+                keyboardType: TextInputType.multiline,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

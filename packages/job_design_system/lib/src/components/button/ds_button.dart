@@ -15,7 +15,6 @@ enum DSButtonType { primary, secondary, tertiary, destructive }
 class _DSButtonSizeSpec {
   const _DSButtonSizeSpec({
     required this.gap,
-    this.width,
     required this.height,
     required this.iconSize,
     required this.labelStyle,
@@ -24,7 +23,6 @@ class _DSButtonSizeSpec {
 
   final double gap;
   final double height;
-  final double? width;
   final double iconSize;
   final TextStyle labelStyle;
   final double radiusSize;
@@ -344,7 +342,7 @@ class DSButton extends StatelessWidget {
     final sizeSpec = size.spec;
     final typeSpec = type.spec(context.dsTheme.brightness);
     final resolvedHeight = height ?? sizeSpec.height;
-    final resolvedWidth = iconOnly ? sizeSpec.height : width ?? sizeSpec.width;
+    final resolvedWidth = iconOnly ? sizeSpec.height : width;
 
     final loadingIndicator = SizedBox(
       width: SpacingTokens.spacing16,
