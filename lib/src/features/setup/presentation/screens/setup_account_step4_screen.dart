@@ -42,6 +42,9 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
     // LLamar al viewModel para enviar todos los datos a la DB.
     await widget.viewModel.completeSetup();
 
+    // Actualizamos en memoria que ya terminó para que GoRouter lo deje pasar al Home
+    setupCompletedCache = true;
+
     // Navegar al Home luego de completar
     if (mounted) {
       context.go(AppRoutes.home);

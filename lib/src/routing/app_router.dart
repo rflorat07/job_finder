@@ -43,17 +43,24 @@ const _authOnlyRoutes = [
   AppRoutes.newPassword,
 ];
 
+/// Caché global para saber si el usuario ya completó el onboarding, evita leer la DB en cada cambio de ruta.
+bool? setupCompletedCache;
+
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: AppRoutes.onboarding,
 
   // 1. Tell GoRouter to recreate the navigation state whenever this stream emits a value.
-  // We use our Supabase.instance auth changes.
   refreshListenable: GoRouterRefreshStream(
-    Supabase.instance.client.auth.onAuthStateChange,
+    Supabase.instance.client.auth.onAuthStateChange.map((event) {
+      if (event.event == AuthChangeEvent.signedOut) {
+        setupCompletedCache = null;
+      }
+      return event;
+    }),
   ),
 
-  redirect: (context, state) {
+  redirect: (context, state) async {
     // 2. Check the current session status synchronously
     final session = Supabase.instance.client.auth.currentSession;
     final isLoggedIn = session != null;
@@ -70,8 +77,39 @@ final GoRouter appRouter = GoRouter(
 
     // If the user IS logged in and tries to access onboarding/login/register -> Force to Home
     if (isLoggedIn && isGoingToAuthOnly) {
-      // NOTE: Make sure the AppRoutes.home route is uncommented in your routes array!
-      return AppRoutes.setupAccountStep1;
+      return AppRoutes.home;
+    }
+
+    // 4. Verificación del Setup Profile en Base de Datos
+    if (isLoggedIn) {
+      if (setupCompletedCache == null) {
+        try {
+          final response = await Supabase.instance.client
+              .from('profiles')
+              .select('setup_completed')
+              .eq('id', session.user.id)
+              .single();
+          setupCompletedCache = response['setup_completed'] as bool? ?? false;
+        } catch (_) {
+          setupCompletedCache = false;
+        }
+      }
+
+      final isSetupRoute =
+          currentPath == AppRoutes.setupAccountStep1 ||
+          currentPath == AppRoutes.setupAccountStep2 ||
+          currentPath == AppRoutes.setupAccountStep3 ||
+          currentPath == AppRoutes.setupAccountStep4;
+
+      // Si NO ha completado el setup, y va a una ruta protegida (ej: Home) -> Mandarlo forzado al Step 1
+      if (setupCompletedCache == false && isGoingToProtected && !isSetupRoute) {
+        return AppRoutes.setupAccountStep1;
+      }
+
+      // Si YA completó el setup y por alguna razón intenta abrir las pantallas de setup -> Mandarlo a Home
+      if ((setupCompletedCache ?? false) && isSetupRoute) {
+        return AppRoutes.home;
+      }
     }
 
     // If none of the conditions match, allow the navigation
