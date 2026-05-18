@@ -15,7 +15,7 @@ enum DSButtonType { primary, secondary, tertiary, destructive }
 class _DSButtonSizeSpec {
   const _DSButtonSizeSpec({
     required this.gap,
-    required this.width,
+    this.width,
     required this.height,
     required this.iconSize,
     required this.labelStyle,
@@ -24,7 +24,7 @@ class _DSButtonSizeSpec {
 
   final double gap;
   final double height;
-  final double width;
+  final double? width;
   final double iconSize;
   final TextStyle labelStyle;
   final double radiusSize;
@@ -65,7 +65,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size32,
-          width: double.infinity,
+          //width: double.infinity,
           iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodyXSmall,
           radiusSize: RadiusTokens.full, // Pill shape
@@ -74,7 +74,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size40,
-          width: double.infinity,
+          //width: double.infinity,
           iconSize: SizesTokens.size16,
           labelStyle: TypographyTokens.bodySmall,
           radiusSize: RadiusTokens.full,
@@ -83,7 +83,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size48,
-          width: double.infinity,
+          //width: double.infinity,
           iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
@@ -92,7 +92,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size52,
-          width: double.infinity,
+          //width: double.infinity,
           iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,

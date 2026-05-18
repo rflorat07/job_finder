@@ -38,6 +38,7 @@ class _SetupAccountStep2ScreenState extends State<SetupAccountStep2Screen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               DSButton(
+                width: double.infinity,
                 onPressed: widget.viewModel.isStep2Valid ? _onNextStep : null,
                 label: context.tr('shared.continue'),
               ),

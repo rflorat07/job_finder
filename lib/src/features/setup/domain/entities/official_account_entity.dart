@@ -16,13 +16,13 @@ class OfficialAccountEntity {
     OfficialAccountEntity(
       id: '1',
       name: 'Apple',
-      logoUrl: 'assets/icons/google.svg',
+      logoUrl: 'assets/icons/apple.svg',
       followersCount: 9000,
     ),
     OfficialAccountEntity(
       id: '2',
       name: 'Amazon',
-      logoUrl: 'assets/icons/google.svg',
+      logoUrl: 'assets/icons/amazon.svg',
       followersCount: 9000,
     ),
     OfficialAccountEntity(
@@ -33,14 +33,32 @@ class OfficialAccountEntity {
     ),
     OfficialAccountEntity(
       id: '4',
-      name: 'Microsoft',
-      logoUrl: 'assets/icons/google.svg',
+      name: 'Netflix',
+      logoUrl: 'assets/icons/netflix.svg',
       followersCount: 9000,
     ),
     OfficialAccountEntity(
       id: '5',
-      name: 'Netflix',
+      name: 'Shopify',
+      logoUrl: 'assets/icons/shopify.svg',
+      followersCount: 9000,
+    ),
+    OfficialAccountEntity(
+      id: '3',
+      name: 'Google',
       logoUrl: 'assets/icons/google.svg',
+      followersCount: 9000,
+    ),
+    OfficialAccountEntity(
+      id: '4',
+      name: 'Netflix',
+      logoUrl: 'assets/icons/netflix.svg',
+      followersCount: 9000,
+    ),
+    OfficialAccountEntity(
+      id: '5',
+      name: 'Shopify',
+      logoUrl: 'assets/icons/shopify.svg',
       followersCount: 9000,
     ),
   ];

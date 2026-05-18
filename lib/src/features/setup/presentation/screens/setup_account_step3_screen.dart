@@ -40,6 +40,7 @@ class _SetupAccountStep3ScreenState extends State<SetupAccountStep3Screen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               DSButton(
+                width: double.infinity,
                 onPressed: _onNextStep,
                 label: context.tr('shared.continue'),
               ),
