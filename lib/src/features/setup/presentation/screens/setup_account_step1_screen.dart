@@ -1,7 +1,10 @@
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/setup_remote_datasource.dart';
+import '../../data/repositories/setup_repository_impl.dart';
 import '../../domain/entities/entities.dart';
 import '../controllers/controllers.dart';
 import '../widgets/widgets.dart';
@@ -20,7 +23,15 @@ class _SetupAccountStep1ScreenState extends State<SetupAccountStep1Screen> {
   @override
   void initState() {
     super.initState();
-    _viewModel = SetupAccountViewModel();
+
+    // Inyección de dependencias manual.
+    // Usualmente esto se haría con GetIt o Provider.
+    final remoteDataSource = SupabaseSetupRemoteDataSource(
+      Supabase.instance.client,
+    );
+    final repository = SetupRepositoryImpl(remoteDataSource);
+
+    _viewModel = SetupAccountViewModel(setupRepository: repository);
   }
 
   @override

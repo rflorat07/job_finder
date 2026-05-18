@@ -55,8 +55,8 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
       builder: (context, _) {
         return DSSetupAccountBaseLayout(
           currentStep: 4,
-          onPressed: () => context.canPop() ? context.pop() : null,
           totalSteps: widget.viewModel.totalSteps,
+          onPressed: () => context.canPop() ? context.pop() : null,
           title: context.tr('setup_account.complete_profile'),
           subtitle: context.tr('setup_account.complete_profile_subtitle'),
           bottomAction: DSButton(

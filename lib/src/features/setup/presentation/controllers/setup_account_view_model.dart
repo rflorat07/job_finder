@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/entities.dart';
+import '../../domain/repositories/setup_repository.dart';
 
 class SetupAccountViewModel extends ChangeNotifier {
+  final SetupRepository setupRepository;
+
+  SetupAccountViewModel({required this.setupRepository});
   final int totalSteps = 4;
 
   // Step 1: Selected country state
@@ -105,10 +109,15 @@ class SetupAccountViewModel extends ChangeNotifier {
   }
 
   Future<void> completeSetup() async {
-    // TODO: Send data to Supabase
-    // - _selectedCountry
-    // - _selectedExpertises
-    // - _selectedOfficialAccounts
-    // - _fullName, _username, _bio
+    final payload = SetupPayloadEntity(
+      countryCode: _selectedCountry!.code,
+      expertiseIds: _selectedExpertises.map((e) => e.id).toList(),
+      officialAccountIds: _selectedOfficialAccounts.map((e) => e.id).toList(),
+      fullName: _fullName,
+      username: _username,
+      bio: _bio,
+    );
+
+    await setupRepository.completeSetup(payload);
   }
 }
