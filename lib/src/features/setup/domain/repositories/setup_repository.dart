@@ -1,4 +1,4 @@
-import 'setup_payload_entity.dart';
+import '../entities/entities.dart';
 
 abstract class SetupRepository {
   /// Sends the complete profile setup data to the backend.
