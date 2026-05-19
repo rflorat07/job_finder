@@ -216,10 +216,66 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: AppRoutes.home,
-      name: 'home',
-      builder: (context, state) => const HomeScreen(),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        // Inyectamos el shell (el layout base)
+        return DashboardScreen(navigationShell: navigationShell);
+      },
+      branches: [
+        // Rama 1: Home
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: AppRoutes.home,
+              name: 'home',
+              builder: (context, state) => const HomeScreen(),
+            ),
+          ],
+        ),
+        // Rama 2: Search
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/search',
+              name: 'search',
+              builder: (context, state) =>
+                  const SearchScreen(), // Pantalla placeholder
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/interviews',
+              name: 'interviews',
+              builder: (context, state) =>
+                  const InterviewsScreen(), // Pantalla placeholder
+            ),
+          ],
+        ),
+        // Rama 3: Inbox
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/inbox',
+              name: 'inbox',
+              builder: (context, state) =>
+                  const InboxScreen(), // Pantalla placeholder
+            ),
+          ],
+        ),
+        // Rama 4: Account
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/account',
+              name: 'account',
+              builder: (context, state) =>
+                  const AccountScreen(), // Pantalla placeholder
+            ),
+          ],
+        ),
+      ],
     ),
   ],
 );

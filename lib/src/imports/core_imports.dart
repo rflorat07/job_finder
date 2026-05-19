@@ -5,10 +5,14 @@ export 'package:flutter/material.dart';
 
 // Project Core — everything exported through shared.dart (theme, extensions,
 // utils, widgets, enums) plus routing and services.
-
+export '../features/account/presentation/screens/screens.dart';
 export '../features/auth/presentation/screens/screens.dart';
+export '../features/dashboard/presentation/screens/screens.dart';
 export '../features/home/presentation/screens/screens.dart';
+export '../features/inbox/presentation/screens/screens.dart';
+export '../features/interviews/presentation/screens/screens.dart';
 export '../features/onboarding/presentation/screens/screens.dart';
+export '../features/search/presentation/screens/screens.dart';
 export '../features/setup/presentation/screens/screens.dart';
 // Core
 export '../routing/app_router.dart';

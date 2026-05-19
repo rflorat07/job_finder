@@ -102,5 +102,12 @@
     "bio": "Biografia",
     "bio_hint": "Scrivi una breve biografia su di te",
     "finish": "Fatto"
+  },
+    "tabs": {
+    "home": "Home",
+    "search": "Cerca",
+    "interviews": "Colloqui",
+    "inbox": "Posta in arrivo",
+    "account": "Account"
   }
 }

@@ -102,5 +102,12 @@
     "bio": "Bio",
     "bio_hint": "Write a short bio about yourself",
     "finish": "Finish"
+  },
+  "tabs": {
+    "home": "Home",
+    "search": "Search",
+    "interviews": "Interviews",
+    "inbox": "Inbox",
+    "account": "Account"
   }
 }
