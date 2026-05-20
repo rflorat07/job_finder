@@ -23,7 +23,7 @@ class DSSearchBar extends StatelessWidget {
   final Color? hintColor;
 
   /// Background color of the search bar.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Border radius of the search bar.
   final BorderRadius borderRadius;
@@ -37,7 +37,7 @@ class DSSearchBar extends StatelessWidget {
     this.onTap,
     this.icon = Icons.search,
     this.hintColor,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor,
     this.borderRadius = RadiusTokens.fullRadius,
     this.padding = const EdgeInsets.symmetric(
       horizontal: SpacingTokens.spacing16,
@@ -57,7 +57,7 @@ class DSSearchBar extends StatelessWidget {
         child: Container(
           padding: padding,
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: backgroundColor ?? context.dsColors.primaryContainer,
             borderRadius: borderRadius,
           ),
           child: Row(
@@ -69,6 +69,7 @@ class DSSearchBar extends StatelessWidget {
                   hintText,
                   style: context.dsTextTheme.bodySmall?.copyWith(
                     color: effectiveHintColor,
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                     fontWeight: TypographyTokens.fontWeightRegular,
                   ),
                   maxLines: 1,
@@ -88,21 +89,8 @@ Widget dsSearchBarLightPreview() {
   return DsPreviewScaffold(
     backgroundColor: const Color(PrimitiveColors.greyscale25),
     children: [
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: SpacingTokens.spacing24),
-        child: DSSearchBar(hintText: 'Ex. Product Designer'),
-      ),
-      const SizedBox(height: SpacingTokens.spacing16),
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.spacing24,
-        ),
-        child: DSSearchBar(
-          hintText: 'Search jobs, companies...',
-          backgroundColor: const Color(0xFFF3F4F6),
-          hintColor: const Color(0xFF818898),
-        ),
-      ),
+      DSSearchBar(hintText: 'Ex. Product Designer'),
+      DSSearchBar(hintText: 'Search jobs, companies...'),
     ],
   );
 }

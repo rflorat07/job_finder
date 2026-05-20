@@ -10,6 +10,9 @@ class SemanticColorsLight {
   static const Color background = Color(PrimitiveColors.primary500);
 
   /// Surface for cards, containers, elevated elements
+  static const Color primaryContainer = Color(PrimitiveColors.greyscale0);
+
+  /// Surface for cards, containers, elevated elements
   static const Color surface = Color(PrimitiveColors.greyscale0);
 
   /// Elevated surface for modals, popovers
@@ -166,4 +169,8 @@ class SemanticColorsLight {
   static const Color companyBackgroundColor = Color(
     PrimitiveColors.greyscale50,
   );
+
+  // ========== Input Fields ==========
+  /// Background color for input fields (light)
+  static const Color inputBackgroundColor = Color(PrimitiveColors.greyscale0);
 }

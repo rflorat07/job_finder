@@ -7,43 +7,51 @@ import '../components.dart';
 class DSHotVacancyCard extends StatelessWidget {
   final String companyName;
   final String openJobs;
-  final DSDynamicIcon logoIcon;
+  final String logoUrl;
+  final Color networkIconBackground;
+  final Color svgIconBackground;
   final VoidCallback? onTap;
 
   const DSHotVacancyCard({
     super.key,
     required this.companyName,
     required this.openJobs,
-    required this.logoIcon,
+    required this.logoUrl,
+    this.networkIconBackground = const Color(0xFFF3F4F6),
+    this.svgIconBackground = const Color(0xFFE5F1E5),
     this.onTap,
   });
+
+  /// Resolves the logo icon based on whether [logoUrl] is a network URL or a local SVG asset.
+  DSDynamicIcon _buildLogoIcon() {
+    if (logoUrl.startsWith('http')) {
+      return DSDynamicIcon.network(
+        logoUrl,
+        backgroundColor: networkIconBackground,
+      );
+    }
+    return DSDynamicIcon.svgAsset(logoUrl, backgroundColor: svgIconBackground);
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 140,
+        width: 155,
         padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.spacing16,
           vertical: SpacingTokens.spacing20,
         ),
         decoration: BoxDecoration(
-          color: context.dsColors.surface,
+          color: context.dsColors.primaryContainer,
           borderRadius: RadiusTokens.lgRadius,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(10),
-              blurRadius: RadiusTokens.lg,
-              offset: const Offset(0, SpacingTokens.spacing4),
-            ),
-          ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            logoIcon,
+            _buildLogoIcon(),
 
             const SizedBox(height: SpacingTokens.spacing12),
 
@@ -87,19 +95,13 @@ Widget dsHotVacancyCardLightPreview() {
           DSHotVacancyCard(
             companyName: 'Stripe',
             openJobs: '8 Jobs open',
-            logoIcon: DSDynamicIcon.svgAsset(
-              'assets/icons/apple.svg',
-              backgroundColor: const Color(0xFFF3F4F6), // Un fondo gris clarito
-            ),
+            logoUrl: 'assets/icons/apple.svg',
           ),
 
           DSHotVacancyCard(
             companyName: 'Shopify',
             openJobs: '5 Jobs open',
-            logoIcon: DSDynamicIcon.svgAsset(
-              'assets/icons/shopify.svg',
-              backgroundColor: const Color(0xFFE5F1E5), // Verde clarito
-            ),
+            logoUrl: 'assets/icons/shopify.svg',
           ),
         ],
       ),

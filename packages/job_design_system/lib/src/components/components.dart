@@ -11,6 +11,7 @@ export 'country/ds_country.dart';
 export 'dialog/ds_success_dialog.dart';
 export 'divider/ds_divider.dart';
 export 'header/ds_section_header.dart';
+export 'icon/ds_circular_icon.dart';
 export 'icon/ds_dynamic_icon.dart';
 export 'icon/ds_icon_asset.dart';
 export 'input/ds_search_bar.dart';

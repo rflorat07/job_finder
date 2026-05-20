@@ -119,7 +119,7 @@ class _HomeTopSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: topPadding + SpacingTokens.spacing16),
+            SizedBox(height: topPadding + SpacingTokens.spacing4),
 
             // ===== Welcome Back & Notification bell =====
             Padding(
@@ -135,16 +135,14 @@ class _HomeTopSection extends StatelessWidget {
                       color: Colors.white.withAlpha(220),
                     ),
                   ),
-                  DSRoundedContainer(
-                    width: SizesTokens.size40,
-                    height: SizesTokens.size40,
-                    borderRadius: RadiusTokens.fullRadius,
+
+                  DSCircularIcon.icon(
+                    IconsaxPlusLinear.notification,
+                    iconColor: Colors.white,
                     backgroundColor: Colors.white.withAlpha(50),
-                    child: const Icon(
-                      IconsaxPlusLinear.notification,
-                      color: Colors.white,
-                      size: SizesTokens.size20,
-                    ),
+                    onPressed: () {
+                      // TODO: Navigate to notifications
+                    },
                   ),
                 ],
               ),
@@ -165,6 +163,7 @@ class _HomeTopSection extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: SpacingTokens.spacing32),
 
             // ===== Search Bar (Faux — navigates to SearchScreen) =====
@@ -211,17 +210,6 @@ class _HomeTopSection extends StatelessWidget {
                     const SizedBox(width: SpacingTokens.spacing16),
                 itemBuilder: (context, index) {
                   final vacancy = viewModel.hotVacancies[index];
-                  final isNetworkUrl = vacancy.logoUrl.startsWith('http');
-
-                  final dynamicIcon = isNetworkUrl
-                      ? DSDynamicIcon.network(
-                          vacancy.logoUrl,
-                          backgroundColor: _kNetworkIconBg,
-                        )
-                      : DSDynamicIcon.svgAsset(
-                          vacancy.logoUrl,
-                          backgroundColor: _kSvgIconBg,
-                        );
 
                   return DSHotVacancyCard(
                     companyName: vacancy.companyName,
@@ -229,7 +217,9 @@ class _HomeTopSection extends StatelessWidget {
                       'home.jobs_open',
                       namedArgs: {'count': '${vacancy.openJobsCount}'},
                     ),
-                    logoIcon: dynamicIcon,
+                    logoUrl: vacancy.logoUrl,
+                    networkIconBackground: _kNetworkIconBg,
+                    svgIconBackground: _kSvgIconBg,
                     onTap: () {},
                   );
                 },

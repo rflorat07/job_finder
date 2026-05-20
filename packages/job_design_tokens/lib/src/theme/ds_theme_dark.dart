@@ -16,7 +16,7 @@ class DSThemeDark {
       colorScheme: ColorScheme.dark(
         primary: Color(PrimitiveColors.primary500),
         onPrimary: SemanticColorsDark.textPrimary,
-        primaryContainer: Color(PrimitiveColors.primary800),
+        primaryContainer: SemanticColorsDark.primaryContainer,
         onPrimaryContainer: SemanticColorsDark.textPrimary,
 
         secondary: Color(PrimitiveColors.greyscale400),

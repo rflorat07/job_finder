@@ -16,7 +16,7 @@ class DSThemeLight {
       colorScheme: ColorScheme.light(
         primary: Color(PrimitiveColors.primary600),
         onPrimary: SemanticColorsLight.textOnInverse,
-        primaryContainer: Color(PrimitiveColors.primary100),
+        primaryContainer: SemanticColorsLight.primaryContainer,
         onPrimaryContainer: SemanticColorsLight.textPrimary,
 
         secondary: SemanticColorsLight.textSecondary,

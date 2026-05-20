@@ -18,7 +18,7 @@ class HotVacancyEntity {
       companyName: 'Stripe',
       openJobsCount: 8,
       logoUrl:
-          'assets/icons/apple.svg', // Temporal hasta que tengamos el SVG de Stripe
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQGluJhW7I1NYU7jF77E-9K9I46_ib_DUNHw&s', // Temporal hasta que tengamos el SVG de Stripe
     ),
     HotVacancyEntity(
       id: '2',
@@ -30,8 +30,7 @@ class HotVacancyEntity {
       id: '3',
       companyName: 'Meta',
       openJobsCount: 8,
-      logoUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/1024px-Meta_Platforms_Inc._logo.svg.png',
+      logoUrl: 'https://cdn-icons-png.flaticon.com/128/6033/6033716.png',
     ),
     HotVacancyEntity(
       id: '4',

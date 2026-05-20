@@ -9,6 +9,9 @@ class SemanticColorsDark {
   /// Primary application background (dark)
   static const Color background = Color(PrimitiveColors.greyscale900);
 
+  /// Surface for cards, containers, elevated elements
+  static const Color primaryContainer = Color(PrimitiveColors.greyscale800);
+
   /// Surface for cards, containers, elevated elements (dark)
   static const Color surface = Color(PrimitiveColors.neutral90);
 
@@ -168,4 +171,8 @@ class SemanticColorsDark {
   static const Color companyBackgroundColor = Color(
     PrimitiveColors.greyscale800,
   );
+
+  // ========== Input Fields ==========
+  /// Background color for input fields (dark)
+  static const Color inputBackgroundColor = Color(PrimitiveColors.greyscale800);
 }
