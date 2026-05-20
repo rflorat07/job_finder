@@ -23,7 +23,7 @@ class DashboardScreen extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: BottomAppBar(
         child: SizedBox(
-          height: SizesTokens.size64,
+          height: SizesTokens.size56,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

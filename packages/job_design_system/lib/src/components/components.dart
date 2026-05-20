@@ -3,12 +3,15 @@ library;
 
 export 'button/ds_button.dart';
 export 'button/ds_social_button.dart';
+export 'cards/ds_hot_vacancy_card.dart';
 export 'chip/ds_filter_chip.dart';
 export 'company/ds_company.dart';
 export 'container/ds_rounded_container.dart';
 export 'country/ds_country.dart';
 export 'dialog/ds_success_dialog.dart';
 export 'divider/ds_divider.dart';
+export 'header/ds_section_header.dart';
+export 'icon/ds_dynamic_icon.dart';
 export 'icon/ds_icon_asset.dart';
 export 'input/ds_text_form_field.dart';
 export 'layout/ds_auth_base_layout.dart';

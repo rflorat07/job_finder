@@ -27,11 +27,44 @@ class DSFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilterChip(
-      label: Text(label),
-      selected: isSelected ?? false,
-      onSelected: (bool selected) => onSelected?.call(selected),
-      showCheckmark: showCheckmark,
+    final selected = isSelected ?? false;
+    final colorScheme = context.dsColors;
+
+    // Si queremos el color claro verde usamos una opacidad sobre el primary.
+    // O si en tokens hay un surface success/primary, lo usamos.
+    final bgColor = selected
+        ? colorScheme.primary.withAlpha(25) // Fondo verde clarito
+        : Colors.transparent;
+
+    final textColor = selected ? colorScheme.primary : colorScheme.secondary;
+
+    final borderColor = selected
+        ? Colors.transparent
+        : colorScheme.outlineVariant;
+
+    return GestureDetector(
+      onTap: () => onSelected?.call(!selected),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.spacing16,
+          vertical: SpacingTokens.spacing8,
+        ),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(RadiusTokens.lg),
+          border: Border.all(color: borderColor, width: 1),
+        ),
+        child: Text(
+          label,
+          style: context.dsTextTheme.bodyMedium?.copyWith(
+            fontWeight: selected
+                ? TypographyTokens.fontWeightMedium
+                : TypographyTokens.fontWeightRegular,
+            color: textColor,
+          ),
+        ),
+      ),
     );
   }
 }

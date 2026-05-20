@@ -58,6 +58,9 @@ abstract class SizesTokens {
   /// 64 pixels (8 units)
   static const double size64 = 64.0;
 
+  /// 66 pixels (8.25 units)
+  static const double size66 = 66.0;
+
   /// 80 pixels (10 units)
   static const double size80 = 80.0;
 
