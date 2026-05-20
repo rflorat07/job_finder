@@ -17,8 +17,17 @@
   },
   "home": {
     "home_title": "Inicio",
-    "welcome_home": "¡Bienvenido!",
-    "home_subtitle": "Has completado correctamente el proceso de onboarding."
+    "welcome_home": "¡Bienvenido a Inicio!",
+    "home_subtitle": "Has completado correctamente el proceso de onboarding.",
+    "welcome_back": "Bienvenido de nuevo 👋",
+    "lets_find_job": "¡Te encontraremos un gran trabajo!",
+    "search_hint": "Ej. Diseñador de Producto",
+    "hot_vacancies": "Vacantes Destacadas",
+    "best_matches": "Mejores Opciones",
+    "most_recent": "Más Recientes",
+    "see_all": "Ver Todo",
+    "jobs_open": "{count} ofertas abiertas",
+    "retry": "Reintentar"
   },
   "auth": {
     "email": "Correo electrónico",

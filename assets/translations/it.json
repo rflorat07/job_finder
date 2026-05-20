@@ -17,8 +17,17 @@
   },
   "home": {
     "home_title": "Home",
-    "welcome_home": "Benvenuto!",
-    "home_subtitle": "Hai completato con successo il processo di onboarding."
+    "welcome_home": "Benvenuto alla Home!",
+    "home_subtitle": "Hai completato con successo il processo di onboarding.",
+    "welcome_back": "Bentornato 👋",
+    "lets_find_job": "Troviamo un ottimo lavoro per te!",
+    "search_hint": "Es. Product Designer",
+    "hot_vacancies": "Posizioni in Evidenza",
+    "best_matches": "Migliori Corrispondenze",
+    "most_recent": "Più Recenti",
+    "see_all": "Vedi Tutti",
+    "jobs_open": "{count} posizioni aperte",
+    "retry": "Riprova"
   },
   "auth": {
     "email": "Email",
