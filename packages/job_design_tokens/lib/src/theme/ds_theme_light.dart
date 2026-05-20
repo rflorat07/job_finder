@@ -21,12 +21,12 @@ class DSThemeLight {
 
         secondary: SemanticColorsLight.textSecondary,
         onSecondary: SemanticColorsLight.textOnInverse,
-        secondaryContainer: Color(PrimitiveColors.greyscale0),
+        secondaryContainer: SemanticColorsLight.secondaryContainer,
         onSecondaryContainer: SemanticColorsLight.textPrimary,
 
         tertiary: SemanticColorsLight.textDisabled,
         onTertiary: SemanticColorsLight.textPrimary,
-        tertiaryContainer: Color(PrimitiveColors.primary800),
+        tertiaryContainer: SemanticColorsLight.tertiaryContainer,
         onTertiaryContainer: SemanticColorsLight.textPrimary,
 
         error: SemanticColorsLight.error,

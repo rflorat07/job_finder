@@ -44,7 +44,7 @@ class DSHotVacancyCard extends StatelessWidget {
           vertical: SpacingTokens.spacing20,
         ),
         decoration: BoxDecoration(
-          color: context.dsColors.primaryContainer,
+          color: context.dsColors.secondaryContainer,
           borderRadius: RadiusTokens.lgRadius,
         ),
         child: Column(

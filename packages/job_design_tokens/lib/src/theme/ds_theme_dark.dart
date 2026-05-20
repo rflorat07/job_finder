@@ -21,12 +21,12 @@ class DSThemeDark {
 
         secondary: Color(PrimitiveColors.greyscale400),
         onSecondary: SemanticColorsDark.textPrimary,
-        secondaryContainer: Color(PrimitiveColors.greyscale900),
+        secondaryContainer: SemanticColorsDark.secondaryContainer,
         onSecondaryContainer: SemanticColorsDark.textPrimary,
 
         tertiary: SemanticColorsDark.textDisabled,
         onTertiary: SemanticColorsDark.textPrimary,
-        tertiaryContainer: Color(PrimitiveColors.primary800),
+        tertiaryContainer: SemanticColorsDark.tertiaryContainer,
         onTertiaryContainer: SemanticColorsDark.textPrimary,
 
         error: SemanticColorsDark.error,

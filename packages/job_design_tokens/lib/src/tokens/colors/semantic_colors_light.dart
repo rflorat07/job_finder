@@ -10,7 +10,13 @@ class SemanticColorsLight {
   static const Color background = Color(PrimitiveColors.primary500);
 
   /// Surface for cards, containers, elevated elements
-  static const Color primaryContainer = Color(PrimitiveColors.greyscale0);
+  static const Color primaryContainer = Color(PrimitiveColors.greyscale25);
+
+  /// Surface for cards, containers, elevated elements
+  static const Color secondaryContainer = Color(PrimitiveColors.greyscale0);
+
+  /// Surface for cards, containers, elevated elements
+  static const Color tertiaryContainer = Color(PrimitiveColors.greyscale0);
 
   /// Surface for cards, containers, elevated elements
   static const Color surface = Color(PrimitiveColors.greyscale0);

@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _kScaffoldBg,
+      backgroundColor: context.dsColors.primaryContainer,
       body: ListenableBuilder(
         listenable: _viewModel,
         builder: (context, _) {

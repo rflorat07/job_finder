@@ -10,7 +10,13 @@ class SemanticColorsDark {
   static const Color background = Color(PrimitiveColors.greyscale900);
 
   /// Surface for cards, containers, elevated elements
-  static const Color primaryContainer = Color(PrimitiveColors.greyscale800);
+  static const Color primaryContainer = Color(PrimitiveColors.greyscale900);
+
+  /// Surface for cards, containers, elevated elements
+  static const Color secondaryContainer = Color(PrimitiveColors.greyscale800);
+
+  /// Surface for cards, containers, elevated elements
+  static const Color tertiaryContainer = Color(PrimitiveColors.greyscale900);
 
   /// Surface for cards, containers, elevated elements (dark)
   static const Color surface = Color(PrimitiveColors.neutral90);

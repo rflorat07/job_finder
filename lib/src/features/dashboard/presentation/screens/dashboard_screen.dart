@@ -22,6 +22,7 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: BottomAppBar(
+        color: context.dsColors.tertiaryContainer,
         child: SizedBox(
           height: SizesTokens.size56,
           child: Row(
