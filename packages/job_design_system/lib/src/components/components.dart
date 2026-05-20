@@ -13,6 +13,7 @@ export 'divider/ds_divider.dart';
 export 'header/ds_section_header.dart';
 export 'icon/ds_dynamic_icon.dart';
 export 'icon/ds_icon_asset.dart';
+export 'input/ds_search_bar.dart';
 export 'input/ds_text_form_field.dart';
 export 'layout/ds_auth_base_layout.dart';
 export 'layout/ds_auth_header_base_layout.dart';

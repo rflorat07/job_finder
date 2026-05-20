@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -90,12 +91,19 @@ class DSDynamicIcon extends StatelessWidget {
       case DSIconType.iconData:
         return Icon(iconData, size: size, color: color);
       case DSIconType.network:
-        return Image.network(
-          assetOrUrl!,
+        return CachedNetworkImage(
+          imageUrl: assetOrUrl!,
           width: size,
           height: size,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Icon(
+          placeholder: (context, url) => SizedBox(
+            width: size,
+            height: size,
+            child: const Center(
+              child: CircularProgressIndicator.adaptive(strokeWidth: 2),
+            ),
+          ),
+          errorWidget: (context, url, error) => Icon(
             Icons.error_outline,
             size: size,
             color: context.dsColors.error,
