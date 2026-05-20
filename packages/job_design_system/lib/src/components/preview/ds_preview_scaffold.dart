@@ -33,10 +33,17 @@ class DsPreviewScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final previewTheme = theme ?? DSThemeLight.build();
+    // Respect the brightness set by @Preview annotation
+    final isDark =
+        theme?.brightness == Brightness.dark ||
+        MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+    final previewTheme =
+        theme ?? (isDark ? DSThemeDark.build() : DSThemeLight.build());
 
     return MaterialApp(
-      theme: previewTheme,
+      theme: isDark ? null : previewTheme,
+      darkTheme: isDark ? previewTheme : null,
+      themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: backgroundColor ?? Colors.white,
