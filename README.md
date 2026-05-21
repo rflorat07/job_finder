@@ -22,6 +22,7 @@ CREATE TABLE public.profiles (
   full_name TEXT,
   username TEXT UNIQUE,
   bio TEXT,
+  avatar_url TEXT,
   setup_completed BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -67,6 +68,46 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
 ```
+
+### 3. Create the `avatars` Storage bucket
+
+This project stores user profile images in Supabase Storage. Follow these steps:
+
+1. Go to **Storage** in your Supabase Dashboard
+2. Click **"New bucket"**
+3. Set the name to `avatars`
+4. Enable **"Public bucket"** (allows public read access via URL)
+5. Click **"Create bucket"**
+
+Then run the following in the **SQL Editor** to set up the RLS policies for the bucket:
+
+```sql
+-- Allow authenticated users to upload their own avatar
+CREATE POLICY "Users can upload their own avatar"
+ON storage.objects FOR INSERT
+TO authenticated
+WITH CHECK (
+  bucket_id = 'avatars'
+  AND (storage.foldername(name))[1] = auth.uid()::text
+);
+
+-- Allow authenticated users to update (overwrite) their own avatar
+CREATE POLICY "Users can update their own avatar"
+ON storage.objects FOR UPDATE
+TO authenticated
+USING (
+  bucket_id = 'avatars'
+  AND (storage.foldername(name))[1] = auth.uid()::text
+);
+
+-- Allow anyone to view avatars (public bucket)
+CREATE POLICY "Anyone can view avatars"
+ON storage.objects FOR SELECT
+TO public
+USING (bucket_id = 'avatars');
+```
+
+> **Note:** Each user's avatar is stored at the path `{user_id}/avatar.{ext}` with `upsert: true`, so uploading a new image automatically replaces the previous one.
 
 ## Getting started
 ```bash
