@@ -168,7 +168,7 @@ class _AuthBackButtonHeader extends StatelessWidget {
             label: '',
             iconOnly: true,
             size: DSButtonSize.small,
-            type: DSButtonType.primary,
+            state: DSButtonState.focused,
             icon: Icon(icon ?? Icons.arrow_back_ios_new),
             onPressed: onPressed ?? () => Navigator.maybePop(context),
           ),
@@ -203,7 +203,7 @@ class _AuthScrollableContainer extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: containerColor ?? context.dsColors.secondaryContainer,
+          color: containerColor ?? context.dsColors.tertiaryContainer,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(SizesTokens.size24),
           ),

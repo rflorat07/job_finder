@@ -124,6 +124,11 @@ class SemanticColorsLight {
   /// Primary background (light)
   static const Color primaryBackground = Color(PrimitiveColors.primary100);
 
+  /// Primary disabled background (light)
+  static const Color primaryDisabledBackground = Color(
+    PrimitiveColors.greyscale100,
+  );
+
   /// Secondary disabled background (light)
   static const Color secondaryDisabledBackground = Color(
     PrimitiveColors.greyscale0,

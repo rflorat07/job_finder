@@ -30,7 +30,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.dsColors.surface,
+      backgroundColor: context.dsColors.tertiaryContainer,
       body: SafeArea(
         child: ListenableBuilder(
           listenable: _controller,
@@ -44,7 +44,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   const SizedBox(height: SpacingTokens.spacing8),
 
                   // Skip button
-                  OnBoardingSkip(onSkip: () => _controller.skip(context)),
+                  OnBoardingSkip(
+                    isLastPage: _controller.isLastPage,
+                    onSkip: () => _controller.skip(context),
+                  ),
 
                   const SizedBox(height: SpacingTokens.spacing16),
 
@@ -77,6 +80,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
                   // Next button
                   DSButton(
+                    width: double.infinity,
                     label: _controller.isLastPage
                         ? context.tr('shared.get_started')
                         : '',

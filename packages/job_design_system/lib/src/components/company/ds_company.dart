@@ -56,7 +56,7 @@ class DsCompany extends StatelessWidget {
               Text(
                 name,
                 style: TypographyTokens.bodyMedium.copyWith(
-                  color: SemanticColorsLight.textPrimary,
+                  color: context.dsColors.onPrimaryContainer,
                 ),
               ),
               if (followersCount != null) ...[
@@ -64,7 +64,9 @@ class DsCompany extends StatelessWidget {
                 Text(
                   '${followersCount!.toCompactFormat()} Followers',
                   style: TypographyTokens.bodySmall.copyWith(
-                    color: SemanticColorsLight.textSecondary,
+                    color: context.dsColors.secondary,
+                    fontWeight: TypographyTokens.fontWeightRegular,
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                   ),
                 ),
               ],

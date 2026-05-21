@@ -22,7 +22,7 @@ class DSThemeLight {
         secondary: SemanticColorsLight.textSecondary,
         onSecondary: SemanticColorsLight.textOnInverse,
         secondaryContainer: SemanticColorsLight.secondaryContainer,
-        onSecondaryContainer: SemanticColorsLight.textPrimary,
+        onSecondaryContainer: SemanticColorsLight.defaultButtonBackgroundColor,
 
         tertiary: SemanticColorsLight.textDisabled,
         onTertiary: SemanticColorsLight.textPrimary,
@@ -36,6 +36,7 @@ class DSThemeLight {
 
         surface: SemanticColorsLight.surface,
         onSurface: SemanticColorsLight.textPrimary,
+        onSurfaceVariant: SemanticColorsLight.textSecondary,
 
         outline: SemanticColorsLight.border,
         outlineVariant: SemanticColorsLight.borderSubtle,

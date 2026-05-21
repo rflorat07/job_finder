@@ -22,7 +22,7 @@ class DSThemeDark {
         secondary: Color(PrimitiveColors.greyscale400),
         onSecondary: SemanticColorsDark.textPrimary,
         secondaryContainer: SemanticColorsDark.secondaryContainer,
-        onSecondaryContainer: SemanticColorsDark.textPrimary,
+        onSecondaryContainer: SemanticColorsDark.defaultButtonBackgroundColor,
 
         tertiary: SemanticColorsDark.textDisabled,
         onTertiary: SemanticColorsDark.textPrimary,

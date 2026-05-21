@@ -42,7 +42,7 @@ class DSSuccessDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(RadiusTokens.xl2),
       ),
-      backgroundColor: context.dsColors.secondaryContainer,
+      backgroundColor: context.dsColors.tertiaryContainer,
       surfaceTintColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -97,6 +97,7 @@ class DSSuccessDialog extends StatelessWidget {
             const SizedBox(height: SpacingTokens.spacing32),
 
             DSButton(
+              width: double.infinity,
               label: buttonText,
               size: DSButtonSize.medium,
               onPressed: () {

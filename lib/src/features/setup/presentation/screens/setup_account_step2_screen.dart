@@ -42,16 +42,27 @@ class _SetupAccountStep2ScreenState extends State<SetupAccountStep2Screen> {
                 onPressed: widget.viewModel.isStep2Valid ? _onNextStep : null,
                 label: context.tr('shared.continue'),
               ),
+
               DSButton(
                 onPressed: _onNextStep,
                 label: context.tr('shared.skip'),
                 type: DSButtonType.tertiary,
+                state: DSButtonState.primary,
+                customStyle: ButtonStyle(
+                  foregroundColor: WidgetStateProperty.all(
+                    context.dsColors.primary,
+                  ),
+
+                  overlayColor: WidgetStateProperty.resolveWith((states) {
+                    return Colors.transparent;
+                  }),
+                ),
               ),
             ],
           ),
           child: Wrap(
-            spacing: SpacingTokens.spacing8,
-            runSpacing: SpacingTokens.spacing8,
+            spacing: SpacingTokens.spacing12,
+            runSpacing: SpacingTokens.spacing16,
             children: ExpertiseEntity.mocks.map((expertise) {
               final isSelected = widget.viewModel.isExpertiseSelected(
                 expertise,

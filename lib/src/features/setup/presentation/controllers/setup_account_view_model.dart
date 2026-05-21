@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/entities.dart';
@@ -22,10 +24,12 @@ class SetupAccountViewModel extends ChangeNotifier {
   String _fullName = '';
   String _username = '';
   String _bio = '';
+  File? _profileImage;
 
   String get fullName => _fullName;
   String get username => _username;
   String get bio => _bio;
+  File? get profileImage => _profileImage;
 
   /// Returns a read-only list of selected expertises
   List<ExpertiseEntity> get selectedExpertises =>
@@ -108,7 +112,19 @@ class SetupAccountViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Updates the selected profile image file.
+  void updateProfileImage(File? file) {
+    _profileImage = file;
+    notifyListeners();
+  }
+
   Future<void> completeSetup() async {
+    // Upload profile image if selected
+    String? avatarUrl;
+    if (_profileImage != null) {
+      avatarUrl = await setupRepository.uploadProfileImage(_profileImage!);
+    }
+
     final payload = SetupPayloadEntity(
       countryCode: _selectedCountry!.code,
       expertiseIds: _selectedExpertises.map((e) => e.id).toList(),
@@ -116,6 +132,7 @@ class SetupAccountViewModel extends ChangeNotifier {
       fullName: _fullName,
       username: _username,
       bio: _bio,
+      avatarUrl: avatarUrl,
     );
 
     await setupRepository.completeSetup(payload);

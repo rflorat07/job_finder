@@ -12,18 +12,6 @@ const double _kGreenOverlapOffset = 90;
 /// Height of the horizontal Hot Vacancies carousel.
 const double _kCarouselHeight = 160;
 
-/// Placeholder/hint color in the search bar (neutral grey).
-const Color _kHintColor = Color(0xFF818898);
-
-/// Scaffold background color (off-white).
-const Color _kScaffoldBg = Color(0xFFF6F8FA);
-
-/// Background color for network icon in card (light grey).
-const Color _kNetworkIconBg = Color(0xFFF3F4F6);
-
-/// Background color for SVG icon in card (light green).
-const Color _kSvgIconBg = Color(0xFFE5F1E5);
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -173,7 +161,6 @@ class _HomeTopSection extends StatelessWidget {
               ),
               child: DSSearchBar(
                 hintText: context.tr('home.search_hint'),
-                hintColor: _kHintColor,
                 icon: IconsaxPlusLinear.search_normal_1,
                 onTap: () {
                   // TODO: Navigate to SearchScreen
@@ -218,8 +205,6 @@ class _HomeTopSection extends StatelessWidget {
                       namedArgs: {'count': '${vacancy.openJobsCount}'},
                     ),
                     logoUrl: vacancy.logoUrl,
-                    networkIconBackground: _kNetworkIconBg,
-                    svgIconBackground: _kSvgIconBg,
                     onTap: () {},
                   );
                 },

@@ -86,9 +86,9 @@ class _CountrySelectionBottomSheetState
       backgroundColor: Colors.transparent,
       body: Container(
         height: double.infinity, // Now it correctly fills the Scaffold
-        decoration: const BoxDecoration(
-          color: Color(PrimitiveColors.greyscale25),
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: context.dsColors.primaryContainer,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(RadiusTokens.xl2),
             topRight: Radius.circular(RadiusTokens.xl2),
           ),

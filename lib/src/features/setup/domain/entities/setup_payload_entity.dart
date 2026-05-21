@@ -5,6 +5,7 @@ class SetupPayloadEntity {
   final String fullName;
   final String username;
   final String bio;
+  final String? avatarUrl;
 
   const SetupPayloadEntity({
     required this.countryCode,
@@ -13,5 +14,6 @@ class SetupPayloadEntity {
     required this.fullName,
     required this.username,
     required this.bio,
+    this.avatarUrl,
   });
 }

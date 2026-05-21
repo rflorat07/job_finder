@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../domain/entities/setup_payload_entity.dart';
 import '../../domain/repositories/setup_repository.dart';
 import '../datasources/setup_remote_datasource.dart';
@@ -12,5 +14,10 @@ class SetupRepositoryImpl implements SetupRepository {
   Future<void> completeSetup(SetupPayloadEntity payload) async {
     final model = SetupPayloadModel.fromEntity(payload);
     await remoteDataSource.completeSetup(model);
+  }
+
+  @override
+  Future<String> uploadProfileImage(File imageFile) async {
+    return remoteDataSource.uploadProfileImage(imageFile);
   }
 }

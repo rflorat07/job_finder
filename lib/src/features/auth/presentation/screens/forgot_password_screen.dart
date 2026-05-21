@@ -116,6 +116,7 @@ class _ForgotPasswordEmailFormState extends State<_ForgotPasswordEmailForm> {
                 const Spacer(),
 
                 DSButton(
+                  width: double.infinity,
                   label: context.tr('auth.send_code'),
                   isLoading: isLoading,
                   onPressed: isLoading

@@ -48,6 +48,14 @@ class _SetupAccountStep3ScreenState extends State<SetupAccountStep3Screen> {
                 onPressed: _onNextStep,
                 label: context.tr('shared.skip'),
                 type: DSButtonType.tertiary,
+                state: DSButtonState.primary,
+                customStyle: ButtonStyle(
+                  foregroundColor: WidgetStateProperty.all(
+                    context.dsColors.primary,
+                  ),
+
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                ),
               ),
             ],
           ),

@@ -19,9 +19,11 @@ class _DSButtonSizeSpec {
     required this.iconSize,
     required this.labelStyle,
     required this.radiusSize,
+    this.width,
   });
 
   final double gap;
+  final double? width;
   final double height;
   final double iconSize;
   final TextStyle labelStyle;
@@ -90,7 +92,7 @@ extension on DSButtonSize {
         return _DSButtonSizeSpec(
           gap: SpacingTokens.buttonGap,
           height: SizesTokens.size52,
-          //width: double.infinity,
+          width: double.infinity,
           iconSize: SizesTokens.size20,
           labelStyle: TypographyTokens.bodyMedium,
           radiusSize: RadiusTokens.full,
@@ -113,8 +115,8 @@ extension on DSButtonType {
         : SemanticColorsLight.primary;
 
     final primaryDisabledBackgroundColor = isDark
-        ? SemanticColorsDark.primaryDisabled
-        : SemanticColorsLight.primaryDisabled;
+        ? SemanticColorsDark.primaryDisabledBackground
+        : SemanticColorsLight.primaryDisabledBackground;
 
     final primaryDisabledForegroundColor = isDark
         ? SemanticColorsDark.textDisabled
@@ -237,7 +239,7 @@ extension on DSButtonType {
         return _DSButtonTypeSpec(
           // State standard
           foregroundColor: secondaryForegroundColor,
-          backgroundColor: secondaryBackgroundColor,
+          backgroundColor: Colors.transparent,
 
           // State hover
           hoverBackgroundColor: secondaryHoverBackgroundColor,
@@ -289,6 +291,7 @@ class DSButton extends StatelessWidget {
     this.height,
     this.onPressed,
     this.iconAlignment,
+    this.customStyle,
     this.iconOnly = false,
     this.isLoading = false,
     this.isDisabled = false,
@@ -336,13 +339,16 @@ class DSButton extends StatelessWidget {
   /// Optional alignment for the icon when [iconOnly] is true
   final IconAlignment? iconAlignment;
 
+  /// Optional style overrides merged on top of the computed button style.
+  final ButtonStyle? customStyle;
+
   @override
   Widget build(BuildContext context) {
     final stateSpec = state;
     final sizeSpec = size.spec;
     final typeSpec = type.spec(context.dsTheme.brightness);
     final resolvedHeight = height ?? sizeSpec.height;
-    final resolvedWidth = iconOnly ? sizeSpec.height : width;
+    final resolvedWidth = iconOnly ? sizeSpec.height : width ?? sizeSpec.width;
 
     final loadingIndicator = SizedBox(
       width: SpacingTokens.spacing16,
@@ -353,8 +359,10 @@ class DSButton extends StatelessWidget {
       ),
     );
 
-    final buttonStyle = ButtonStyle(
+    final baseStyle = ButtonStyle(
       elevation: const WidgetStatePropertyAll(0),
+
+      textStyle: WidgetStatePropertyAll(sizeSpec.labelStyle),
 
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -409,6 +417,11 @@ class DSButton extends StatelessWidget {
       ),
     );
 
+    // Apply customStyle: customStyle properties take priority over base.
+    final buttonStyle = customStyle != null
+        ? customStyle!.merge(baseStyle)
+        : baseStyle;
+
     return SizedBox(
       width: resolvedWidth,
       height: resolvedHeight,
@@ -426,17 +439,13 @@ class DSButton extends StatelessWidget {
               onPressed: isDisabled || isLoading ? null : onPressed,
               iconAlignment: iconAlignment,
               icon: isLoading ? loadingIndicator : icon!,
-              label: isLoading
-                  ? SizedBox.shrink()
-                  : Text(label ?? '', style: sizeSpec.labelStyle),
+              label: isLoading ? SizedBox.shrink() : Text(label ?? ''),
               style: buttonStyle,
             )
           : FilledButton(
               onPressed: isDisabled || isLoading ? null : onPressed,
               style: buttonStyle,
-              child: isLoading
-                  ? loadingIndicator
-                  : Text(label ?? '', style: sizeSpec.labelStyle),
+              child: isLoading ? loadingIndicator : Text(label ?? ''),
             ),
     );
   }

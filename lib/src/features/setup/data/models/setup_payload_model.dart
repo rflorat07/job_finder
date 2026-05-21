@@ -8,6 +8,7 @@ class SetupPayloadModel extends SetupPayloadEntity {
     required super.fullName,
     required super.username,
     required super.bio,
+    super.avatarUrl,
   });
 
   factory SetupPayloadModel.fromEntity(SetupPayloadEntity entity) {
@@ -18,6 +19,7 @@ class SetupPayloadModel extends SetupPayloadEntity {
       fullName: entity.fullName,
       username: entity.username,
       bio: entity.bio,
+      avatarUrl: entity.avatarUrl,
     );
   }
 
@@ -31,6 +33,7 @@ class SetupPayloadModel extends SetupPayloadEntity {
       'username': username,
       'bio': bio,
       'setup_completed': true, // Marcar que el usuario terminó el onboarding
+      if (avatarUrl != null) 'avatar_url': avatarUrl,
     };
   }
 }

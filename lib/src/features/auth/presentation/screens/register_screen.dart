@@ -176,6 +176,7 @@ class _RegisterEmailFormState extends State<_RegisterEmailForm> {
                   top: SpacingTokens.spacing24,
                 ),
                 child: DSButton(
+                  width: double.infinity,
                   label: context.tr('auth.register'),
                   isLoading: isLoading,
                   onPressed: isLoading ? null : _submitForm,

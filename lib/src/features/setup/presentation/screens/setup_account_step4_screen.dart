@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
@@ -21,6 +24,8 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
   final _fullNameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _bioController = TextEditingController();
+  final _imagePicker = ImagePicker();
+  bool _isSubmitting = false;
 
   @override
   void initState() {
@@ -39,15 +44,28 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
   }
 
   void _onFinish() async {
-    // LLamar al viewModel para enviar todos los datos a la DB.
+    if (_isSubmitting) return;
+
+    setState(() => _isSubmitting = true);
+
     await widget.viewModel.completeSetup();
 
-    // Actualizamos en memoria que ya terminó para que GoRouter lo deje pasar al Home
     setupCompletedCache = true;
 
-    // Navegar al Home luego de completar
     if (mounted) {
       context.go(AppRoutes.home);
+    }
+  }
+
+  Future<void> _onPickImage() async {
+    final picked = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 512,
+      maxHeight: 512,
+      imageQuality: 80,
+    );
+    if (picked != null) {
+      widget.viewModel.updateProfileImage(File(picked.path));
     }
   }
 
@@ -63,6 +81,7 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
           title: context.tr('setup_account.complete_profile'),
           subtitle: context.tr('setup_account.complete_profile_subtitle'),
           bottomAction: DSButton(
+            isLoading: _isSubmitting,
             onPressed: widget.viewModel.isStep4Valid ? _onFinish : null,
             label: context.tr('setup_account.finish'),
           ),
@@ -70,6 +89,12 @@ class _SetupAccountStep4ScreenState extends State<SetupAccountStep4Screen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: SpacingTokens.spacing16,
             children: [
+              Center(
+                child: DSAvatarPicker(
+                  imageFile: widget.viewModel.profileImage,
+                  onPickImage: _onPickImage,
+                ),
+              ),
               DSTextFormField(
                 controller: _fullNameController,
                 label: context.tr('setup_account.full_name'),

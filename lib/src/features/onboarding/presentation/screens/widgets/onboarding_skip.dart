@@ -5,8 +5,10 @@ class OnBoardingSkip extends StatelessWidget {
   const OnBoardingSkip({
     super.key,
     required this.onSkip,
+    required this.isLastPage,
   });
 
+  final bool isLastPage;
   final VoidCallback onSkip;
 
   @override
@@ -14,9 +16,15 @@ class OnBoardingSkip extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        TextButton(
-          onPressed: onSkip,
-          child: Text(context.tr('shared.skip')),
+        Visibility(
+          visible: !isLastPage,
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          child: TextButton(
+            onPressed: onSkip,
+            child: Text(context.tr('shared.skip')),
+          ),
         ),
       ],
     );

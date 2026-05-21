@@ -52,11 +52,7 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(
-        context.dsIsDarkMode
-            ? PrimitiveColors.greyscale800
-            : PrimitiveColors.greyscale25,
-      ),
+      backgroundColor: context.dsColors.primaryContainer,
       bottomNavigationBar: bottomAction != null
           ? SafeArea(
               child: Padding(
@@ -88,8 +84,8 @@ class DSSetupAccountBaseLayout extends StatelessWidget {
                       DSButton(
                         onPressed: onPressed,
                         iconOnly: true,
-                        state: DSButtonState.primary,
-                        type: DSButtonType.tertiary,
+                        state: DSButtonState.disabled,
+                        type: DSButtonType.primary,
                         icon: Icon(icon ?? Icons.arrow_back_ios_new),
                       ),
                       const SizedBox(height: SizesTokens.size24),

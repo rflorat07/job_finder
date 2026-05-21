@@ -29,8 +29,8 @@ class DSCountry extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? context.dsColors.primary.withValues(alpha: 0.1)
-              : context.dsColors.surface,
+              ? context.dsColors.onSecondaryContainer
+              : context.dsColors.secondaryContainer,
           borderRadius: BorderRadius.circular(RadiusTokens.lg),
           border: isSelected
               ? Border.all(color: context.dsColors.primary, width: 1)

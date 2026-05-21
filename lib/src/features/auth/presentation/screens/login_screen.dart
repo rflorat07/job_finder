@@ -149,6 +149,7 @@ class _LoginEmailFormState extends State<_LoginEmailForm> {
               ),
 
               DSButton(
+                width: double.infinity,
                 label: context.tr('log_in.log_in'),
                 onPressed: isLoading ? null : _submitForm,
                 isLoading: isLoading,

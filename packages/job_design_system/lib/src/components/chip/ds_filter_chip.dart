@@ -33,35 +33,33 @@ class DSFilterChip extends StatelessWidget {
     // Si queremos el color claro verde usamos una opacidad sobre el primary.
     // O si en tokens hay un surface success/primary, lo usamos.
     final bgColor = selected
-        ? colorScheme.primary.withAlpha(25) // Fondo verde clarito
-        : Colors.transparent;
+        ? colorScheme.onSecondaryContainer
+        : colorScheme.secondaryContainer;
 
     final textColor = selected ? colorScheme.primary : colorScheme.secondary;
 
     final borderColor = selected
-        ? Colors.transparent
-        : colorScheme.outlineVariant;
+        ? colorScheme.primary
+        : colorScheme.secondaryContainer;
 
     return GestureDetector(
       onTap: () => onSelected?.call(!selected),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.spacing16,
+          horizontal: SpacingTokens.spacing24,
           vertical: SpacingTokens.spacing8,
         ),
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(RadiusTokens.lg),
+          borderRadius: RadiusTokens.fullRadius,
           border: Border.all(color: borderColor, width: 1),
         ),
         child: Text(
           label,
-          style: context.dsTextTheme.bodyMedium?.copyWith(
-            fontWeight: selected
-                ? TypographyTokens.fontWeightMedium
-                : TypographyTokens.fontWeightRegular,
+          style: context.dsTextTheme.bodySmall?.copyWith(
             color: textColor,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
       ),

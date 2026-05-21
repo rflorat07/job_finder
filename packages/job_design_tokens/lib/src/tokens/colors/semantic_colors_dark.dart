@@ -41,7 +41,7 @@ class SemanticColorsDark {
   static const Color textOnInverse = Color(PrimitiveColors.neutral100);
 
   /// Disabled text
-  static const Color textDisabled = Color(PrimitiveColors.greyscale500);
+  static const Color textDisabled = Color(PrimitiveColors.greyscale0);
 
   /// Disabled secondary text (dark)
   static const Color textSecondaryDisabled = Color(
@@ -53,7 +53,7 @@ class SemanticColorsDark {
   static const Color primary = Color(PrimitiveColors.primary500);
 
   /// Primary hover state
-  static const Color primaryHover = Color(PrimitiveColors.primary500);
+  static const Color primaryHover = Color(PrimitiveColors.primary400);
 
   /// Primary pressed state
   static const Color primaryPressed = Color(PrimitiveColors.primary500);
@@ -75,7 +75,7 @@ class SemanticColorsDark {
   static const Color successHover = Color(PrimitiveColors.success300);
 
   /// Error/negative feedback
-  static const Color error = Color(PrimitiveColors.error200);
+  static const Color error = Color(PrimitiveColors.error100);
 
   /// Error hover
   static const Color errorHover = Color(PrimitiveColors.error300);
@@ -123,6 +123,11 @@ class SemanticColorsDark {
 
   /// Primary background (dark)
   static const Color primaryBackground = Color(PrimitiveColors.primary50);
+
+  /// Primary disabled background (dark)
+  static const Color primaryDisabledBackground = Color(
+    PrimitiveColors.greyscale800,
+  );
 
   /// Secondary disabled background (dark)
   static const Color secondaryDisabledBackground = Color(
