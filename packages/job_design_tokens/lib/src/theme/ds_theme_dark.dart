@@ -36,6 +36,8 @@ class DSThemeDark {
 
         surface: SemanticColorsDark.surface,
         onSurface: SemanticColorsDark.textPrimary,
+        onSurfaceVariant: SemanticColorsDark.textSecondary,
+        surfaceContainer: SemanticColorsDark.backButtonBackgroundColor,
 
         outline: SemanticColorsDark.border,
         outlineVariant: SemanticColorsDark.borderSubtle,

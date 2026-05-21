@@ -37,6 +37,7 @@ class DSThemeLight {
         surface: SemanticColorsLight.surface,
         onSurface: SemanticColorsLight.textPrimary,
         onSurfaceVariant: SemanticColorsLight.textSecondary,
+        surfaceContainer: SemanticColorsLight.backButtonBackgroundColor,
 
         outline: SemanticColorsLight.border,
         outlineVariant: SemanticColorsLight.borderSubtle,

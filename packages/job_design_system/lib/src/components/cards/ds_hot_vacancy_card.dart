@@ -39,6 +39,7 @@ class DSHotVacancyCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 155,
+        height: 136,
         padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.spacing16,
           vertical: SpacingTokens.spacing20,

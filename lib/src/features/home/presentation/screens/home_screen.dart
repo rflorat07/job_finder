@@ -7,7 +7,7 @@ import '../controllers/home_view_model.dart';
 // ─── Semantic constants ────────────────────────────────────────────────────────
 /// Bottom offset of the green background relative to the section edge.
 /// Controls how much the carousel cards "overflow" outside the green area.
-const double _kGreenOverlapOffset = 90;
+const double _kGreenOverlapOffset = 68;
 
 /// Height of the horizontal Hot Vacancies carousel.
 const double _kCarouselHeight = 160;
@@ -107,9 +107,10 @@ class _HomeTopSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // SizedBox for top padding + extra spacing from the green background edge
             SizedBox(height: topPadding + SpacingTokens.spacing4),
 
-            // ===== Welcome Back & Notification bell =====
+            // =====  Main title & Notification bell =====
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: SpacingTokens.spacing24,
@@ -117,42 +118,44 @@ class _HomeTopSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    context.tr('home.welcome_back'),
-                    style: context.dsTextTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withAlpha(220),
+                  Expanded(
+                    child: Column(
+                      spacing: SpacingTokens.spacing4,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          context.tr('home.welcome_back'),
+                          style: context.dsTextTheme.bodySmall?.copyWith(
+                            color: Colors.white,
+                            height: TypographyTokens.lineHeightExtraRelaxed,
+                            fontWeight: TypographyTokens.fontWeightRegular,
+                          ),
+                        ),
+                        Text(
+                          context.tr('home.lets_find_job'),
+                          style: context.dsTextTheme.bodyLarge?.copyWith(
+                            fontWeight: TypographyTokens.fontWeightBold,
+                            color: Colors.white,
+                            height: TypographyTokens.lineHeightRelaxed,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
 
                   DSCircularIcon.icon(
-                    IconsaxPlusLinear.notification,
+                    IconsaxPlusBold.notification,
                     iconColor: Colors.white,
-                    backgroundColor: Colors.white.withAlpha(50),
-                    onPressed: () {
-                      // TODO: Navigate to notifications
-                    },
+                    size: SizesTokens.size48,
+                    iconSize: SizesTokens.size24,
+                    backgroundColor: context.dsColors.surfaceContainer,
+                    onPressed: () {},
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: SpacingTokens.spacing12),
 
-            // ===== Main title =====
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.spacing24,
-              ),
-              child: Text(
-                context.tr('home.lets_find_job'),
-                style: context.dsTextTheme.headlineMedium?.copyWith(
-                  fontWeight: TypographyTokens.fontWeightBold,
-                  color: Colors.white,
-                  height: 1.2,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: SpacingTokens.spacing32),
+            const SizedBox(height: SpacingTokens.spacing24),
 
             // ===== Search Bar (Faux — navigates to SearchScreen) =====
             Padding(
@@ -162,12 +165,11 @@ class _HomeTopSection extends StatelessWidget {
               child: DSSearchBar(
                 hintText: context.tr('home.search_hint'),
                 icon: IconsaxPlusLinear.search_normal_1,
-                onTap: () {
-                  // TODO: Navigate to SearchScreen
-                },
+                onTap: () {},
               ),
             ),
-            const SizedBox(height: SpacingTokens.spacing32),
+
+            const SizedBox(height: SpacingTokens.spacing24),
 
             // ===== "Hot Vacancies" header =====
             Padding(
@@ -182,6 +184,7 @@ class _HomeTopSection extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: SpacingTokens.spacing16),
 
             // ===== Horizontal Carousel =====
@@ -210,8 +213,6 @@ class _HomeTopSection extends StatelessWidget {
                 },
               ),
             ),
-
-            const SizedBox(height: SpacingTokens.spacing16),
           ],
         ),
       ],
