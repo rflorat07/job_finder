@@ -42,6 +42,8 @@ dependencies:
   # Environment Variables
   flutter_dotenv: ^6.0.1
 
+  # Image Picker
+  image_picker: ^1.2.2
 
   # Local Packages
   job_design_tokens:
