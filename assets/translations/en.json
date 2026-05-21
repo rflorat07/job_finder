@@ -26,7 +26,13 @@
     "most_recent": "Most Recent",
     "see_all": "See All",
     "jobs_open": "{count} Jobs open",
-    "retry": "Try Again"
+    "retry": "Try Again",
+    "days_ago": "{count}d ago",
+    "posted_today": "Today",
+    "filter_all_jobs": "All Jobs",
+    "filter_full_time": "Full Time",
+    "filter_part_time": "Part Time",
+    "filter_freelance": "Freelance"
   },
   "auth": {
     "email": "Email",

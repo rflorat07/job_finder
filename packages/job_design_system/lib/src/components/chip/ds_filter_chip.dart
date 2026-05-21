@@ -11,6 +11,7 @@ class DSFilterChip extends StatelessWidget {
     this.onSelected,
     this.isSelected,
     this.showCheckmark = false,
+    this.showBorder = true,
   });
 
   /// The text label of the chip.
@@ -22,6 +23,9 @@ class DSFilterChip extends StatelessWidget {
   /// Whether to show the checkmark.
   final bool showCheckmark;
 
+  /// Whether to show the border when selected. Defaults to true.
+  final bool showBorder;
+
   /// Callback when the chip is tapped. Provides the new selected state.
   final void Function(bool)? onSelected;
 
@@ -30,8 +34,6 @@ class DSFilterChip extends StatelessWidget {
     final selected = isSelected ?? false;
     final colorScheme = context.dsColors;
 
-    // Si queremos el color claro verde usamos una opacidad sobre el primary.
-    // O si en tokens hay un surface success/primary, lo usamos.
     final bgColor = selected
         ? colorScheme.onSecondaryContainer
         : colorScheme.secondaryContainer;
@@ -53,7 +55,7 @@ class DSFilterChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: RadiusTokens.fullRadius,
-          border: Border.all(color: borderColor, width: 1),
+          border: showBorder ? Border.all(color: borderColor, width: 1) : null,
         ),
         child: Text(
           label,
@@ -84,6 +86,13 @@ Widget dsFilterChipLightDarkPreview() {
           ),
 
           DSFilterChip(
+            onSelected: (bool selected) {},
+            isSelected: true,
+            label: 'Accounting',
+          ),
+
+          DSFilterChip(
+            showBorder: false,
             onSelected: (bool selected) {},
             isSelected: true,
             label: 'Accounting',

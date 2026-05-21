@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/hot_vacancy_entity.dart';
+import '../../domain/entities/job_match_entity.dart';
 
 /// Possible states for the Home screen.
 enum HomeState { loading, loaded, error }
+
+/// Available job type filters for Best Matches.
+enum JobFilter { allJobs, fullTime, partTime, freelance }
 
 class HomeViewModel extends ChangeNotifier {
   HomeState _state = HomeState.loading;
   String? _errorMessage;
   List<HotVacancyEntity> _hotVacancies = [];
+  List<JobMatchEntity> _allMatches = [];
+  List<JobMatchEntity> _filteredMatches = [];
+  JobFilter _selectedFilter = JobFilter.allJobs;
 
   /// Current screen state.
   HomeState get state => _state;
@@ -18,6 +25,39 @@ class HomeViewModel extends ChangeNotifier {
 
   /// Public unmodifiable list so the UI reads state safely.
   List<HotVacancyEntity> get hotVacancies => List.unmodifiable(_hotVacancies);
+
+  /// Best matching jobs filtered by the current [selectedFilter].
+  List<JobMatchEntity> get bestMatches => List.unmodifiable(_filteredMatches);
+
+  /// Currently selected job filter.
+  JobFilter get selectedFilter => _selectedFilter;
+
+  /// Updates the selected filter and refreshes the visible list.
+  void setFilter(JobFilter filter) {
+    if (_selectedFilter == filter) return;
+    _selectedFilter = filter;
+    _applyFilter();
+    notifyListeners();
+  }
+
+  /// Applies the current filter to the full matches list.
+  void _applyFilter() {
+    if (_selectedFilter == JobFilter.allJobs) {
+      _filteredMatches = List.from(_allMatches);
+      return;
+    }
+
+    final tagToMatch = switch (_selectedFilter) {
+      JobFilter.allJobs => '',
+      JobFilter.fullTime => 'Full-time',
+      JobFilter.partTime => 'Part-time',
+      JobFilter.freelance => 'Contract',
+    };
+
+    _filteredMatches = _allMatches
+        .where((job) => job.tags.contains(tagToMatch))
+        .toList();
+  }
 
   /// Loads Home data. Will connect to Supabase in the future.
   Future<void> fetchHomeData() async {
@@ -29,6 +69,8 @@ class HomeViewModel extends ChangeNotifier {
       // TODO: Replace with real repository / Supabase call
       await Future<void>.delayed(const Duration(milliseconds: 300));
       _hotVacancies = List.from(HotVacancyEntity.mocks);
+      _allMatches = List.from(JobMatchEntity.mocks);
+      _applyFilter();
       _state = HomeState.loaded;
     } catch (e) {
       _errorMessage = e.toString();

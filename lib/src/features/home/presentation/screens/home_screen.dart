@@ -70,8 +70,84 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverToBoxAdapter(
                   child: _HomeTopSection(viewModel: _viewModel),
                 ),
-                // Placeholder temporal
-                const SliverToBoxAdapter(child: SizedBox(height: 300)),
+
+                // ===== Best Matches section header =====
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spacing24,
+                    vertical: SpacingTokens.spacing16,
+                  ),
+                  sliver: SliverToBoxAdapter(
+                    child: DSSectionHeader(
+                      title: context.tr('home.best_matches'),
+                      actionText: context.tr('home.see_all'),
+                      onActionPressed: () {
+                        // TODO: Navigate to full Best Matches list
+                      },
+                    ),
+                  ),
+                ),
+
+                // ===== Filter chips =====
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: SizesTokens.size38,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.spacing24,
+                      ),
+                      children: JobFilter.values.map((filter) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            right: SpacingTokens.spacing12,
+                          ),
+                          child: DSFilterChip(
+                            showBorder: false,
+                            label: _filterLabel(context, filter),
+                            isSelected: _viewModel.selectedFilter == filter,
+                            onSelected: (_) => _viewModel.setFilter(filter),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: SpacingTokens.spacing16),
+                ),
+
+                // ===== Best Matches job cards =====
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spacing24,
+                  ),
+                  sliver: SliverList.separated(
+                    itemCount: _viewModel.bestMatches.length,
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(height: SpacingTokens.spacing16),
+                    itemBuilder: (context, index) {
+                      final job = _viewModel.bestMatches[index];
+                      return DSJobCard(
+                        jobTitle: job.jobTitle,
+                        companyName: job.companyName,
+                        location: job.location,
+                        salary: job.salary,
+                        logoUrl: job.companyLogoUrl,
+                        tags: job.tags,
+                        timeAgo: _formatTimeAgo(context, job.postedAt),
+                        onBookmark: () {},
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                ),
+
+                // Bottom spacing
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: SpacingTokens.spacing32),
+                ),
               ],
             ),
           };
@@ -218,4 +294,27 @@ class _HomeTopSection extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Formats a [DateTime] into a relative time string using translations.
+String _formatTimeAgo(BuildContext context, DateTime postedAt) {
+  final difference = DateTime.now().difference(postedAt);
+
+  if (difference.inDays == 0) {
+    return context.tr('home.posted_today');
+  }
+  return context.tr(
+    'home.days_ago',
+    namedArgs: {'count': '${difference.inDays}'},
+  );
+}
+
+/// Returns the localized label for a given [JobFilter].
+String _filterLabel(BuildContext context, JobFilter filter) {
+  return switch (filter) {
+    JobFilter.allJobs => context.tr('home.filter_all_jobs'),
+    JobFilter.fullTime => context.tr('home.filter_full_time'),
+    JobFilter.partTime => context.tr('home.filter_part_time'),
+    JobFilter.freelance => context.tr('home.filter_freelance'),
+  };
 }
