@@ -160,6 +160,9 @@ class SemanticColorsDark {
     PrimitiveColors.primary900,
   );
 
+  /// Icon background (dark)
+  static const Color iconBackgroundColor = Color(PrimitiveColors.greyscale700);
+
   // ========== Linear Progress Indicator Theme ==========
   /// Primary color for linear progress indicators (dark)
   static const Color linearProgressIndicatorColor = Color(

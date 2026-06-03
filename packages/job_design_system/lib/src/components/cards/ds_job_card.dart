@@ -54,17 +54,11 @@ class DSJobCard extends StatelessWidget {
   });
 
   /// Resolves the logo icon based on whether [logoUrl] is a network URL or SVG.
-  DSDynamicIcon _buildLogoIcon() {
+  DSDynamicIcon _buildLogoIcon(Color backgroundColor) {
     if (logoUrl.startsWith('http')) {
-      return DSDynamicIcon.network(
-        logoUrl,
-        backgroundColor: const Color(0xFFF3F4F6),
-      );
+      return DSDynamicIcon.network(logoUrl, backgroundColor: backgroundColor);
     }
-    return DSDynamicIcon.svgAsset(
-      logoUrl,
-      backgroundColor: const Color(0xFFE5F1E5),
-    );
+    return DSDynamicIcon.svgAsset(logoUrl, backgroundColor: backgroundColor);
   }
 
   @override
@@ -74,11 +68,8 @@ class DSJobCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(SpacingTokens.spacing16),
         decoration: BoxDecoration(
-          color: context.dsColors.surface,
+          color: context.dsColors.secondaryContainer,
           borderRadius: RadiusTokens.lgRadius,
-          border: Border.all(
-            color: context.dsColors.outlineVariant.withAlpha(80),
-          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,8 +78,14 @@ class DSJobCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildLogoIcon(),
-                const SizedBox(width: SpacingTokens.spacing12),
+                _buildLogoIcon(
+                  context.dsIsDarkMode
+                      ? SemanticColorsDark.iconBackgroundColor
+                      : SemanticColorsLight.iconBackgroundColor,
+                ),
+
+                const SizedBox(width: SpacingTokens.spacing16),
+
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,17 +93,18 @@ class DSJobCard extends StatelessWidget {
                       Text(
                         jobTitle,
                         style: context.dsTextTheme.bodyMedium?.copyWith(
-                          fontWeight: TypographyTokens.fontWeightSemiBold,
                           color: context.dsColors.onSurface,
+                          height: TypographyTokens.lineHeightExtraRelaxed,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: SpacingTokens.spacing4),
                       Text(
-                        '$companyName · $location',
+                        companyName,
                         style: context.dsTextTheme.bodySmall?.copyWith(
                           color: context.dsColors.secondary,
+                          fontWeight: TypographyTokens.fontWeightRegular,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -114,13 +112,14 @@ class DSJobCard extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                const SizedBox(width: SpacingTokens.spacing16),
+
                 if (onBookmark != null)
                   GestureDetector(
                     onTap: onBookmark,
                     child: Icon(
-                      isBookmarked
-                          ? Icons.bookmark_rounded
-                          : Icons.bookmark_border_rounded,
+                      isBookmarked ? Icons.favorite : Icons.favorite_border,
                       color: isBookmarked
                           ? context.dsColors.primary
                           : context.dsColors.secondary,
@@ -130,27 +129,34 @@ class DSJobCard extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: SpacingTokens.spacing12),
+            const SizedBox(height: SpacingTokens.spacing16),
 
-            // ===== Salary + Time ago =====
+            // ===== Location + Salary Row =====
             Row(
               children: [
+                Icon(
+                  Icons.location_on,
+                  size: SizesTokens.size16,
+                  color: context.dsColors.secondary,
+                ),
+                const SizedBox(width: SpacingTokens.spacing4),
+                Expanded(
+                  child: Text(
+                    location,
+                    style: context.dsTextTheme.bodySmall?.copyWith(
+                      color: context.dsColors.secondary,
+                      fontWeight: TypographyTokens.fontWeightRegular,
+                      height: TypographyTokens.lineHeightExtraRelaxed,
+                    ),
+                  ),
+                ),
                 Text(
                   salary,
                   style: context.dsTextTheme.bodySmall?.copyWith(
-                    fontWeight: TypographyTokens.fontWeightSemiBold,
-                    color: context.dsColors.primary,
+                    color: context.dsColors.onPrimaryContainer,
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                   ),
                 ),
-                if (timeAgo != null) ...[
-                  const Spacer(),
-                  Text(
-                    timeAgo!,
-                    style: context.dsTextTheme.bodySmall?.copyWith(
-                      color: context.dsColors.secondary,
-                    ),
-                  ),
-                ],
               ],
             ),
 
@@ -199,7 +205,7 @@ class _JobTag extends StatelessWidget {
 }
 
 @Preview(name: 'DSJobCard Preview - Light', brightness: Brightness.light)
-@Preview(name: 'DSJobCard Preview - Dark', brightness: Brightness.dark)
+//@Preview(name: 'DSJobCard Preview - Dark', brightness: Brightness.dark)
 Widget dsJobCardPreview() {
   return DsPreviewScaffold(
     children: [

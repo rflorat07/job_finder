@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeState.loaded => CustomScrollView(
               physics: const ClampingScrollPhysics(),
               slivers: [
+                // ===== Top section with green background and carousel =====
                 SliverToBoxAdapter(
                   child: _HomeTopSection(viewModel: _viewModel),
                 ),
@@ -89,60 +90,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 // ===== Filter chips =====
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: SizesTokens.size38,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: SpacingTokens.spacing24,
-                      ),
-                      children: JobFilter.values.map((filter) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            right: SpacingTokens.spacing12,
-                          ),
-                          child: DSFilterChip(
-                            showBorder: false,
-                            label: _filterLabel(context, filter),
-                            isSelected: _viewModel.selectedFilter == filter,
-                            onSelected: (_) => _viewModel.setFilter(filter),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
+                _FilterChips(viewModel: _viewModel),
 
+                // Spacing between chips and job cards
                 const SliverToBoxAdapter(
                   child: SizedBox(height: SpacingTokens.spacing16),
                 ),
 
                 // ===== Best Matches job cards =====
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.spacing24,
-                  ),
-                  sliver: SliverList.separated(
-                    itemCount: _viewModel.bestMatches.length,
-                    separatorBuilder: (_, _) =>
-                        const SizedBox(height: SpacingTokens.spacing16),
-                    itemBuilder: (context, index) {
-                      final job = _viewModel.bestMatches[index];
-                      return DSJobCard(
-                        jobTitle: job.jobTitle,
-                        companyName: job.companyName,
-                        location: job.location,
-                        salary: job.salary,
-                        logoUrl: job.companyLogoUrl,
-                        tags: job.tags,
-                        timeAgo: _formatTimeAgo(context, job.postedAt),
-                        onBookmark: () {},
-                        onTap: () {},
-                      );
-                    },
-                  ),
-                ),
+                _BestMatches(viewModel: _viewModel),
 
                 // Bottom spacing
                 const SliverToBoxAdapter(
@@ -157,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-/// Unified top section: green background + search bar + Hot Vacancies carousel.
 class _HomeTopSection extends StatelessWidget {
   final HomeViewModel viewModel;
 
@@ -292,6 +247,76 @@ class _HomeTopSection extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class _BestMatches extends StatelessWidget {
+  const _BestMatches({required HomeViewModel viewModel})
+    : _viewModel = viewModel;
+
+  final HomeViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: SpacingTokens.spacing24,
+      ),
+      sliver: SliverList.separated(
+        itemCount: _viewModel.bestMatches.length,
+        separatorBuilder: (_, _) =>
+            const SizedBox(height: SpacingTokens.spacing16),
+        itemBuilder: (context, index) {
+          final job = _viewModel.bestMatches[index];
+          return DSJobCard(
+            jobTitle: job.jobTitle,
+            companyName: job.companyName,
+            location: job.location,
+            salary: job.salary,
+            logoUrl: job.companyLogoUrl,
+            tags: job.tags,
+            timeAgo: _formatTimeAgo(context, job.postedAt),
+            onBookmark: () {},
+            onTap: () {},
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _FilterChips extends StatelessWidget {
+  const _FilterChips({required HomeViewModel viewModel})
+    : _viewModel = viewModel;
+
+  final HomeViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: SizesTokens.size38,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.spacing24,
+          ),
+          children: JobFilter.values.map((filter) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                right: SpacingTokens.spacing12,
+              ),
+              child: DSFilterChip(
+                showBorder: false,
+                label: _filterLabel(context, filter),
+                isSelected: _viewModel.selectedFilter == filter,
+                onSelected: (_) => _viewModel.setFilter(filter),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 }
