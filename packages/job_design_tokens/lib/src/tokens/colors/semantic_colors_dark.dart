@@ -183,7 +183,7 @@ class SemanticColorsDark {
   // ========== Company Theme ==========
   /// Background color for company names (dark)
   static const Color companyBackgroundColor = Color(
-    PrimitiveColors.greyscale800,
+    PrimitiveColors.greyscale700,
   );
 
   // ========== Input Fields ==========

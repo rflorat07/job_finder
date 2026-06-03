@@ -100,6 +100,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ===== Best Matches job cards =====
                 _BestMatches(viewModel: _viewModel),
 
+                // ===== Most Recent section header =====
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spacing24,
+                    vertical: SpacingTokens.spacing16,
+                  ),
+                  sliver: SliverToBoxAdapter(
+                    child: DSSectionHeader(
+                      title: context.tr('home.most_recent'),
+                      actionText: context.tr('home.see_all'),
+                      onActionPressed: () {
+                        // TODO: Navigate to full Most Recent list
+                      },
+                    ),
+                  ),
+                ),
+
+                // ===== Most Recent horizontal carousel =====
+                _MostRecent(viewModel: _viewModel),
+
                 // Bottom spacing
                 const SliverToBoxAdapter(
                   child: SizedBox(height: SpacingTokens.spacing32),
@@ -315,6 +335,48 @@ class _FilterChips extends StatelessWidget {
               ),
             );
           }).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+/// Height of the Most Recent horizontal carousel cards.
+const double _kRecentCarouselHeight = 220;
+
+class _MostRecent extends StatelessWidget {
+  const _MostRecent({required HomeViewModel viewModel})
+    : _viewModel = viewModel;
+
+  final HomeViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: _kRecentCarouselHeight,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.spacing24,
+          ),
+          itemCount: _viewModel.recentJobs.length,
+          separatorBuilder: (_, _) =>
+              const SizedBox(width: SpacingTokens.spacing16),
+          itemBuilder: (context, index) {
+            final job = _viewModel.recentJobs[index];
+            return DSRecentJobCard(
+              jobTitle: job.jobTitle,
+              companyName: job.companyName,
+              location: job.location,
+              salary: job.salary,
+              description: job.description,
+              logoUrl: job.companyLogoUrl,
+              tags: job.tags,
+              onBookmark: () {},
+              onTap: () {},
+            );
+          },
         ),
       ),
     );

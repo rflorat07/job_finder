@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/hot_vacancy_entity.dart';
 import '../../domain/entities/job_match_entity.dart';
+import '../../domain/entities/recent_job_entity.dart';
 
 /// Possible states for the Home screen.
 enum HomeState { loading, loaded, error }
@@ -15,6 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   List<HotVacancyEntity> _hotVacancies = [];
   List<JobMatchEntity> _allMatches = [];
   List<JobMatchEntity> _filteredMatches = [];
+  List<RecentJobEntity> _recentJobs = [];
   JobFilter _selectedFilter = JobFilter.allJobs;
 
   /// Current screen state.
@@ -28,6 +30,9 @@ class HomeViewModel extends ChangeNotifier {
 
   /// Best matching jobs filtered by the current [selectedFilter].
   List<JobMatchEntity> get bestMatches => List.unmodifiable(_filteredMatches);
+
+  /// Most recently posted jobs.
+  List<RecentJobEntity> get recentJobs => List.unmodifiable(_recentJobs);
 
   /// Currently selected job filter.
   JobFilter get selectedFilter => _selectedFilter;
@@ -70,6 +75,7 @@ class HomeViewModel extends ChangeNotifier {
       await Future<void>.delayed(const Duration(milliseconds: 300));
       _hotVacancies = List.from(HotVacancyEntity.mocks);
       _allMatches = List.from(JobMatchEntity.mocks);
+      _recentJobs = List.from(RecentJobEntity.mocks);
       _applyFilter();
       _state = HomeState.loaded;
     } catch (e) {

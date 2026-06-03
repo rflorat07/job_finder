@@ -89,10 +89,9 @@ class _NavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Usaremos Theme/Tokens más adelante para refinar estos colores
     final color = isSelected
-        ? const Color(0xFF0D0D12)
-        : const Color(0xFF818898);
+        ? context.dsColors.onPrimaryContainer
+        : context.dsColors.onSurfaceVariant;
     return InkWell(
       onTap: onTap,
       child: SizedBox(
