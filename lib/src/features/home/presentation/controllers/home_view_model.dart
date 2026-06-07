@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/hot_vacancy_entity.dart';
 import '../../domain/entities/job_match_entity.dart';
 import '../../domain/entities/recent_job_entity.dart';
+import '../../domain/repositories/home_repository.dart';
 
 /// Possible states for the Home screen.
 enum HomeState { loading, loaded, error }
@@ -11,6 +12,10 @@ enum HomeState { loading, loaded, error }
 enum JobFilter { allJobs, fullTime, partTime, freelance }
 
 class HomeViewModel extends ChangeNotifier {
+  final HomeRepository _repository;
+
+  HomeViewModel(this._repository);
+
   HomeState _state = HomeState.loading;
   String? _errorMessage;
   List<HotVacancyEntity> _hotVacancies = [];
@@ -64,24 +69,30 @@ class HomeViewModel extends ChangeNotifier {
         .toList();
   }
 
-  /// Loads Home data. Will connect to Supabase in the future.
+  /// Loads Home data from the repository.
   Future<void> fetchHomeData() async {
     _state = HomeState.loading;
     _errorMessage = null;
     notifyListeners();
 
-    try {
-      // TODO: Replace with real repository / Supabase call
-      await Future<void>.delayed(const Duration(milliseconds: 300));
-      _hotVacancies = List.from(HotVacancyEntity.mocks);
-      _allMatches = List.from(JobMatchEntity.mocks);
-      _recentJobs = List.from(RecentJobEntity.mocks);
-      _applyFilter();
-      _state = HomeState.loaded;
-    } catch (e) {
-      _errorMessage = e.toString();
-      _state = HomeState.error;
-    }
+    // Fetch hot vacancies from Supabase via repository
+    final result = await _repository.getHotVacancies();
+
+    result.fold(
+      (failure) {
+        _errorMessage = failure.message;
+        _state = HomeState.error;
+      },
+      (vacancies) {
+        _hotVacancies = vacancies;
+
+        // TODO: Replace with repository calls when ready
+        _allMatches = List.from(JobMatchEntity.mocks);
+        _recentJobs = List.from(RecentJobEntity.mocks);
+        _applyFilter();
+        _state = HomeState.loaded;
+      },
+    );
 
     notifyListeners();
   }

@@ -282,7 +282,7 @@ INSERT INTO public.job_listings (company_id, job_title, location, salary, descri
 
 ```
 ┌──────────────┐       ┌──────────────────┐
-│  companies   │       │  job_listings     │
+│  companies   │       │  job_listings    │
 ├──────────────┤       ├──────────────────┤
 │ id (PK)      │──┐    │ id (PK)          │
 │ name         │  │    │ company_id (FK)  │◄─┘
@@ -299,13 +299,13 @@ INSERT INTO public.job_listings (company_id, job_title, location, salary, descri
 │ username     │       └──────────────────┘
 │ bio          │
 │ avatar_url   │       ┌──────────────────────────┐
-│ country_code │       │ companies_with_open_jobs  │
+│ country_code │       │ companies_with_open_jobs │
 │ expertises   │       │ (VIEW)                   │
 │ ...          │       ├──────────────────────────┤
 └──────────────┘       │ id                       │
                        │ company_name             │
                        │ logo_url                 │
-                       │ open_jobs_count (COUNT)   │
+                       │ open_jobs_count (COUNT)  │
                        └──────────────────────────┘
 ```
 

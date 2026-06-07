@@ -1,7 +1,10 @@
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/home_remote_datasource.dart';
+import '../../data/repositories/home_repository_impl.dart';
 import '../controllers/home_view_model.dart';
 
 // ─── Semantic constants ────────────────────────────────────────────────────────
@@ -28,7 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _viewModel = HomeViewModel()..fetchHomeData();
+
+    final datasource = SupabaseHomeRemoteDataSource(
+      Supabase.instance.client,
+    );
+    final repository = HomeRepositoryImpl(datasource);
+
+    _viewModel = HomeViewModel(repository)..fetchHomeData();
   }
 
   @override
