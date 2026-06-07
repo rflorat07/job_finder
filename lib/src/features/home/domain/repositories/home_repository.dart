@@ -10,5 +10,9 @@ abstract class HomeRepository {
 
   /// Returns job listings, optionally filtered by [jobType].
   /// Values for [jobType]: `'full-time'`, `'part-time'`, `'contract'`, or `null` for all.
-  FutureEither<List<JobListingEntity>> getJobListings({String? jobType});
+  /// If [limit] is provided, restricts the number of results.
+  FutureEither<List<JobListingEntity>> getJobListings({
+    String? jobType,
+    int? limit,
+  });
 }

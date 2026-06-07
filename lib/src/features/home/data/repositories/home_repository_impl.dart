@@ -26,9 +26,13 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<JobListingEntity>>> getJobListings({
     String? jobType,
+    int? limit,
   }) async {
     try {
-      final models = await _remoteDataSource.getJobListings(jobType: jobType);
+      final models = await _remoteDataSource.getJobListings(
+        jobType: jobType,
+        limit: limit,
+      );
       return Right(models);
     } on Exception catch (e) {
       return Left(ServerFailure('Failed to load job listings', error: e));

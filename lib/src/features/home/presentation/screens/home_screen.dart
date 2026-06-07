@@ -402,7 +402,7 @@ class _MostRecent extends StatelessWidget {
               companyName: job.companyName,
               location: job.location,
               salary: job.salary,
-              description: job.description,
+              description: job.description ?? '',
               logoUrl: job.companyLogoUrl,
               tags: job.tags,
               onBookmark: () {},

@@ -11,7 +11,8 @@ abstract class HomeRemoteDataSource {
 
   /// Fetches job listings with company info.
   /// If [jobType] is provided, filters by that type (e.g. 'full-time').
-  Future<List<JobListingModel>> getJobListings({String? jobType});
+  /// If [limit] is provided, restricts the number of results.
+  Future<List<JobListingModel>> getJobListings({String? jobType, int? limit});
 }
 
 /// Supabase implementation of [HomeRemoteDataSource].
@@ -28,7 +29,10 @@ class SupabaseHomeRemoteDataSource implements HomeRemoteDataSource {
   }
 
   @override
-  Future<List<JobListingModel>> getJobListings({String? jobType}) async {
+  Future<List<JobListingModel>> getJobListings({
+    String? jobType,
+    int? limit,
+  }) async {
     var query = _client
         .from('job_listings')
         .select('*, companies(name, logo_url)');
@@ -37,7 +41,9 @@ class SupabaseHomeRemoteDataSource implements HomeRemoteDataSource {
       query = query.eq('job_type', jobType);
     }
 
-    final response = await query.order('posted_at', ascending: false);
+    final ordered = query.order('posted_at', ascending: false);
+
+    final response = limit != null ? await ordered.limit(limit) : await ordered;
 
     return response.map((json) => JobListingModel.fromJson(json)).toList();
   }

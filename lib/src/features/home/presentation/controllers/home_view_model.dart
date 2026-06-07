@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/hot_vacancy_entity.dart';
 import '../../domain/entities/job_listing_entity.dart';
-import '../../domain/entities/recent_job_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 
 /// Possible states for the Home screen.
@@ -20,7 +19,7 @@ class HomeViewModel extends ChangeNotifier {
   String? _errorMessage;
   List<HotVacancyEntity> _hotVacancies = [];
   List<JobListingEntity> _bestMatches = [];
-  List<RecentJobEntity> _recentJobs = [];
+  List<JobListingEntity> _recentJobs = [];
   JobFilter _selectedFilter = JobFilter.allJobs;
 
   /// Current screen state.
@@ -35,8 +34,8 @@ class HomeViewModel extends ChangeNotifier {
   /// Best matching jobs filtered by the current [selectedFilter].
   List<JobListingEntity> get bestMatches => List.unmodifiable(_bestMatches);
 
-  /// Most recently posted jobs.
-  List<RecentJobEntity> get recentJobs => List.unmodifiable(_recentJobs);
+  /// Most recently posted jobs (limited to 10).
+  List<JobListingEntity> get recentJobs => List.unmodifiable(_recentJobs);
 
   /// Currently selected job filter.
   JobFilter get selectedFilter => _selectedFilter;
@@ -107,8 +106,21 @@ class HomeViewModel extends ChangeNotifier {
       return;
     }
 
-    // TODO: Replace with repository call when ready
-    _recentJobs = List.from(RecentJobEntity.mocks);
+    // Fetch most recent jobs (latest 5, no filter)
+    final recentResult = await _repository.getJobListings(limit: 5);
+
+    recentResult.fold(
+      (failure) {
+        _errorMessage = failure.message;
+        _state = HomeState.error;
+      },
+      (listings) => _recentJobs = listings,
+    );
+
+    if (_state == HomeState.error) {
+      notifyListeners();
+      return;
+    }
 
     _state = HomeState.loaded;
     notifyListeners();
