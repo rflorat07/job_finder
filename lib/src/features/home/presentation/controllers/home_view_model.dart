@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/hot_vacancy_entity.dart';
-import '../../domain/entities/job_match_entity.dart';
+import '../../domain/entities/job_listing_entity.dart';
 import '../../domain/entities/recent_job_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 
@@ -19,8 +19,7 @@ class HomeViewModel extends ChangeNotifier {
   HomeState _state = HomeState.loading;
   String? _errorMessage;
   List<HotVacancyEntity> _hotVacancies = [];
-  List<JobMatchEntity> _allMatches = [];
-  List<JobMatchEntity> _filteredMatches = [];
+  List<JobListingEntity> _bestMatches = [];
   List<RecentJobEntity> _recentJobs = [];
   JobFilter _selectedFilter = JobFilter.allJobs;
 
@@ -34,7 +33,7 @@ class HomeViewModel extends ChangeNotifier {
   List<HotVacancyEntity> get hotVacancies => List.unmodifiable(_hotVacancies);
 
   /// Best matching jobs filtered by the current [selectedFilter].
-  List<JobMatchEntity> get bestMatches => List.unmodifiable(_filteredMatches);
+  List<JobListingEntity> get bestMatches => List.unmodifiable(_bestMatches);
 
   /// Most recently posted jobs.
   List<RecentJobEntity> get recentJobs => List.unmodifiable(_recentJobs);
@@ -42,58 +41,76 @@ class HomeViewModel extends ChangeNotifier {
   /// Currently selected job filter.
   JobFilter get selectedFilter => _selectedFilter;
 
-  /// Updates the selected filter and refreshes the visible list.
-  void setFilter(JobFilter filter) {
+  /// Updates the selected filter and fetches filtered results from Supabase.
+  Future<void> setFilter(JobFilter filter) async {
     if (_selectedFilter == filter) return;
     _selectedFilter = filter;
-    _applyFilter();
+    await _fetchBestMatches();
     notifyListeners();
   }
 
-  /// Applies the current filter to the full matches list.
-  void _applyFilter() {
-    if (_selectedFilter == JobFilter.allJobs) {
-      _filteredMatches = List.from(_allMatches);
-      return;
-    }
-
-    final tagToMatch = switch (_selectedFilter) {
-      JobFilter.allJobs => '',
-      JobFilter.fullTime => 'Full-time',
-      JobFilter.partTime => 'Part-time',
-      JobFilter.freelance => 'Contract',
+  /// Maps a [JobFilter] enum to the Supabase `job_type` column value.
+  String? _jobTypeForFilter(JobFilter filter) {
+    return switch (filter) {
+      JobFilter.allJobs => null,
+      JobFilter.fullTime => 'full-time',
+      JobFilter.partTime => 'part-time',
+      JobFilter.freelance => 'contract',
     };
-
-    _filteredMatches = _allMatches
-        .where((job) => job.tags.contains(tagToMatch))
-        .toList();
   }
 
-  /// Loads Home data from the repository.
-  Future<void> fetchHomeData() async {
-    _state = HomeState.loading;
-    _errorMessage = null;
-    notifyListeners();
-
-    // Fetch hot vacancies from Supabase via repository
-    final result = await _repository.getHotVacancies();
+  /// Fetches best matches from Supabase applying the current filter.
+  Future<void> _fetchBestMatches() async {
+    final jobType = _jobTypeForFilter(_selectedFilter);
+    final result = await _repository.getJobListings(jobType: jobType);
 
     result.fold(
       (failure) {
         _errorMessage = failure.message;
         _state = HomeState.error;
       },
+      (listings) => _bestMatches = listings,
+    );
+  }
+
+  /// Loads all Home data from the repository.
+  Future<void> fetchHomeData() async {
+    _state = HomeState.loading;
+    _errorMessage = null;
+    notifyListeners();
+
+    // Fetch hot vacancies
+    final vacanciesResult = await _repository.getHotVacancies();
+
+    final failed = vacanciesResult.fold(
+      (failure) {
+        _errorMessage = failure.message;
+        _state = HomeState.error;
+        return true;
+      },
       (vacancies) {
         _hotVacancies = vacancies;
-
-        // TODO: Replace with repository calls when ready
-        _allMatches = List.from(JobMatchEntity.mocks);
-        _recentJobs = List.from(RecentJobEntity.mocks);
-        _applyFilter();
-        _state = HomeState.loaded;
+        return false;
       },
     );
 
+    if (failed) {
+      notifyListeners();
+      return;
+    }
+
+    // Fetch best matches (job listings)
+    await _fetchBestMatches();
+
+    if (_state == HomeState.error) {
+      notifyListeners();
+      return;
+    }
+
+    // TODO: Replace with repository call when ready
+    _recentJobs = List.from(RecentJobEntity.mocks);
+
+    _state = HomeState.loaded;
     notifyListeners();
   }
 }
