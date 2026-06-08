@@ -3,6 +3,7 @@
 *.log
 *.pyc
 *.swp
+*.tmp
 .DS_Store
 .atom/
 .build/
@@ -12,7 +13,7 @@
 .swiftpm/
 migrate_working_dir/
 
-# IntelliJ related
+# IntelliJ / Android Studio
 *.iml
 *.ipr
 *.iws
@@ -23,15 +24,36 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
-# Flutter/Dart/Pub related
+# Flutter / Dart / Pub
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
+pubspec_overrides.yaml
 /build/
 /coverage/
+
+# Flutter version managers
+.fvm/
+
+# Platform-generated ephemeral folders
+**/ios/Flutter/ephemeral/
+**/macos/Flutter/ephemeral/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+
+# Xcode user-specific files
+**/ios/**/*.xcuserdatad/
+**/ios/**/*.xcworkspace/xcuserdata/
+**/macos/**/*.xcuserdatad/
+**/macos/**/*.xcworkspace/xcuserdata/
+
+# Android local build cache
+**/android/.gradle/
 
 # Symbolication related
 app.*.symbols
@@ -39,10 +61,12 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android Studio build artifacts
 /android/app/debug
 /android/app/profile
 /android/app/release
 
 # Environment variables
 .env
+.env.*
+!.env.example
