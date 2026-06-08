@@ -26,6 +26,11 @@ class GoRouterRefreshStream extends ChangeNotifier {
 /// Routes that require an authenticated session.
 const _protectedRoutes = [
   AppRoutes.home,
+  AppRoutes.search,
+  AppRoutes.interviews,
+  AppRoutes.inbox,
+  AppRoutes.notifications,
+  AppRoutes.account,
   AppRoutes.setupAccountStep1,
   AppRoutes.setupAccountStep2,
   AppRoutes.setupAccountStep3,
@@ -216,6 +221,15 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: AppRoutes.notifications,
+      name: 'notifications',
+      pageBuilder: (context, state) => AppTransitions.slideUp(
+        context: context,
+        state: state,
+        child: const NotificationsScreen(),
+      ),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         // Inyectamos el shell (el layout base)
@@ -236,7 +250,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/search',
+              path: AppRoutes.search,
               name: 'search',
               builder: (context, state) =>
                   const SearchScreen(), // Pantalla placeholder
@@ -246,7 +260,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/interviews',
+              path: AppRoutes.interviews,
               name: 'interviews',
               builder: (context, state) =>
                   const InterviewsScreen(), // Pantalla placeholder
@@ -257,10 +271,9 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/inbox',
+              path: AppRoutes.inbox,
               name: 'inbox',
-              builder: (context, state) =>
-                  const InboxScreen(), // Pantalla placeholder
+              builder: (context, state) => const InboxScreen(),
             ),
           ],
         ),
@@ -268,7 +281,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/account',
+              path: AppRoutes.account,
               name: 'account',
               builder: (context, state) =>
                   const AccountScreen(), // Pantalla placeholder

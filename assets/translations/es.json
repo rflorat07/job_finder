@@ -118,11 +118,23 @@
     "bio_hint": "Escribe una breve biografía sobre ti",
     "finish": "Finalizar"
   },
-    "tabs": {
+  "tabs": {
     "home": "Inicio",
     "search": "Buscar",
     "interviews": "Entrevistas",
     "inbox": "Bandeja de entrada",
     "account": "Cuenta"
+  },
+  "notifications": {
+    "inbox_title": "Bandeja de entrada",
+    "open_notifications": "Abrir notificaciones",
+    "title": "Notificaciones",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "older": "Anteriores",
+    "mark_all_read": "Marcar todo como leido",
+    "empty_title": "Aun no tienes notificaciones",
+    "empty_subtitle": "Estas al dia. Las nuevas actualizaciones apareceran aqui.",
+    "generic_error": "Ocurrio un error al cargar las notificaciones."
   }
 }

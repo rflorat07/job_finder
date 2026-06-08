@@ -13,6 +13,7 @@ This document contains all SQL scripts needed to set up the Supabase database fo
 5. [Job Listings table](#5-job-listings-table)
 6. [Companies with open jobs (VIEW)](#6-view-companies-with-open-jobs)
 7. [Seed data](#7-seed-data)
+8. [Notifications table](#8-notifications-table-and-rls-policies)
 
 ---
 
@@ -346,4 +347,130 @@ INNER JOIN companies c ON c.id = jl.company_id
 WHERE jl.is_active = TRUE
 ORDER BY jl.posted_at DESC
 LIMIT 10;
+```
+
+---
+
+## 8. Notifications table and RLS policies
+
+Stores user-specific notifications for the Notifications page.
+
+```sql
+CREATE TABLE public.notifications (
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  type TEXT NOT NULL DEFAULT 'general',
+  title TEXT NOT NULL,
+  message TEXT NOT NULL,
+  actor_name TEXT,
+  actor_avatar_url TEXT,
+  icon_emoji TEXT,
+  target_route TEXT,
+  is_read BOOLEAN NOT NULL DEFAULT FALSE,
+  read_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX idx_notifications_user_created_at
+  ON public.notifications(user_id, created_at DESC);
+
+CREATE INDEX idx_notifications_user_is_read
+  ON public.notifications(user_id, is_read);
+
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own notifications"
+ON public.notifications FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own notifications"
+ON public.notifications FOR UPDATE
+TO authenticated
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+```
+
+### Seed examples (ready to run)
+
+```sql
+INSERT INTO public.notifications (
+  user_id,
+  type,
+  title,
+  message,
+  actor_name,
+  actor_avatar_url,
+  icon_emoji,
+  target_route,
+  created_at
+) VALUES
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'networking',
+    'Networking Opportunity',
+    'Expand your network, Aaron. Join our virtual networking event tomorrow to connect with industry leaders.',
+    'Aaron Stone',
+    NULL,
+    '🤝',
+    '/notifications',
+    now() - interval '2 hours'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'interview',
+    'Interview Invitation',
+    'Congratulations, Aaron. You have been invited to interview for the Web Developer position at Google.',
+    NULL,
+    NULL,
+    '💻',
+    '/interviews',
+    now() - interval '4 hours'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'application',
+    'Application Status Updated',
+    'Good news, Aaron. Your application for Web Developer at Google has been received.',
+    NULL,
+    NULL,
+    '🎉',
+    '/notifications',
+    now() - interval '1 day'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'system',
+    'Profile Completion Reminder',
+    'Complete your profile to increase visibility for recruiters and receive more relevant job matches.',
+    NULL,
+    NULL,
+    '📝',
+    '/account',
+    now() - interval '26 hours'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'job_alert',
+    'New Match: Senior Flutter Developer',
+    'A new remote Flutter role was posted that matches your profile preferences.',
+    'Recruiter Team',
+    NULL,
+    '🚀',
+    '/search',
+    now() - interval '3 days'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'interview',
+    'Interview Confirmed',
+    'Your interview with Meta has been confirmed for Monday at 10:30 AM. Please review the preparation checklist.',
+    NULL,
+    NULL,
+    '✅',
+    '/interviews',
+    now() - interval '5 days'
+  );
 ```

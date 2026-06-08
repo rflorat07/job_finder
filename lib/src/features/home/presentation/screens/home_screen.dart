@@ -234,7 +234,7 @@ class _HomeHeader extends StatelessWidget {
             size: SizesTokens.size48,
             iconSize: SizesTokens.size24,
             backgroundColor: context.dsColors.surfaceContainer,
-            onPressed: () {},
+            onPressed: () => context.push(AppRoutes.notifications),
           ),
         ],
       ),

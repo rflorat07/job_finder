@@ -118,11 +118,23 @@
     "bio_hint": "Scrivi una breve biografia su di te",
     "finish": "Fatto"
   },
-    "tabs": {
+  "tabs": {
     "home": "Home",
     "search": "Cerca",
     "interviews": "Colloqui",
     "inbox": "Posta in arrivo",
     "account": "Account"
+  },
+  "notifications": {
+    "inbox_title": "Posta in arrivo",
+    "open_notifications": "Apri notifiche",
+    "title": "Notifiche",
+    "today": "Oggi",
+    "yesterday": "Ieri",
+    "older": "Meno recenti",
+    "mark_all_read": "Segna tutte come lette",
+    "empty_title": "Nessuna notifica",
+    "empty_subtitle": "Sei aggiornato. I nuovi aggiornamenti appariranno qui.",
+    "generic_error": "Si e verificato un errore durante il caricamento delle notifiche."
   }
 }
