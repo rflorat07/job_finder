@@ -28,8 +28,9 @@ abstract class TypographyTokens {
   static const FontWeight fontWeightBold = FontWeight.w700;
 
   // ========== Line Heights (multiplier of font size) ==========
-  static const double lineHeightCompact = 1.2;
   static const double lineHeightNormal = 1.0; // Default line height (1.0)
+  static const double lineHeightCompact = 1.2;
+  static const double lineHeightTight = 1.4;
   static const double lineHeightRelaxed = 1.5;
   static const double lineHeightExtraRelaxed = 1.55;
   static const double lineHeightInput = 1.60;

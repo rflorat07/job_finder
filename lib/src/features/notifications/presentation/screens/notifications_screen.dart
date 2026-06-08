@@ -1,3 +1,4 @@
+import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -36,69 +37,36 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.dsColors.tertiaryContainer,
-      appBar: AppBar(
-        backgroundColor: context.dsColors.tertiaryContainer,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(SpacingTokens.spacing8),
-          child: IconButton(
-            style: IconButton.styleFrom(
-              backgroundColor: context.dsColors.primaryContainer,
-            ),
-            onPressed: () => context.pop(),
-            icon: Icon(
-              IconsaxPlusLinear.arrow_left,
-              color: context.dsColors.onSurface,
-            ),
-          ),
-        ),
-        title: Text(
-          context.tr('notifications.title'),
-          style: context.dsTextTheme.titleLarge?.copyWith(
-            fontWeight: TypographyTokens.fontWeightBold,
-            color: context.dsColors.onSurface,
-          ),
+      backgroundColor: context.dsColors.primaryContainer,
+      appBar: DSAppBar(
+        title: context.tr('notifications.title'),
+        backgroundColor: context.dsColors.primaryContainer,
+        leading: DSCircularIcon.icon(
+          size: SizesTokens.size44,
+          iconSize: SizesTokens.size24,
+          IconsaxPlusLinear.arrow_left_1,
+          backgroundColor: context.dsColors.secondaryContainer,
+          onPressed: () => context.pop(),
         ),
         centerTitle: true,
-        actions: [
-          ListenableBuilder(
-            listenable: _viewModel,
-            builder: (context, _) {
-              if (!_viewModel.hasUnread ||
-                  _viewModel.state != NotificationsState.loaded) {
-                return const SizedBox.shrink();
-              }
-
-              return TextButton(
-                onPressed: _viewModel.markAllAsRead,
-                child: Text(context.tr('notifications.mark_all_read')),
-              );
-            },
-          ),
-        ],
       ),
-      body: SafeArea(
-        top: false,
-        child: ListenableBuilder(
-          listenable: _viewModel,
-          builder: (context, _) {
-            return switch (_viewModel.state) {
-              NotificationsState.loading => const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ),
-              NotificationsState.error => _NotificationsError(
-                message: _viewModel.errorMessage,
-                onRetry: _viewModel.loadNotifications,
-              ),
-              NotificationsState.empty => const _NotificationsEmpty(),
-              NotificationsState.loaded => _NotificationsLoaded(
-                viewModel: _viewModel,
-              ),
-            };
-          },
-        ),
+      body: ListenableBuilder(
+        listenable: _viewModel,
+        builder: (context, _) {
+          return switch (_viewModel.state) {
+            NotificationsState.loading => const Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+            NotificationsState.error => _NotificationsError(
+              message: _viewModel.errorMessage,
+              onRetry: _viewModel.loadNotifications,
+            ),
+            NotificationsState.empty => const _NotificationsEmpty(),
+            NotificationsState.loaded => _NotificationsLoaded(
+              viewModel: _viewModel,
+            ),
+          };
+        },
       ),
     );
   }
