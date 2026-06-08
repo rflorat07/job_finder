@@ -1,6 +1,7 @@
 /// Barrel export for all components
 library;
 
+export 'app_bar/ds_app_bar.dart';
 export 'avatar/ds_avatar_picker.dart';
 export 'button/ds_button.dart';
 export 'button/ds_social_button.dart';
