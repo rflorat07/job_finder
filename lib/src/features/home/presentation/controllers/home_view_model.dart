@@ -61,7 +61,7 @@ class HomeViewModel extends ChangeNotifier {
   /// Fetches best matches from Supabase applying the current filter.
   Future<void> _fetchBestMatches() async {
     final jobType = _jobTypeForFilter(_selectedFilter);
-    final result = await _repository.getJobListings(jobType: jobType);
+    final result = await _repository.getJobListings(jobType: jobType, limit: 5);
 
     result.fold(
       (failure) {
