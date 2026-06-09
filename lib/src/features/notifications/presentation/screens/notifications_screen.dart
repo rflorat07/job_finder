@@ -18,6 +18,10 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   late final NotificationsViewModel _viewModel;
 
+  Future<void> _onRefresh() {
+    return _viewModel.loadNotifications();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,15 +61,52 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             NotificationsState.loading => const Center(
               child: CircularProgressIndicator.adaptive(),
             ),
-            NotificationsState.error => _NotificationsError(
-              message: _viewModel.errorMessage,
-              onRetry: _viewModel.loadNotifications,
+            NotificationsState.error => _RefreshableBody(
+              onRefresh: _onRefresh,
+              child: _NotificationsError(
+                message: _viewModel.errorMessage,
+                onRetry: _viewModel.loadNotifications,
+              ),
             ),
-            NotificationsState.empty => const _NotificationsEmpty(),
+            NotificationsState.empty => _RefreshableBody(
+              onRefresh: _onRefresh,
+              child: const _NotificationsEmpty(),
+            ),
             NotificationsState.loaded => _NotificationsLoaded(
               viewModel: _viewModel,
+              onRefresh: _onRefresh,
             ),
           };
+        },
+      ),
+    );
+  }
+}
+
+class _RefreshableBody extends StatelessWidget {
+  const _RefreshableBody({
+    required this.onRefresh,
+    required this.child,
+  });
+
+  final Future<void> Function() onRefresh;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator.adaptive(
+      onRefresh: onRefresh,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Center(child: child),
+              ),
+            ],
+          );
         },
       ),
     );
@@ -129,7 +170,7 @@ class _NotificationsEmpty extends StatelessWidget {
             const SizedBox(height: SpacingTokens.spacing12),
             Text(
               context.tr('notifications.empty_title'),
-              style: context.dsTextTheme.titleMedium,
+              style: context.dsTextTheme.bodyMedium,
             ),
             const SizedBox(height: SpacingTokens.spacing8),
             Text(
@@ -147,36 +188,44 @@ class _NotificationsEmpty extends StatelessWidget {
 }
 
 class _NotificationsLoaded extends StatelessWidget {
-  const _NotificationsLoaded({required this.viewModel});
+  const _NotificationsLoaded({
+    required this.viewModel,
+    required this.onRefresh,
+  });
 
   final NotificationsViewModel viewModel;
+  final Future<void> Function() onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        SpacingTokens.spacing24,
-        SpacingTokens.spacing16,
-        SpacingTokens.spacing24,
-        SpacingTokens.spacing24,
+    return RefreshIndicator.adaptive(
+      onRefresh: onRefresh,
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.spacing24,
+          SpacingTokens.spacing16,
+          SpacingTokens.spacing24,
+          SpacingTokens.spacing32,
+        ),
+        children: [
+          _NotificationsSection(
+            title: context.tr('notifications.today'),
+            notifications: viewModel.todayNotifications,
+            onTapNotification: viewModel.markAsRead,
+          ),
+          _NotificationsSection(
+            title: context.tr('notifications.yesterday'),
+            notifications: viewModel.yesterdayNotifications,
+            onTapNotification: viewModel.markAsRead,
+          ),
+          _NotificationsSection(
+            title: context.tr('notifications.older'),
+            notifications: viewModel.olderNotifications,
+            onTapNotification: viewModel.markAsRead,
+          ),
+        ],
       ),
-      children: [
-        _NotificationsSection(
-          title: context.tr('notifications.today'),
-          notifications: viewModel.todayNotifications,
-          onTapNotification: viewModel.markAsRead,
-        ),
-        _NotificationsSection(
-          title: context.tr('notifications.yesterday'),
-          notifications: viewModel.yesterdayNotifications,
-          onTapNotification: viewModel.markAsRead,
-        ),
-        _NotificationsSection(
-          title: context.tr('notifications.older'),
-          notifications: viewModel.olderNotifications,
-          onTapNotification: viewModel.markAsRead,
-        ),
-      ],
     );
   }
 }
@@ -198,135 +247,37 @@ class _NotificationsSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: SpacingTokens.spacing24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: context.dsTextTheme.titleLarge?.copyWith(
-              color: context.dsColors.onSurfaceVariant,
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.spacing12),
-          ...notifications.map((item) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: SpacingTokens.spacing12),
-              child: _NotificationCard(
-                item: item,
-                onTap: () => onTapNotification(item.id),
-              ),
-            );
-          }),
-        ],
-      ),
-    );
-  }
-}
-
-class _NotificationCard extends StatelessWidget {
-  const _NotificationCard({
-    required this.item,
-    required this.onTap,
-  });
-
-  final AppNotificationEntity item;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final cardColor = context.dsColors.primaryContainer;
-    final borderColor = item.isRead
-        ? Colors.transparent
-        : context.dsColors.primary.withAlpha(75);
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(RadiusTokens.lg),
-        onTap: onTap,
-        child: Ink(
-          decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: BorderRadius.circular(RadiusTokens.lg),
-            border: Border.all(color: borderColor),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.spacing16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _NotificationAvatar(item: item),
-                const SizedBox(width: SpacingTokens.spacing12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              item.title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: context.dsTextTheme.titleMedium?.copyWith(
-                                fontWeight: TypographyTokens.fontWeightBold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: SpacingTokens.spacing8),
-                          Text(
-                            _formatTime(context, item.createdAt),
-                            style: context.dsTextTheme.bodyMedium?.copyWith(
-                              color: context.dsColors.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: SpacingTokens.spacing8),
-                      Text(
-                        item.message,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: context.dsTextTheme.bodyLarge?.copyWith(
-                          color: context.dsColors.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: context.dsTextTheme.bodyMedium?.copyWith(
+            color: context.dsColors.onSurfaceVariant,
           ),
         ),
-      ),
-    );
-  }
-}
+        const SizedBox(height: SpacingTokens.spacing16),
 
-class _NotificationAvatar extends StatelessWidget {
-  const _NotificationAvatar({required this.item});
-
-  final AppNotificationEntity item;
-
-  @override
-  Widget build(BuildContext context) {
-    if (item.actorAvatarUrl != null && item.actorAvatarUrl!.isNotEmpty) {
-      return CircleAvatar(
-        radius: SizesTokens.size24,
-        backgroundImage: NetworkImage(item.actorAvatarUrl!),
-      );
-    }
-
-    return CircleAvatar(
-      radius: SizesTokens.size24,
-      backgroundColor: context.dsColors.tertiaryContainer,
-      child: Text(
-        item.iconEmoji ?? '🔔',
-        style: context.dsTextTheme.titleMedium,
-      ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: notifications.length,
+          separatorBuilder: (_, _) =>
+              const SizedBox(height: SpacingTokens.spacing16),
+          itemBuilder: (context, index) {
+            final item = notifications[index];
+            return DSNotificationCard(
+              title: item.title,
+              description: item.message,
+              timeLabel: _formatTime(context, item.createdAt),
+              avatarUrl: item.actorAvatarUrl,
+              fallbackEmoji: item.iconEmoji ?? '🔔',
+              isRead: item.isRead,
+              onTap: () => onTapNotification(item.id),
+            );
+          },
+        ),
+      ],
     );
   }
 }

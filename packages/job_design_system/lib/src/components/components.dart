@@ -7,6 +7,7 @@ export 'button/ds_button.dart';
 export 'button/ds_social_button.dart';
 export 'cards/ds_hot_vacancy_card.dart';
 export 'cards/ds_job_card.dart';
+export 'cards/ds_notification_card.dart';
 export 'cards/ds_recent_job_card.dart';
 export 'chip/ds_filter_chip.dart';
 export 'company/ds_company.dart';

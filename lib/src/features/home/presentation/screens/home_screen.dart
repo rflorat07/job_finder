@@ -3,6 +3,9 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
+import '../../../notifications/data/datasources/notifications_remote_datasource.dart';
+import '../../../notifications/data/repositories/notification_repository_impl.dart';
+import '../../../notifications/presentation/controllers/notifications_view_model.dart';
 import '../../data/datasources/home_remote_datasource.dart';
 import '../../data/repositories/home_repository_impl.dart';
 import '../controllers/home_view_model.dart';
@@ -27,22 +30,39 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final HomeViewModel _viewModel;
+  late final NotificationsViewModel _notificationsViewModel;
+  DateTime _lastNotificationsCheckAt = DateTime.now();
 
   @override
   void initState() {
     super.initState();
 
-    final datasource = SupabaseHomeRemoteDataSource(
-      Supabase.instance.client,
-    );
+    final client = Supabase.instance.client;
+    final datasource = SupabaseHomeRemoteDataSource(client);
     final repository = HomeRepositoryImpl(datasource);
+    final notificationsDataSource = SupabaseNotificationsRemoteDataSource(
+      client,
+    );
+    final notificationsRepository = NotificationRepositoryImpl(
+      notificationsDataSource,
+    );
 
     _viewModel = HomeViewModel(repository)..fetchHomeData();
+    _notificationsViewModel = NotificationsViewModel(notificationsRepository)
+      ..loadNotifications();
+  }
+
+  Future<void> _openNotifications() async {
+    _lastNotificationsCheckAt = DateTime.now();
+    await context.push(AppRoutes.notifications);
+    if (!mounted) return;
+    await _notificationsViewModel.loadNotifications();
   }
 
   @override
   void dispose() {
     _viewModel.dispose();
+    _notificationsViewModel.dispose();
     super.dispose();
   }
 
@@ -58,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator.adaptive(),
             ),
             HomeState.error => _HomeError(viewModel: _viewModel),
-            HomeState.loaded => _HomeContent(viewModel: _viewModel),
+            HomeState.loaded => _HomeContent(
+              viewModel: _viewModel,
+              notificationsViewModel: _notificationsViewModel,
+              lastNotificationsCheckAt: _lastNotificationsCheckAt,
+              onPressedNotifications: _openNotifications,
+            ),
           };
         },
       ),
@@ -100,9 +125,17 @@ class _HomeError extends StatelessWidget {
 // ─── Loaded content ────────────────────────────────────────────────────────────
 
 class _HomeContent extends StatelessWidget {
-  const _HomeContent({required this.viewModel});
+  const _HomeContent({
+    required this.viewModel,
+    required this.notificationsViewModel,
+    required this.lastNotificationsCheckAt,
+    required this.onPressedNotifications,
+  });
 
   final HomeViewModel viewModel;
+  final NotificationsViewModel notificationsViewModel;
+  final DateTime lastNotificationsCheckAt;
+  final Future<void> Function() onPressedNotifications;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +143,12 @@ class _HomeContent extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
-          child: _HomeTopSection(viewModel: viewModel),
+          child: _HomeTopSection(
+            viewModel: viewModel,
+            notificationsViewModel: notificationsViewModel,
+            lastNotificationsCheckAt: lastNotificationsCheckAt,
+            onPressedNotifications: onPressedNotifications,
+          ),
         ),
         SliverToBoxAdapter(
           child: DSSectionHeader(
@@ -155,9 +193,17 @@ class _HomeContent extends StatelessWidget {
 // ─── Top section (green background + carousel) ─────────────────────────────────
 
 class _HomeTopSection extends StatelessWidget {
-  const _HomeTopSection({required this.viewModel});
+  const _HomeTopSection({
+    required this.viewModel,
+    required this.notificationsViewModel,
+    required this.lastNotificationsCheckAt,
+    required this.onPressedNotifications,
+  });
 
   final HomeViewModel viewModel;
+  final NotificationsViewModel notificationsViewModel;
+  final DateTime lastNotificationsCheckAt;
+  final Future<void> Function() onPressedNotifications;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +226,11 @@ class _HomeTopSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: topPadding + SpacingTokens.spacing4),
-            const _HomeHeader(),
+            _HomeHeader(
+              notificationsViewModel: notificationsViewModel,
+              lastNotificationsCheckAt: lastNotificationsCheckAt,
+              onPressedNotifications: onPressedNotifications,
+            ),
             const SizedBox(height: SpacingTokens.spacing24),
             const _HomeSearchBar(),
             const SizedBox(height: SpacingTokens.spacing24),
@@ -193,7 +243,15 @@ class _HomeTopSection extends StatelessWidget {
 }
 
 class _HomeHeader extends StatelessWidget {
-  const _HomeHeader();
+  const _HomeHeader({
+    required this.notificationsViewModel,
+    required this.lastNotificationsCheckAt,
+    required this.onPressedNotifications,
+  });
+
+  final NotificationsViewModel notificationsViewModel;
+  final DateTime lastNotificationsCheckAt;
+  final Future<void> Function() onPressedNotifications;
 
   @override
   Widget build(BuildContext context) {
@@ -228,18 +286,115 @@ class _HomeHeader extends StatelessWidget {
               ],
             ),
           ),
-          DSCircularIcon.icon(
-            IconsaxPlusBold.notification,
-            iconColor: Colors.white,
-            size: SizesTokens.size48,
-            iconSize: SizesTokens.size24,
-            backgroundColor: context.dsColors.surfaceContainer,
-            onPressed: () => context.push(AppRoutes.notifications),
+          ListenableBuilder(
+            listenable: notificationsViewModel,
+            builder: (context, _) {
+              final bellState = _resolveNotificationBellState(
+                notificationsViewModel,
+                lastNotificationsCheckAt,
+              );
+
+              return _HomeNotificationBell(
+                state: bellState,
+                onPressed: onPressedNotifications,
+              );
+            },
           ),
         ],
       ),
     );
   }
+}
+
+enum _HomeNotificationBellState { normal, unread, newItems }
+
+class _HomeNotificationBell extends StatelessWidget {
+  const _HomeNotificationBell({
+    required this.state,
+    required this.onPressed,
+  });
+
+  final _HomeNotificationBellState state;
+  final Future<void> Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final (
+      Color iconColor,
+      Color backgroundColor,
+      Color badgeColor,
+      double badgeSize,
+    ) = switch (state) {
+      _HomeNotificationBellState.normal => (
+        Colors.white,
+        context.dsColors.surfaceContainer,
+        Colors.transparent,
+        0,
+      ),
+      _HomeNotificationBellState.unread => (
+        Colors.white,
+        context.dsColors.surfaceContainer,
+        context.dsColors.error,
+        SizesTokens.size6,
+      ),
+      _HomeNotificationBellState.newItems => (
+        Colors.white,
+        context.dsColors.surfaceContainer,
+        context.dsColors.tertiary,
+        SizesTokens.size6,
+      ),
+    };
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        DSCircularIcon.icon(
+          IconsaxPlusBold.notification,
+          iconColor: iconColor,
+          size: SizesTokens.size48,
+          iconSize: SizesTokens.size24,
+          backgroundColor: backgroundColor,
+          onPressed: () {
+            onPressed();
+          },
+        ),
+        if (state != _HomeNotificationBellState.normal)
+          Positioned(
+            top: SpacingTokens.spacing16,
+            right: SpacingTokens.spacing16,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: badgeColor,
+                borderRadius: RadiusTokens.fullRadius,
+              ),
+              child: SizedBox(
+                width: badgeSize,
+                height: badgeSize,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+_HomeNotificationBellState _resolveNotificationBellState(
+  NotificationsViewModel notificationsViewModel,
+  DateTime lastNotificationsCheckAt,
+) {
+  final hasNewItems = notificationsViewModel.notifications.any(
+    (item) => item.createdAt.isAfter(lastNotificationsCheckAt),
+  );
+
+  if (hasNewItems) {
+    return _HomeNotificationBellState.newItems;
+  }
+
+  if (notificationsViewModel.hasUnread) {
+    return _HomeNotificationBellState.unread;
+  }
+
+  return _HomeNotificationBellState.normal;
 }
 
 class _HomeSearchBar extends StatelessWidget {
