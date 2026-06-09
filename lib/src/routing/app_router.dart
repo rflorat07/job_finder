@@ -237,6 +237,11 @@ final GoRouter appRouter = GoRouter(
       name: 'latestJobs',
       builder: (context, state) => const LatestJobsScreen(),
     ),
+    GoRoute(
+      path: AppRoutes.mostRecent,
+      name: 'mostRecent',
+      builder: (context, state) => const TrendingJobsScreen(),
+    ),
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

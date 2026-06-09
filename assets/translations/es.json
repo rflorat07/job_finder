@@ -144,5 +144,10 @@
     "generic_error": "No se pudieron cargar los trabajos",
     "empty_title": "No se encontraron trabajos",
     "empty_subtitle": "Intenta ajustar tus filtros o criterios de búsqueda."
+  },
+  "trending_jobs": {
+    "title": "Tendencias",
+    "generic_error": "No se pudieron cargar los trabajos",
+    "empty_title": "No se encontraron trabajos en tendencia"
   }
 }

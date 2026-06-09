@@ -144,5 +144,10 @@
     "generic_error": "Failed to load jobs",
     "empty_title": "No jobs found",
     "empty_subtitle": "Try adjusting your filters or search criteria."
+  },
+  "trending_jobs": {
+    "title": "Trending Jobs",
+    "generic_error": "Failed to load jobs",
+    "empty_title": "No trending jobs found"
   }
 }

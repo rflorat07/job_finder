@@ -144,5 +144,10 @@
     "generic_error": "Errore nel caricamento dei lavori",
     "empty_title": "Nessun lavoro trovato",
     "empty_subtitle": "Prova a modificare i filtri o i criteri di ricerca."
+  },
+  "trending_jobs": {
+    "title": "Lavori in Tendenza",
+    "generic_error": "Errore nel caricamento dei lavori",
+    "empty_title": "Nessun lavoro in tendenza"
   }
 }

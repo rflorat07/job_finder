@@ -16,6 +16,7 @@ export '../features/notifications/presentation/screens/screens.dart';
 export '../features/onboarding/presentation/screens/screens.dart';
 export '../features/search/presentation/screens/screens.dart';
 export '../features/setup/presentation/screens/screens.dart';
+export '../features/trending_jobs/presentation/screens/screens.dart';
 // Core
 export '../routing/app_router.dart';
 export '../routing/app_routes.dart';
