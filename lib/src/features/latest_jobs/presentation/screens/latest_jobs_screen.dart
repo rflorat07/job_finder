@@ -3,9 +3,8 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
-import '../../data/datasources/bookmarks_remote_datasource.dart';
+import '../../../../shared/services/bookmarks_service.dart';
 import '../../data/datasources/latest_jobs_remote_datasource.dart';
-import '../../data/repositories/bookmarks_repository_impl.dart';
 import '../../data/repositories/latest_jobs_repository_impl.dart';
 import '../controllers/latest_jobs_view_model.dart';
 
@@ -18,20 +17,18 @@ class LatestJobsScreen extends StatefulWidget {
 
 class _LatestJobsScreenState extends State<LatestJobsScreen> {
   late final LatestJobsViewModel _viewModel;
+  late final BookmarksService _bookmarksService;
 
   @override
   void initState() {
     super.initState();
 
-    // Dependency injection: datasources → repositories → viewmodel
     final client = Supabase.instance.client;
     final jobsDatasource = SupabaseLatestJobsRemoteDataSource(client);
     final jobsRepository = LatestJobsRepositoryImpl(jobsDatasource);
-    final bookmarksDatasource = SupabaseBookmarksRemoteDataSource(client);
-    final bookmarksRepository = BookmarksRepositoryImpl(bookmarksDatasource);
 
-    _viewModel = LatestJobsViewModel(jobsRepository, bookmarksRepository)
-      ..loadJobs();
+    _bookmarksService = getBookmarksService(client);
+    _viewModel = LatestJobsViewModel(jobsRepository)..loadJobs();
   }
 
   @override
@@ -76,6 +73,7 @@ class _LatestJobsScreenState extends State<LatestJobsScreen> {
             LatestJobsState.empty => _LatestJobsEmpty(onRefresh: _onRefresh),
             LatestJobsState.loaded => _LatestJobsLoaded(
               viewModel: _viewModel,
+              bookmarksService: _bookmarksService,
               onRefresh: _onRefresh,
             ),
           };
@@ -90,10 +88,12 @@ class _LatestJobsScreenState extends State<LatestJobsScreen> {
 class _LatestJobsLoaded extends StatefulWidget {
   const _LatestJobsLoaded({
     required this.viewModel,
+    required this.bookmarksService,
     required this.onRefresh,
   });
 
   final LatestJobsViewModel viewModel;
+  final BookmarksService bookmarksService;
   final Future<void> Function() onRefresh;
 
   @override
@@ -156,20 +156,23 @@ class _LatestJobsLoadedState extends State<_LatestJobsLoaded> {
           }
 
           final job = jobs[index];
-          return DSJobCard(
-            key: ValueKey(job.id),
-            jobTitle: job.jobTitle,
-            companyName: job.companyName,
-            location: job.location,
-            salary: job.salary,
-            logoUrl: job.companyLogoUrl,
-            tags: job.tags,
-            timeAgo: _formatTimeAgo(context, job.postedAt),
-            isBookmarked: widget.viewModel.isBookmarked(job.id),
-            onBookmark: () => widget.viewModel.toggleBookmark(job.id),
-            onTap: () {
-              // TODO: Navigate to job details
-            },
+          return ListenableBuilder(
+            listenable: widget.bookmarksService,
+            builder: (context, _) => DSJobCard(
+              key: ValueKey(job.id),
+              jobTitle: job.jobTitle,
+              companyName: job.companyName,
+              location: job.location,
+              salary: job.salary,
+              logoUrl: job.companyLogoUrl,
+              tags: job.tags,
+              timeAgo: _formatTimeAgo(context, job.postedAt),
+              isBookmarked: widget.bookmarksService.isBookmarked(job.id),
+              onBookmark: () => widget.bookmarksService.toggleBookmark(job.id),
+              onTap: () {
+                // TODO: Navigate to job details
+              },
+            ),
           );
         },
       ),

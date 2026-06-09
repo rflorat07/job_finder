@@ -3,6 +3,9 @@ import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
+import '../../../../shared/services/bookmarks_service.dart';
+import '../../../latest_jobs/data/datasources/bookmarks_remote_datasource.dart';
+import '../../../latest_jobs/data/repositories/bookmarks_repository_impl.dart';
 import '../../../notifications/data/datasources/notifications_remote_datasource.dart';
 import '../../../notifications/data/repositories/notification_repository_impl.dart';
 import '../../../notifications/presentation/controllers/notifications_view_model.dart';
@@ -21,6 +24,23 @@ const double _kCarouselHeight = 160;
 /// Height of the Most Recent horizontal carousel cards.
 const double _kRecentCarouselHeight = 220;
 
+/// Shared bookmark service singleton — lives as long as the app.
+late final BookmarksService bookmarksService;
+
+/// Whether [bookmarksService] has been initialized.
+bool _bookmarksServiceInitialized = false;
+
+/// Returns the shared [BookmarksService], creating it on first access.
+BookmarksService getBookmarksService(SupabaseClient client) {
+  if (!_bookmarksServiceInitialized) {
+    final datasource = SupabaseBookmarksRemoteDataSource(client);
+    final repository = BookmarksRepositoryImpl(datasource);
+    bookmarksService = BookmarksService(repository)..loadBookmarks();
+    _bookmarksServiceInitialized = true;
+  }
+  return bookmarksService;
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -31,6 +51,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final HomeViewModel _viewModel;
   late final NotificationsViewModel _notificationsViewModel;
+  late final BookmarksService _bookmarksService;
   DateTime _lastNotificationsCheckAt = DateTime.now();
 
   @override
@@ -47,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
       notificationsDataSource,
     );
 
+    _bookmarksService = getBookmarksService(client);
     _viewModel = HomeViewModel(repository)..fetchHomeData();
     _notificationsViewModel = NotificationsViewModel(notificationsRepository)
       ..loadNotifications();
@@ -80,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeState.error => _HomeError(viewModel: _viewModel),
             HomeState.loaded => _HomeContent(
               viewModel: _viewModel,
+              bookmarksService: _bookmarksService,
               notificationsViewModel: _notificationsViewModel,
               lastNotificationsCheckAt: _lastNotificationsCheckAt,
               onPressedNotifications: _openNotifications,
@@ -127,12 +150,14 @@ class _HomeError extends StatelessWidget {
 class _HomeContent extends StatelessWidget {
   const _HomeContent({
     required this.viewModel,
+    required this.bookmarksService,
     required this.notificationsViewModel,
     required this.lastNotificationsCheckAt,
     required this.onPressedNotifications,
   });
 
   final HomeViewModel viewModel;
+  final BookmarksService bookmarksService;
   final NotificationsViewModel notificationsViewModel;
   final DateTime lastNotificationsCheckAt;
   final Future<void> Function() onPressedNotifications;
@@ -167,7 +192,7 @@ class _HomeContent extends StatelessWidget {
         const SliverToBoxAdapter(
           child: SizedBox(height: SpacingTokens.spacing16),
         ),
-        _BestMatches(viewModel: viewModel),
+        _BestMatches(viewModel: viewModel, bookmarksService: bookmarksService),
         SliverToBoxAdapter(
           child: DSSectionHeader(
             title: context.tr('home.most_recent'),
@@ -181,7 +206,7 @@ class _HomeContent extends StatelessWidget {
             },
           ),
         ),
-        _MostRecent(viewModel: viewModel),
+        _MostRecent(viewModel: viewModel, bookmarksService: bookmarksService),
         const SliverToBoxAdapter(
           child: SizedBox(height: SpacingTokens.spacing32),
         ),
@@ -462,9 +487,13 @@ class _HotVacanciesSection extends StatelessWidget {
 }
 
 class _BestMatches extends StatelessWidget {
-  const _BestMatches({required this.viewModel});
+  const _BestMatches({
+    required this.viewModel,
+    required this.bookmarksService,
+  });
 
   final HomeViewModel viewModel;
+  final BookmarksService bookmarksService;
 
   @override
   Widget build(BuildContext context) {
@@ -478,17 +507,21 @@ class _BestMatches extends StatelessWidget {
             const SizedBox(height: SpacingTokens.spacing16),
         itemBuilder: (context, index) {
           final job = viewModel.bestMatches[index];
-          return DSJobCard(
-            key: ValueKey(job.id),
-            jobTitle: job.jobTitle,
-            companyName: job.companyName,
-            location: job.location,
-            salary: job.salary,
-            logoUrl: job.companyLogoUrl,
-            tags: job.tags,
-            timeAgo: _formatTimeAgo(context, job.postedAt),
-            onBookmark: () {},
-            onTap: () {},
+          return ListenableBuilder(
+            listenable: bookmarksService,
+            builder: (context, _) => DSJobCard(
+              key: ValueKey(job.id),
+              jobTitle: job.jobTitle,
+              companyName: job.companyName,
+              location: job.location,
+              salary: job.salary,
+              logoUrl: job.companyLogoUrl,
+              tags: job.tags,
+              timeAgo: _formatTimeAgo(context, job.postedAt),
+              isBookmarked: bookmarksService.isBookmarked(job.id),
+              onBookmark: () => bookmarksService.toggleBookmark(job.id),
+              onTap: () {},
+            ),
           );
         },
       ),
@@ -532,9 +565,13 @@ class _FilterChips extends StatelessWidget {
 }
 
 class _MostRecent extends StatelessWidget {
-  const _MostRecent({required this.viewModel});
+  const _MostRecent({
+    required this.viewModel,
+    required this.bookmarksService,
+  });
 
   final HomeViewModel viewModel;
+  final BookmarksService bookmarksService;
 
   @override
   Widget build(BuildContext context) {
@@ -551,17 +588,21 @@ class _MostRecent extends StatelessWidget {
               const SizedBox(width: SpacingTokens.spacing16),
           itemBuilder: (context, index) {
             final job = viewModel.recentJobs[index];
-            return DSRecentJobCard(
-              key: ValueKey(job.id),
-              jobTitle: job.jobTitle,
-              companyName: job.companyName,
-              location: job.location,
-              salary: job.salary,
-              description: job.description ?? '',
-              logoUrl: job.companyLogoUrl,
-              tags: job.tags,
-              onBookmark: () {},
-              onTap: () {},
+            return ListenableBuilder(
+              listenable: bookmarksService,
+              builder: (context, _) => DSRecentJobCard(
+                key: ValueKey(job.id),
+                jobTitle: job.jobTitle,
+                companyName: job.companyName,
+                location: job.location,
+                salary: job.salary,
+                description: job.description ?? '',
+                logoUrl: job.companyLogoUrl,
+                tags: job.tags,
+                isBookmarked: bookmarksService.isBookmarked(job.id),
+                onBookmark: () => bookmarksService.toggleBookmark(job.id),
+                onTap: () {},
+              ),
             );
           },
         ),
