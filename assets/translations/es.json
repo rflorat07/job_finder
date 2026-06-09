@@ -136,5 +136,13 @@
     "empty_title": "Aun no tienes notificaciones",
     "empty_subtitle": "Estas al dia. Las nuevas actualizaciones apareceran aqui.",
     "generic_error": "Ocurrio un error al cargar las notificaciones."
+  },
+  "latest_jobs": {
+    "latest_jobs_title": "Últimos Trabajos",
+    "posted_today": "Publicado hoy",
+    "days_ago": "Hace {count}d",
+    "generic_error": "No se pudieron cargar los trabajos",
+    "empty_title": "No se encontraron trabajos",
+    "empty_subtitle": "Intenta ajustar tus filtros o criterios de búsqueda."
   }
 }

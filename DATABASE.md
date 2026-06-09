@@ -14,6 +14,7 @@ This document contains all SQL scripts needed to set up the Supabase database fo
 6. [Companies with open jobs (VIEW)](#6-view-companies-with-open-jobs)
 7. [Seed data](#7-seed-data)
 8. [Notifications table](#8-notifications-table-and-rls-policies)
+9. [Bookmarks table](#9-bookmarks-table-and-rls-policies)
 
 ---
 
@@ -474,3 +475,59 @@ INSERT INTO public.notifications (
     now() - interval '5 days'
   );
 ```
+
+---
+
+## 9. Bookmarks table and RLS policies
+
+Stores user-saved (bookmarked) job listings. A user can bookmark a job to save it for later review.
+
+```sql
+CREATE TABLE public.bookmarks (
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  job_listing_id UUID NOT NULL REFERENCES public.job_listings(id) ON DELETE CASCADE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  PRIMARY KEY (id),
+  CONSTRAINT unique_user_bookmark UNIQUE (user_id, job_listing_id)
+);
+
+-- Index for fast lookups by user
+CREATE INDEX idx_bookmarks_user_id ON public.bookmarks(user_id);
+
+ALTER TABLE public.bookmarks ENABLE ROW LEVEL SECURITY;
+
+-- Users can view only their own bookmarks
+CREATE POLICY "Users can view their own bookmarks"
+ON public.bookmarks FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- Users can insert their own bookmarks
+CREATE POLICY "Users can insert their own bookmarks"
+ON public.bookmarks FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+
+-- Users can delete their own bookmarks
+CREATE POLICY "Users can delete their own bookmarks"
+ON public.bookmarks FOR DELETE
+TO authenticated
+USING (auth.uid() = user_id);
+```
+
+### Column reference
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID | Auto-generated primary key |
+| `user_id` | UUID | FK → `auth.users.id` — the user who bookmarked |
+| `job_listing_id` | UUID | FK → `job_listings.id` — the bookmarked job |
+| `created_at` | TIMESTAMPTZ | When the bookmark was created |
+
+### Constraint reference
+
+| Constraint | Description |
+|------------|-------------|
+| `unique_user_bookmark` | Prevents a user from bookmarking the same job twice |

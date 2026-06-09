@@ -30,6 +30,8 @@ const _protectedRoutes = [
   AppRoutes.interviews,
   AppRoutes.inbox,
   AppRoutes.notifications,
+  AppRoutes.latestJobs,
+  AppRoutes.mostRecent,
   AppRoutes.account,
   AppRoutes.setupAccountStep1,
   AppRoutes.setupAccountStep2,
@@ -230,6 +232,12 @@ final GoRouter appRouter = GoRouter(
         child: const NotificationsScreen(),
       ),
     ),
+    GoRoute(
+      path: AppRoutes.latestJobs,
+      name: 'latestJobs',
+      builder: (context, state) => const LatestJobsScreen(),
+    ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         // Inyectamos el shell (el layout base)

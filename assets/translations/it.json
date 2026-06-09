@@ -135,6 +135,14 @@
     "mark_all_read": "Segna tutte come lette",
     "empty_title": "Nessuna notifica",
     "empty_subtitle": "Sei aggiornato. I nuovi aggiornamenti appariranno qui.",
-    "generic_error": "Si e verificato un errore durante il caricamento delle notifiche."
+    "generic_error": "Si è verificato un errore durante il caricamento delle notifiche."
+  },
+    "latest_jobs": {
+    "latest_jobs_title": "Ultimi Lavori",
+    "posted_today": "Pubblicato oggi",
+    "days_ago": "{count} giorni fa",
+    "generic_error": "Errore nel caricamento dei lavori",
+    "empty_title": "Nessun lavoro trovato",
+    "empty_subtitle": "Prova a modificare i filtri o i criteri di ricerca."
   }
 }

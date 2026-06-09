@@ -159,7 +159,7 @@ class _HomeContent extends StatelessWidget {
               vertical: SpacingTokens.spacing16,
             ),
             onActionPressed: () {
-              // TODO: Navigate to full Best Matches list
+              context.push(AppRoutes.latestJobs);
             },
           ),
         ),
@@ -177,7 +177,7 @@ class _HomeContent extends StatelessWidget {
               vertical: SpacingTokens.spacing16,
             ),
             onActionPressed: () {
-              // TODO: Navigate to full Most Recent list
+              context.push(AppRoutes.mostRecent);
             },
           ),
         ),

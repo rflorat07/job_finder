@@ -136,5 +136,13 @@
     "empty_title": "No notifications yet",
     "empty_subtitle": "You are all caught up. New updates will appear here.",
     "generic_error": "Something went wrong while loading notifications."
+  },
+  "latest_jobs": {
+    "latest_jobs_title": "Latest Jobs",
+    "posted_today": "Posted today",
+    "days_ago": "{count}d ago",
+    "generic_error": "Failed to load jobs",
+    "empty_title": "No jobs found",
+    "empty_subtitle": "Try adjusting your filters or search criteria."
   }
 }
