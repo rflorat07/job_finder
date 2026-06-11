@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 
+import 'ds_system_ui_style.dart';
+
 class DSAuthTabBarBaseLayout extends StatelessWidget {
   const DSAuthTabBarBaseLayout({
     super.key,
@@ -14,6 +16,7 @@ class DSAuthTabBarBaseLayout extends StatelessWidget {
     this.backgroundColor,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.systemUiStyle = DSSystemUiStyle.light,
   }) : assert(
          tabs.length == tabViews.length,
          'tabs and tabViews must have the same length',
@@ -43,16 +46,13 @@ class DSAuthTabBarBaseLayout extends StatelessWidget {
   /// Base layout container color
   final Color? containerColor;
 
+  /// Status bar icon style for this layout.
+  final DSSystemUiStyle systemUiStyle;
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
-        // On iOS, .light makes the icons white
-        // On Android, we configure it specifically:
-        statusBarColor: Colors.transparent, // Transparent background
-        statusBarIconBrightness: Brightness.light, // White icons (Android)
-        statusBarBrightness: Brightness.dark, // Required for white icons on iOS
-      ),
+      value: dsSystemUiOverlayStyle(systemUiStyle),
       child: DefaultTabController(
         length: tabs.length,
         child: Scaffold(

@@ -17,6 +17,7 @@ class DSAuthBaseLayout extends StatelessWidget {
     this.backgroundColor,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.systemUiStyle = DSSystemUiStyle.light,
   });
 
   ///  Base layout title
@@ -49,16 +50,13 @@ class DSAuthBaseLayout extends StatelessWidget {
   ///  Base layout back button onPressed callback
   final VoidCallback? onPressed;
 
+  /// Status bar icon style for this layout.
+  final DSSystemUiStyle systemUiStyle;
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
-        // On iOS, .light makes the icons white
-        // On Android, we configure it specifically:
-        statusBarColor: Colors.transparent, // Transparent background
-        statusBarIconBrightness: Brightness.light, // White icons (Android)
-        statusBarBrightness: Brightness.dark, // Required for white icons on iOS
-      ),
+      value: dsSystemUiOverlayStyle(systemUiStyle),
       child: Scaffold(
         backgroundColor: backgroundColor ?? context.dsColors.primary,
         body: SafeArea(
