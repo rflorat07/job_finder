@@ -125,6 +125,25 @@
     "inbox": "Posta in arrivo",
     "account": "Account"
   },
+  "account": {
+    "personal_info": "Informazioni personali",
+    "personal_data": "Dati personali",
+    "payment_account": "Conto pagamenti",
+    "account_security": "Sicurezza account",
+    "general": "Generale",
+    "language": "Lingua",
+    "push_notifications": "Notifiche push",
+    "clear_cache": "Svuota cache",
+    "clear_cache_size": "88 MB",
+    "about": "Informazioni",
+    "support_center": "Centro assistenza",
+    "privacy_policy": "Privacy e policy",
+    "about_app": "Informazioni app",
+    "logout": "Disconnetti",
+    "default_name": "Il tuo account",
+    "default_email": "email@esempio.com",
+    "generic_error": "Si e verificato un errore nel caricamento del tuo account."
+  },
   "notifications": {
     "inbox_title": "Posta in arrivo",
     "open_notifications": "Apri notifiche",

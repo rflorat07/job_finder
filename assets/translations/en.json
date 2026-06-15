@@ -125,6 +125,25 @@
     "inbox": "Inbox",
     "account": "Account"
   },
+  "account": {
+    "personal_info": "Personal Info",
+    "personal_data": "Personal Data",
+    "payment_account": "Payment Account",
+    "account_security": "Account Security",
+    "general": "General",
+    "language": "Language",
+    "push_notifications": "Push Notification",
+    "clear_cache": "Clear Cache",
+    "clear_cache_size": "88 MB",
+    "about": "About",
+    "support_center": "Support Center",
+    "privacy_policy": "Privacy & Policy",
+    "about_app": "About App",
+    "logout": "Logout",
+    "default_name": "Your Account",
+    "default_email": "email@example.com",
+    "generic_error": "Something went wrong while loading your account."
+  },
   "notifications": {
     "inbox_title": "Inbox",
     "open_notifications": "Open notifications",

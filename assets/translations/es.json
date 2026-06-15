@@ -125,6 +125,25 @@
     "inbox": "Bandeja de entrada",
     "account": "Cuenta"
   },
+  "account": {
+    "personal_info": "Informacion personal",
+    "personal_data": "Datos personales",
+    "payment_account": "Cuenta de pago",
+    "account_security": "Seguridad de la cuenta",
+    "general": "General",
+    "language": "Idioma",
+    "push_notifications": "Notificaciones push",
+    "clear_cache": "Borrar cache",
+    "clear_cache_size": "88 MB",
+    "about": "Acerca de",
+    "support_center": "Centro de ayuda",
+    "privacy_policy": "Privacidad y politicas",
+    "about_app": "Acerca de la app",
+    "logout": "Cerrar sesion",
+    "default_name": "Tu cuenta",
+    "default_email": "correo@ejemplo.com",
+    "generic_error": "Ocurrio un error al cargar tu cuenta."
+  },
   "notifications": {
     "inbox_title": "Bandeja de entrada",
     "open_notifications": "Abrir notificaciones",
