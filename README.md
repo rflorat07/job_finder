@@ -4,7 +4,7 @@ A modern **Flutter** mobile application that helps users find job opportunities 
 
 ## Screenshots
 
-> _Coming soon_
+[![Product Name Screen Shot][product-screenshot]]()
 
 ## Tech Stack
 
@@ -158,3 +158,7 @@ For detailed setup instructions (native splash, permissions, .env config), see *
 ## License
 
 This project is for educational purposes.
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[product-screenshot]: assets/images/screenshots.png
