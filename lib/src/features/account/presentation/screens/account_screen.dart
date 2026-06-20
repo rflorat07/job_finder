@@ -130,7 +130,12 @@ class _AccountScreenState extends State<AccountScreen> {
         return DSBaseLayout(
           systemUiStyle: DSSystemUiStyle.light,
           backgroundColor: context.dsColors.primary,
-          containerPadding: const EdgeInsets.all(SpacingTokens.spacing24),
+          containerPadding: const EdgeInsets.fromLTRB(
+            SpacingTokens.spacing24,
+            SpacingTokens.spacing24,
+            SpacingTokens.spacing24,
+            SpacingTokens.spacing4,
+          ),
           header: AccountHeader(
             fullName: fullName,
             email: email,
@@ -177,13 +182,14 @@ class _AccountLoadedState extends StatelessWidget {
             padding: EdgeInsets.zero,
             itemCount: sections.length,
             separatorBuilder: (_, _) =>
-                const SizedBox(height: SpacingTokens.spacing24),
+                const SizedBox(height: SpacingTokens.spacing8),
             itemBuilder: (context, index) => AccountSection(
               section: sections[index],
             ),
           ),
         ),
         const SizedBox(height: SpacingTokens.spacing16),
+
         AccountLogoutButton(
           isLoading: isSigningOut,
           onPressed: isSigningOut ? null : onLogout,

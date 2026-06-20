@@ -36,8 +36,9 @@ class AccountMenuRow extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: context.dsTextTheme.bodyLarge?.copyWith(
+                style: context.dsTextTheme.bodyMedium?.copyWith(
                   color: context.dsColors.onSurface,
+                  height: TypographyTokens.lineHeightInput,
                   fontWeight: TypographyTokens.fontWeightMedium,
                 ),
               ),
@@ -45,15 +46,16 @@ class AccountMenuRow extends StatelessWidget {
             if (trailingText != null)
               Text(
                 trailingText!,
-                style: context.dsTextTheme.bodyLarge?.copyWith(
+                style: context.dsTextTheme.bodyMedium?.copyWith(
                   color: context.dsColors.onSurfaceVariant,
+                  height: TypographyTokens.lineHeightInput,
                   fontWeight: TypographyTokens.fontWeightRegular,
                 ),
               )
             else if (showChevron)
               Icon(
                 IconsaxPlusLinear.arrow_right_3,
-                size: SizesTokens.size20,
+                size: SizesTokens.size24,
                 color: context.dsColors.onSurfaceVariant,
               ),
           ],

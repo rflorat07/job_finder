@@ -19,11 +19,19 @@ class AccountLogoutButton extends StatelessWidget {
       width: double.infinity,
       height: SizesTokens.size48,
       label: context.tr('account.logout'),
-      type: DSButtonType.destructive,
+      type: DSButtonType.secondary,
       state: DSButtonState.primary,
       isLoading: isLoading,
       onPressed: onPressed,
       icon: const Icon(IconsaxPlusLinear.logout_1),
+      customStyle: ButtonStyle(
+        side: WidgetStateProperty.all(
+          BorderSide(color: context.dsColors.error),
+        ),
+        foregroundColor: WidgetStateProperty.all(
+          context.dsColors.error,
+        ),
+      ),
     );
   }
 }

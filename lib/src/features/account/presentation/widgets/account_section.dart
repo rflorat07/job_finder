@@ -19,12 +19,13 @@ class AccountSection extends StatelessWidget {
       children: [
         Text(
           section.title,
-          style: context.dsTextTheme.bodyMedium?.copyWith(
+          style: context.dsTextTheme.bodySmall?.copyWith(
             color: context.dsColors.onSurfaceVariant,
             fontWeight: TypographyTokens.fontWeightRegular,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
-        const SizedBox(height: SpacingTokens.spacing8),
+        // const SizedBox(height: SpacingTokens.spacing8),
         ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
