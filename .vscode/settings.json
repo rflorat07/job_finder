@@ -3,5 +3,8 @@
     "pod": true,
     "npx skills": true
   },
-  "dart.flutterSdkPath": ".fvm/versions/3.44.4"
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  "search.exclude": {
+    "**/.fvm": true
+  }
 }
