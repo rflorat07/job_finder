@@ -13,17 +13,27 @@ class AccountViewModel extends ChangeNotifier {
   AccountState _state = AccountState.loading;
   AccountProfileEntity? _profile;
   String? _errorMessage;
+  bool _disposed = false;
 
   AccountState get state => _state;
   AccountProfileEntity? get profile => _profile;
   String? get errorMessage => _errorMessage;
 
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   Future<void> loadProfile() async {
+    if (_disposed) return;
+
     _state = AccountState.loading;
     _errorMessage = null;
     notifyListeners();
 
     final result = await _repository.fetchProfile();
+    if (_disposed) return;
     result.fold(
       (failure) {
         _errorMessage = failure.message;
@@ -39,6 +49,8 @@ class AccountViewModel extends ChangeNotifier {
   }
 
   Future<bool> logout() async {
+    if (_disposed) return false;
+
     if (_state == AccountState.signingOut) {
       return false;
     }
@@ -48,6 +60,7 @@ class AccountViewModel extends ChangeNotifier {
     notifyListeners();
 
     final result = await _repository.signOut();
+    if (_disposed) return false;
 
     return result.fold(
       (failure) {
