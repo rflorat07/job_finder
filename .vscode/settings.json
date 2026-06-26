@@ -1,6 +1,7 @@
 {
-    "chat.tools.terminal.autoApprove": {
-        "pod": true,
-        "npx skills": true
-    }
+  "chat.tools.terminal.autoApprove": {
+    "pod": true,
+    "npx skills": true
+  },
+  "dart.flutterSdkPath": ".fvm/versions/3.44.4"
 }
