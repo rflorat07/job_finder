@@ -64,9 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
       return;
     }
 
-    final shouldLogout = await showAppSheet<bool>(
-      child: const AccountLogoutConfirmationSheet(),
-    );
+    final shouldLogout = await showAccountLogoutConfirmationSheet();
 
     if (shouldLogout != true) {
       return;

@@ -45,3 +45,43 @@ Future<T?> showAppSheet<T>({
     ),
   );
 }
+
+/// Shows a reusable confirmation sheet and returns the user's choice.
+///
+/// Returns `true` when user confirms, `false` when user cancels, and
+/// `null` when the sheet is dismissed from outside.
+Future<bool?> showConfirmationSheet({
+  required String title,
+  required String message,
+  required String confirmLabel,
+  required String cancelLabel,
+  IconData icon = Icons.warning_rounded,
+  Color? iconColor,
+  Color? iconBackgroundColor,
+  Color? iconBorderColor,
+  Color? confirmForegroundColor,
+  Color? confirmBackgroundColor,
+  bool hasBlur = true,
+  bool enableDrag = true,
+  bool isScrollControlled = true,
+  bool useSafeArea = true,
+}) {
+  return showAppSheet<bool>(
+    hasBlur: hasBlur,
+    enableDrag: enableDrag,
+    isScrollControlled: isScrollControlled,
+    useSafeArea: useSafeArea,
+    child: AppConfirmationSheet(
+      title: title,
+      message: message,
+      confirmLabel: confirmLabel,
+      cancelLabel: cancelLabel,
+      icon: icon,
+      iconColor: iconColor,
+      iconBackgroundColor: iconBackgroundColor,
+      iconBorderColor: iconBorderColor,
+      confirmForegroundColor: confirmForegroundColor,
+      confirmBackgroundColor: confirmBackgroundColor,
+    ),
+  );
+}
