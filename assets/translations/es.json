@@ -140,6 +140,10 @@
     "privacy_policy": "Privacidad y politicas",
     "about_app": "Acerca de la app",
     "logout": "Cerrar sesion",
+    "logout_title": "Cerrar sesion",
+    "logout_confirmation": "Estas seguro de que quieres cerrar sesion?",
+    "logout_confirm": "Si, cerrar sesion",
+    "cancel": "Cancelar",
     "default_name": "Tu cuenta",
     "default_email": "correo@ejemplo.com",
     "generic_error": "Ocurrio un error al cargar tu cuenta."

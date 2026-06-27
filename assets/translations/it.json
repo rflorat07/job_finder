@@ -140,6 +140,10 @@
     "privacy_policy": "Privacy e policy",
     "about_app": "Informazioni app",
     "logout": "Disconnetti",
+    "logout_title": "Disconnetti",
+    "logout_confirmation": "Sei sicuro di voler uscire?",
+    "logout_confirm": "Si, disconnetti",
+    "cancel": "Annulla",
     "default_name": "Il tuo account",
     "default_email": "email@esempio.com",
     "generic_error": "Si e verificato un errore nel caricamento del tuo account."

@@ -140,6 +140,10 @@
     "privacy_policy": "Privacy & Policy",
     "about_app": "About App",
     "logout": "Logout",
+    "logout_title": "Logout",
+    "logout_confirmation": "Are you sure you want to log out?",
+    "logout_confirm": "Yes, Logout",
+    "cancel": "Cancel",
     "default_name": "Your Account",
     "default_email": "email@example.com",
     "generic_error": "Something went wrong while loading your account."

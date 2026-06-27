@@ -18,7 +18,7 @@ Future<void> main() async {
   // Initialize Supabase with environment variables
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL'] ?? '',
-    anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+    publishableKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
   );
 
   // Ensure localization is initialized before running the app

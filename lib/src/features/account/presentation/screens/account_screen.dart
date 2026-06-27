@@ -59,6 +59,22 @@ class _AccountScreenState extends State<AccountScreen> {
     context.go(AppRoutes.login);
   }
 
+  Future<void> _onLogoutPressed() async {
+    if (_viewModel.state == AccountState.signingOut) {
+      return;
+    }
+
+    final shouldLogout = await showAppSheet<bool>(
+      child: const AccountLogoutConfirmationSheet(),
+    );
+
+    if (shouldLogout != true) {
+      return;
+    }
+
+    await _onLogout();
+  }
+
   List<AccountSectionItem> _buildSections(BuildContext context) {
     return [
       AccountSectionItem(
@@ -152,7 +168,7 @@ class _AccountScreenState extends State<AccountScreen> {
             AccountState.loaded ||
             AccountState.signingOut => _AccountLoadedState(
               sections: _buildSections(context),
-              onLogout: _onLogout,
+              onLogoutPressed: _onLogoutPressed,
               isSigningOut: _viewModel.state == AccountState.signingOut,
             ),
           },
@@ -164,12 +180,12 @@ class _AccountScreenState extends State<AccountScreen> {
 
 class _AccountLoadedState extends StatelessWidget {
   final List<AccountSectionItem> sections;
-  final VoidCallback onLogout;
+  final VoidCallback onLogoutPressed;
   final bool isSigningOut;
 
   const _AccountLoadedState({
     required this.sections,
-    required this.onLogout,
+    required this.onLogoutPressed,
     required this.isSigningOut,
   });
 
@@ -192,7 +208,7 @@ class _AccountLoadedState extends StatelessWidget {
 
         AccountLogoutButton(
           isLoading: isSigningOut,
-          onPressed: isSigningOut ? null : onLogout,
+          onPressed: isSigningOut ? null : onLogoutPressed,
         ),
       ],
     );
