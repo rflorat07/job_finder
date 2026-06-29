@@ -20,6 +20,7 @@ abstract final class AppRoutes {
   static const String inbox = '/inbox';
   static const String notifications = '/notifications';
   static const String account = '/account';
+  static const String accountLanguage = '/account/language';
   static const String setupAccountStep1 = '/setup-account/step-1';
   static const String setupAccountStep2 = '/setup-account/step-2';
   static const String setupAccountStep3 = '/setup-account/step-3';

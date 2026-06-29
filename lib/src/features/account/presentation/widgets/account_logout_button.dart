@@ -28,6 +28,9 @@ class AccountLogoutButton extends StatelessWidget {
         side: WidgetStateProperty.all(
           BorderSide(color: context.dsColors.error),
         ),
+        backgroundColor: WidgetStateProperty.all(
+          Colors.transparent,
+        ),
         foregroundColor: WidgetStateProperty.all(
           context.dsColors.error,
         ),

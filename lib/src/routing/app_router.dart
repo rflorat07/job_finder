@@ -30,6 +30,7 @@ const _protectedRoutes = [
   AppRoutes.interviews,
   AppRoutes.inbox,
   AppRoutes.notifications,
+  AppRoutes.accountLanguage,
   AppRoutes.latestJobs,
   AppRoutes.mostRecent,
   AppRoutes.account,
@@ -230,6 +231,15 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const NotificationsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.accountLanguage,
+      name: 'accountLanguage',
+      pageBuilder: (context, state) => AppTransitions.slideUp(
+        context: context,
+        state: state,
+        child: const AccountLanguageScreen(),
       ),
     ),
     GoRoute(

@@ -98,6 +98,7 @@ class _AccountScreenState extends State<AccountScreen> {
           AccountMenuItem(
             title: context.tr('account.language'),
             icon: IconsaxPlusLinear.global,
+            onTap: () => context.push(AppRoutes.accountLanguage),
           ),
           AccountMenuItem(
             title: context.tr('account.push_notifications'),
