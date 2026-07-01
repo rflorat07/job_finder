@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:job_finder/src/app.dart';
+import 'package:job_finder/src/shared/services/theme_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/imports/imports.dart';
@@ -23,6 +24,9 @@ Future<void> main() async {
 
   // Ensure localization is initialized before running the app
   await EasyLocalization.ensureInitialized();
+
+  // Load persisted theme preference
+  await themeService.load();
 
   runApp(const LocalizationWrapper(child: MainApp()));
 }

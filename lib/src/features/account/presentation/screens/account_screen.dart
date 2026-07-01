@@ -101,6 +101,11 @@ class _AccountScreenState extends State<AccountScreen> {
             onTap: () => context.push(AppRoutes.accountLanguage),
           ),
           AccountMenuItem(
+            title: context.tr('account.appearance'),
+            icon: IconsaxPlusLinear.sun_1,
+            onTap: () => context.push(AppRoutes.accountAppearance),
+          ),
+          AccountMenuItem(
             title: context.tr('account.push_notifications'),
             icon: IconsaxPlusLinear.notification,
           ),
