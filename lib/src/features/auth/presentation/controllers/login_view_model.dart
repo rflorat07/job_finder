@@ -31,6 +31,8 @@ class LoginViewModel extends ChangeNotifier {
     try {
       // We wait for the repository to do the actual work
       await authRepository.signInWithEmail(email: email, password: password);
+    } on AuthRetryableFetchException {
+      onError('Service is temporarily unavailable. Please try again.');
     } on AuthException catch (e) {
       // Supabase specific errors
       onError(e.message);

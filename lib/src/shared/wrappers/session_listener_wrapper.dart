@@ -7,7 +7,6 @@ class SessionListenerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
-    appRouter.go(AppRoutes.onboarding);
 
     return child;
   }

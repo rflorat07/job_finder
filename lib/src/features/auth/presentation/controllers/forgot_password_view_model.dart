@@ -23,6 +23,8 @@ class ForgotPasswordViewModel extends ChangeNotifier {
     try {
       await authRepository.sendOtpToEmail(email: email);
       onSuccess();
+    } on AuthRetryableFetchException {
+      onError('Service is temporarily unavailable. Please try again.');
     } on AuthException catch (e) {
       onError(e.message);
     } catch (e) {

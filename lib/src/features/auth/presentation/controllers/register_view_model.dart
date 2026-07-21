@@ -42,6 +42,8 @@ class RegisterViewModel extends ChangeNotifier {
     try {
       await authRepository.signUpWithEmail(email: email, password: password);
       onSuccess();
+    } on AuthRetryableFetchException {
+      onError('Service is temporarily unavailable. Please try again.');
     } on AuthException catch (e) {
       // Supabase specific errors
       onError(e.message);

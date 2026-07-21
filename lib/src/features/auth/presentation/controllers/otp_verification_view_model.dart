@@ -32,6 +32,8 @@ class OtpVerificationViewModel extends ChangeNotifier {
     try {
       await authRepository.verifyEmailOtp(email: email, token: code);
       onSuccess();
+    } on AuthRetryableFetchException {
+      onError('Service is temporarily unavailable. Please try again.');
     } on AuthException catch (e) {
       onError(e.message);
     } catch (e) {
@@ -55,6 +57,8 @@ class OtpVerificationViewModel extends ChangeNotifier {
     try {
       await authRepository.sendOtpToEmail(email: email);
       onCodeResent();
+    } on AuthRetryableFetchException {
+      onError('Service is temporarily unavailable. Please try again.');
     } on AuthException catch (e) {
       onError(e.message);
     } catch (e) {
