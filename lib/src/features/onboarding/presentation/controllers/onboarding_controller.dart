@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import '../../../../imports/imports.dart';
+import '../../../../shared/services/onboarding_service.dart';
 import '../../data/models/models.dart';
 
 class OnboardingController extends ChangeNotifier {
@@ -44,12 +47,14 @@ class OnboardingController extends ChangeNotifier {
         curve: Curves.easeInOut,
       );
     } else {
+      unawaited(onboardingService.markCompleted());
       // Navigate to login page
       context.go(AppRoutes.login);
     }
   }
 
   void skip(BuildContext context) {
+    unawaited(onboardingService.markCompleted());
     context.go(AppRoutes.login);
   }
 

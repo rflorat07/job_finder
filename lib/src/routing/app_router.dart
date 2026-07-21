@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../features/setup/presentation/controllers/setup_account_view_model.dart';
 import '../imports/imports.dart';
+import '../shared/services/onboarding_service.dart';
 
 /// Helper tool to convert a Stream into a Listenable for GoRouter
 class GoRouterRefreshStream extends ChangeNotifier {
@@ -77,6 +78,24 @@ final GoRouter appRouter = GoRouter(
     final currentPath = state.fullPath ?? '';
     final isGoingToProtected = _protectedRoutes.contains(currentPath);
     final isGoingToAuthOnly = _authOnlyRoutes.contains(currentPath);
+    final isOnboardingFlowRoute =
+        currentPath == AppRoutes.onboarding ||
+        currentPath == AppRoutes.getStarted;
+
+    if (!isLoggedIn) {
+      final hasCompletedOnboarding = await onboardingService
+          .hasCompletedOnboarding();
+
+      // If onboarding was not completed yet, user must stay in onboarding.
+      if (!hasCompletedOnboarding && !isOnboardingFlowRoute) {
+        return AppRoutes.onboarding;
+      }
+
+      // If onboarding was completed, user should go to login, not get-started.
+      if (hasCompletedOnboarding && isOnboardingFlowRoute) {
+        return AppRoutes.login;
+      }
+    }
 
     // 3. Logic Rules:
     // If the user is NOT logged in and tries to access a protected area -> Kick to Login
