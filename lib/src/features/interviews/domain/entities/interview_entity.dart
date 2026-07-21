@@ -11,6 +11,7 @@ class InterviewEntity {
   final String companyLogoUrl;
   final DateTime scheduledAt;
   final String media;
+  final String? meetingUrl;
   final InterviewStatus status;
 
   const InterviewEntity({
@@ -20,6 +21,7 @@ class InterviewEntity {
     required this.companyLogoUrl,
     required this.scheduledAt,
     required this.media,
+    this.meetingUrl,
     required this.status,
   });
 }

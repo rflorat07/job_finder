@@ -194,6 +194,8 @@
     "time": "Hora",
     "media": "Medio",
     "click_to_join": "Haz clic para unirte",
+    "join_unavailable": "No hay enlace de reunión para esta entrevista.",
+    "join_error": "No se pudo abrir el enlace de la reunión.",
     "generic_error": "No se pudieron cargar las entrevistas",
     "empty_title": "Aún no tienes entrevistas",
     "empty_subtitle": "Tus entrevistas programadas aparecerán aquí."

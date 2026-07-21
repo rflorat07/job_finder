@@ -549,6 +549,7 @@ CREATE TABLE public.interviews (
   company_logo_url TEXT NOT NULL,
   scheduled_at TIMESTAMP WITH TIME ZONE NOT NULL,
   media TEXT NOT NULL DEFAULT 'Google Meet',
+  meeting_url TEXT,
   status TEXT NOT NULL DEFAULT 'ongoing',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
 
@@ -593,6 +594,7 @@ WITH CHECK (auth.uid() = user_id);
 | `company_logo_url` | TEXT | Company logo URL |
 | `scheduled_at` | TIMESTAMPTZ | Interview date and time |
 | `media` | TEXT | Meeting media (e.g. "Google Meet", "Zoom") |
+| `meeting_url` | TEXT | Meeting join link (nullable) — opened by "Click to Join" |
 | `status` | TEXT | `ongoing` (upcoming) or `history` (past) |
 | `created_at` | TIMESTAMPTZ | Row creation timestamp |
 
@@ -608,30 +610,30 @@ WITH CHECK (auth.uid() = user_id);
 
 ```sql
 INSERT INTO public.interviews (
-  user_id, role_title, company_name, company_logo_url, scheduled_at, media, status
+  user_id, role_title, company_name, company_logo_url, scheduled_at, media, meeting_url, status
 ) VALUES
   (
     'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
     'User Interface Designer', 'Pinterest',
     'https://cdn-icons-png.flaticon.com/512/145/145808.png',
-    now() + interval '2 days', 'Google Meet', 'ongoing'
+    now() + interval '2 days', 'Google Meet', 'https://meet.google.com/abc-defg-hij', 'ongoing'
   ),
   (
     'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
     'Graphic Designer', 'Webflow',
     'https://cdn-icons-png.flaticon.com/128/5968/5968672.png',
-    now() + interval '3 days', 'Google Meet', 'ongoing'
+    now() + interval '3 days', 'Google Meet', 'https://meet.google.com/klm-nopq-rst', 'ongoing'
   ),
   (
     'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
     'Product Designer', 'Meta',
     'https://cdn-icons-png.flaticon.com/128/6033/6033716.png',
-    now() - interval '10 days', 'Zoom', 'history'
+    now() - interval '10 days', 'Zoom', NULL, 'history'
   ),
   (
     'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
     'Frontend Developer', 'Shopify',
     'https://cdn-icons-png.flaticon.com/128/5968/5968919.png',
-    now() - interval '20 days', 'Google Meet', 'history'
+    now() - interval '20 days', 'Google Meet', NULL, 'history'
   );
 ```

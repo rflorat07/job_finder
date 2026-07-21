@@ -44,6 +44,9 @@ dependencies:
   # Image Picker
   image_picker: ^1.2.2
 
+  # External URLs / Deep Links
+  url_launcher: ^6.3.2
+
   # Local Packages
   job_design_tokens:
     path: packages/job_design_tokens

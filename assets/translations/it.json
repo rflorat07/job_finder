@@ -194,6 +194,8 @@
     "time": "Ora",
     "media": "Mezzo",
     "click_to_join": "Clicca per partecipare",
+    "join_unavailable": "Nessun link alla riunione per questo colloquio.",
+    "join_error": "Impossibile aprire il link della riunione.",
     "generic_error": "Errore nel caricamento dei colloqui",
     "empty_title": "Nessun colloquio ancora",
     "empty_subtitle": "I tuoi colloqui programmati appariranno qui."

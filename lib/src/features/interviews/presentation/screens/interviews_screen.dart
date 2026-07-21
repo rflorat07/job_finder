@@ -1,6 +1,7 @@
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../imports/imports.dart';
 import '../../data/datasources/interviews_remote_datasource.dart';
@@ -34,6 +35,27 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
   void dispose() {
     _viewModel.dispose();
     super.dispose();
+  }
+
+  Future<void> _onRefresh() => _viewModel.loadInterviews();
+
+  /// Opens the interview meeting link in an external application.
+  /// Shows a snackbar when there is no link or it cannot be opened.
+  Future<void> _joinInterview(InterviewEntity interview) async {
+    final rawUrl = interview.meetingUrl;
+    if (rawUrl == null || rawUrl.isEmpty) {
+      context.dsShowSnackBar(context.tr('interviews.join_unavailable'));
+      return;
+    }
+
+    final uri = Uri.tryParse(rawUrl);
+    final launched =
+        uri != null &&
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+
+    if (!launched && mounted) {
+      context.dsShowSnackBar(context.tr('interviews.join_error'));
+    }
   }
 
   @override
@@ -76,7 +98,13 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.spacing16),
-                  Expanded(child: _InterviewsBody(viewModel: _viewModel)),
+                  Expanded(
+                    child: _InterviewsBody(
+                      viewModel: _viewModel,
+                      onRefresh: _onRefresh,
+                      onJoin: _joinInterview,
+                    ),
+                  ),
                 ],
               );
             },
@@ -89,9 +117,15 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
 
 /// Switches the content area based on the current [InterviewsState].
 class _InterviewsBody extends StatelessWidget {
-  const _InterviewsBody({required this.viewModel});
+  const _InterviewsBody({
+    required this.viewModel,
+    required this.onRefresh,
+    required this.onJoin,
+  });
 
   final InterviewsViewModel viewModel;
+  final Future<void> Function() onRefresh;
+  final ValueChanged<InterviewEntity> onJoin;
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +133,21 @@ class _InterviewsBody extends StatelessWidget {
       InterviewsState.loading => const Center(
         child: CircularProgressIndicator.adaptive(),
       ),
-      InterviewsState.error => _InterviewsError(
-        message: viewModel.errorMessage,
-        onRetry: viewModel.loadInterviews,
+      InterviewsState.error => _RefreshableScrollView(
+        onRefresh: onRefresh,
+        child: _InterviewsError(
+          message: viewModel.errorMessage,
+          onRetry: onRefresh,
+        ),
       ),
-      InterviewsState.empty => const _InterviewsEmpty(),
+      InterviewsState.empty => _RefreshableScrollView(
+        onRefresh: onRefresh,
+        child: const _InterviewsEmpty(),
+      ),
       InterviewsState.loaded => _InterviewsList(
         interviews: viewModel.interviews,
+        onRefresh: onRefresh,
+        onJoin: onJoin,
       ),
     };
   }
@@ -113,46 +155,86 @@ class _InterviewsBody extends StatelessWidget {
 
 /// Renders the list of interview cards for the selected tab.
 class _InterviewsList extends StatelessWidget {
-  const _InterviewsList({required this.interviews});
+  const _InterviewsList({
+    required this.interviews,
+    required this.onRefresh,
+    required this.onJoin,
+  });
 
   final List<InterviewEntity> interviews;
+  final Future<void> Function() onRefresh;
+  final ValueChanged<InterviewEntity> onJoin;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: SpacingTokens.spacing32),
-      itemCount: interviews.length,
-      separatorBuilder: (_, _) =>
-          const SizedBox(height: SpacingTokens.spacing16),
-      itemBuilder: (context, index) {
-        final interview = interviews[index];
-        return DSInterviewCard(
-          key: ValueKey(interview.id),
-          title: interview.roleTitle,
-          companyName: interview.companyName,
-          logoUrl: interview.companyLogoUrl,
-          actionLabel: context.tr('interviews.click_to_join'),
-          onAction: () {},
-          meta: [
-            DSInterviewMeta(
-              icon: IconsaxPlusLinear.calendar_1,
-              label: context.tr('interviews.date'),
-              value: DateFormat('MMMM d, yyyy').format(interview.scheduledAt),
+    return RefreshIndicator.adaptive(
+      onRefresh: onRefresh,
+      child: ListView.separated(
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: ClampingScrollPhysics(),
+        ),
+        padding: const EdgeInsets.only(bottom: SpacingTokens.spacing32),
+        itemCount: interviews.length,
+        separatorBuilder: (_, _) =>
+            const SizedBox(height: SpacingTokens.spacing16),
+        itemBuilder: (context, index) {
+          final interview = interviews[index];
+          return DSInterviewCard(
+            key: ValueKey(interview.id),
+            title: interview.roleTitle,
+            companyName: interview.companyName,
+            logoUrl: interview.companyLogoUrl,
+            actionLabel: context.tr('interviews.click_to_join'),
+            onAction: () => onJoin(interview),
+            meta: [
+              DSInterviewMeta(
+                icon: IconsaxPlusLinear.calendar_1,
+                label: context.tr('interviews.date'),
+                value: DateFormat('MMMM d, yyyy').format(interview.scheduledAt),
+              ),
+              DSInterviewMeta(
+                icon: IconsaxPlusLinear.clock,
+                label: context.tr('interviews.time'),
+                value: DateFormat('h.mm a').format(interview.scheduledAt),
+              ),
+              DSInterviewMeta(
+                icon: IconsaxPlusLinear.gallery,
+                label: context.tr('interviews.media'),
+                value: interview.media,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Wraps a centered child in a scrollable so pull-to-refresh works even when
+/// the content does not fill the viewport (empty / error states).
+class _RefreshableScrollView extends StatelessWidget {
+  const _RefreshableScrollView({required this.onRefresh, required this.child});
+
+  final Future<void> Function() onRefresh;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator.adaptive(
+      onRefresh: onRefresh,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: ClampingScrollPhysics(),
             ),
-            DSInterviewMeta(
-              icon: IconsaxPlusLinear.clock,
-              label: context.tr('interviews.time'),
-              value: DateFormat('h.mm a').format(interview.scheduledAt),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(child: child),
             ),
-            DSInterviewMeta(
-              icon: IconsaxPlusLinear.gallery,
-              label: context.tr('interviews.media'),
-              value: interview.media,
-            ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

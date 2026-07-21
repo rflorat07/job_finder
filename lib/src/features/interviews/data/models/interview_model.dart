@@ -9,6 +9,7 @@ class InterviewModel extends InterviewEntity {
     required super.companyLogoUrl,
     required super.scheduledAt,
     required super.media,
+    super.meetingUrl,
     required super.status,
   });
 
@@ -20,6 +21,7 @@ class InterviewModel extends InterviewEntity {
       companyLogoUrl: json['company_logo_url'] as String,
       scheduledAt: DateTime.parse(json['scheduled_at'] as String),
       media: json['media'] as String,
+      meetingUrl: json['meeting_url'] as String?,
       status: _statusFromName(json['status'] as String?),
     );
   }
