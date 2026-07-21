@@ -265,10 +265,13 @@ class DSThemeDark {
       ),
 
       snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
         backgroundColor: SemanticColorsDark.surfaceElevated,
         contentTextStyle: TypographyTokens.bodyMedium.copyWith(
           color: SemanticColorsDark.textPrimary,
         ),
+        insetPadding: const EdgeInsets.all(SpacingTokens.spacing16),
         shape: RoundedRectangleBorder(borderRadius: RadiusTokens.mdRadius),
       ),
 
