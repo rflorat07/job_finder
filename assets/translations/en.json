@@ -194,6 +194,7 @@
     "time": "Time",
     "media": "Media",
     "click_to_join": "Click to Join",
+    "generic_error": "Failed to load interviews",
     "empty_title": "No interviews yet",
     "empty_subtitle": "Your scheduled interviews will appear here."
   }

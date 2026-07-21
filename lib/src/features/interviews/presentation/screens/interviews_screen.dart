@@ -1,7 +1,10 @@
 import 'package:job_design_system/job_design_system.dart';
 import 'package:job_design_tokens/job_design_tokens.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../imports/imports.dart';
+import '../../data/datasources/interviews_remote_datasource.dart';
+import '../../data/repositories/interview_repository_impl.dart';
 import '../../domain/entities/interview_entity.dart';
 import '../controllers/interviews_view_model.dart';
 
@@ -20,7 +23,11 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
   @override
   void initState() {
     super.initState();
-    _viewModel = InterviewsViewModel();
+    final client = Supabase.instance.client;
+    final datasource = SupabaseInterviewsRemoteDataSource(client);
+    final repository = InterviewRepositoryImpl(datasource);
+    _viewModel = InterviewsViewModel(repository);
+    _viewModel.loadInterviews();
   }
 
   @override
@@ -69,11 +76,7 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.spacing16),
-                  Expanded(
-                    child: _InterviewsList(
-                      interviews: _viewModel.interviews,
-                    ),
-                  ),
+                  Expanded(child: _InterviewsBody(viewModel: _viewModel)),
                 ],
               );
             },
@@ -84,7 +87,31 @@ class _InterviewsScreenState extends State<InterviewsScreen> {
   }
 }
 
-/// Renders the list of interviews or an empty state placeholder.
+/// Switches the content area based on the current [InterviewsState].
+class _InterviewsBody extends StatelessWidget {
+  const _InterviewsBody({required this.viewModel});
+
+  final InterviewsViewModel viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (viewModel.state) {
+      InterviewsState.loading => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+      InterviewsState.error => _InterviewsError(
+        message: viewModel.errorMessage,
+        onRetry: viewModel.loadInterviews,
+      ),
+      InterviewsState.empty => const _InterviewsEmpty(),
+      InterviewsState.loaded => _InterviewsList(
+        interviews: viewModel.interviews,
+      ),
+    };
+  }
+}
+
+/// Renders the list of interview cards for the selected tab.
 class _InterviewsList extends StatelessWidget {
   const _InterviewsList({required this.interviews});
 
@@ -92,10 +119,6 @@ class _InterviewsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (interviews.isEmpty) {
-      return const _InterviewsEmpty();
-    }
-
     return ListView.separated(
       physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.only(bottom: SpacingTokens.spacing32),
@@ -130,6 +153,35 @@ class _InterviewsList extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+/// Error state with a retry action.
+class _InterviewsError extends StatelessWidget {
+  const _InterviewsError({required this.message, required this.onRetry});
+
+  final String? message;
+  final Future<void> Function() onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            message ?? context.tr('interviews.generic_error'),
+            textAlign: TextAlign.center,
+            style: context.dsTextTheme.bodyLarge,
+          ),
+          const SizedBox(height: SpacingTokens.spacing16),
+          ElevatedButton(
+            onPressed: onRetry,
+            child: Text(context.tr('home.retry')),
+          ),
+        ],
+      ),
     );
   }
 }

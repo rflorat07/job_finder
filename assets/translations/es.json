@@ -194,6 +194,7 @@
     "time": "Hora",
     "media": "Medio",
     "click_to_join": "Haz clic para unirte",
+    "generic_error": "No se pudieron cargar las entrevistas",
     "empty_title": "Aún no tienes entrevistas",
     "empty_subtitle": "Tus entrevistas programadas aparecerán aquí."
   }

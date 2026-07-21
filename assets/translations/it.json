@@ -194,6 +194,7 @@
     "time": "Ora",
     "media": "Mezzo",
     "click_to_join": "Clicca per partecipare",
+    "generic_error": "Errore nel caricamento dei colloqui",
     "empty_title": "Nessun colloquio ancora",
     "empty_subtitle": "I tuoi colloqui programmati appariranno qui."
   }

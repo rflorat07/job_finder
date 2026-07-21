@@ -15,6 +15,7 @@ This document contains all SQL scripts needed to set up the Supabase database fo
 7. [Seed data](#7-seed-data)
 8. [Notifications table](#8-notifications-table-and-rls-policies)
 9. [Bookmarks table](#9-bookmarks-table-and-rls-policies)
+10. [Interviews table](#10-interviews-table-and-rls-policies)
 
 ---
 
@@ -531,3 +532,106 @@ USING (auth.uid() = user_id);
 | Constraint | Description |
 |------------|-------------|
 | `unique_user_bookmark` | Prevents a user from bookmarking the same job twice |
+
+---
+
+## 10. Interviews table and RLS policies
+
+Stores the user's scheduled interviews shown in the Interviews page. The
+"Ongoing" and "History" tabs read from this table filtered by `status`.
+
+```sql
+CREATE TABLE public.interviews (
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  role_title TEXT NOT NULL,
+  company_name TEXT NOT NULL,
+  company_logo_url TEXT NOT NULL,
+  scheduled_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  media TEXT NOT NULL DEFAULT 'Google Meet',
+  status TEXT NOT NULL DEFAULT 'ongoing',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  PRIMARY KEY (id),
+  CONSTRAINT valid_interview_status CHECK (status IN ('ongoing', 'history'))
+);
+
+-- Index for the common query (user's interviews ordered by schedule date)
+CREATE INDEX idx_interviews_user_scheduled_at
+  ON public.interviews(user_id, scheduled_at DESC);
+
+ALTER TABLE public.interviews ENABLE ROW LEVEL SECURITY;
+
+-- Users can view only their own interviews
+CREATE POLICY "Users can view their own interviews"
+ON public.interviews FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- Users can insert their own interviews
+CREATE POLICY "Users can insert their own interviews"
+ON public.interviews FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+
+-- Users can update their own interviews
+CREATE POLICY "Users can update their own interviews"
+ON public.interviews FOR UPDATE
+TO authenticated
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+```
+
+### Column reference
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID | Auto-generated primary key |
+| `user_id` | UUID | FK → `auth.users.id` — the interview owner |
+| `role_title` | TEXT | Position being interviewed for (e.g. "User Interface Designer") |
+| `company_name` | TEXT | Company name (e.g. "Pinterest") |
+| `company_logo_url` | TEXT | Company logo URL |
+| `scheduled_at` | TIMESTAMPTZ | Interview date and time |
+| `media` | TEXT | Meeting media (e.g. "Google Meet", "Zoom") |
+| `status` | TEXT | `ongoing` (upcoming) or `history` (past) |
+| `created_at` | TIMESTAMPTZ | Row creation timestamp |
+
+### Constraint reference
+
+| Constraint | Values |
+|------------|--------|
+| `valid_interview_status` | `ongoing`, `history` |
+
+### Seed examples (ready to run)
+
+> Replace the `user_id` with a real `auth.users.id` from your project.
+
+```sql
+INSERT INTO public.interviews (
+  user_id, role_title, company_name, company_logo_url, scheduled_at, media, status
+) VALUES
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'User Interface Designer', 'Pinterest',
+    'https://cdn-icons-png.flaticon.com/512/145/145808.png',
+    now() + interval '2 days', 'Google Meet', 'ongoing'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'Graphic Designer', 'Webflow',
+    'https://cdn-icons-png.flaticon.com/128/5968/5968672.png',
+    now() + interval '3 days', 'Google Meet', 'ongoing'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'Product Designer', 'Meta',
+    'https://cdn-icons-png.flaticon.com/128/6033/6033716.png',
+    now() - interval '10 days', 'Zoom', 'history'
+  ),
+  (
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'Frontend Developer', 'Shopify',
+    'https://cdn-icons-png.flaticon.com/128/5968/5968919.png',
+    now() - interval '20 days', 'Google Meet', 'history'
+  );
+```
