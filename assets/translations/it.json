@@ -185,5 +185,16 @@
     "title": "Lavori in Tendenza",
     "generic_error": "Errore nel caricamento dei lavori",
     "empty_title": "Nessun lavoro in tendenza"
+  },
+  "interviews": {
+    "title": "Colloqui",
+    "ongoing": "In corso",
+    "history": "Cronologia",
+    "date": "Data",
+    "time": "Ora",
+    "media": "Mezzo",
+    "click_to_join": "Clicca per partecipare",
+    "empty_title": "Nessun colloquio ancora",
+    "empty_subtitle": "I tuoi colloqui programmati appariranno qui."
   }
 }

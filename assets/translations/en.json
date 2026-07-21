@@ -185,5 +185,16 @@
     "title": "Trending Jobs",
     "generic_error": "Failed to load jobs",
     "empty_title": "No trending jobs found"
+  },
+  "interviews": {
+    "title": "Interviews",
+    "ongoing": "Ongoing",
+    "history": "History",
+    "date": "Date",
+    "time": "Time",
+    "media": "Media",
+    "click_to_join": "Click to Join",
+    "empty_title": "No interviews yet",
+    "empty_subtitle": "Your scheduled interviews will appear here."
   }
 }

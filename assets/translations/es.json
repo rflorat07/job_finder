@@ -185,5 +185,16 @@
     "title": "Tendencias",
     "generic_error": "No se pudieron cargar los trabajos",
     "empty_title": "No se encontraron trabajos en tendencia"
+  },
+  "interviews": {
+    "title": "Entrevistas",
+    "ongoing": "En curso",
+    "history": "Historial",
+    "date": "Fecha",
+    "time": "Hora",
+    "media": "Medio",
+    "click_to_join": "Haz clic para unirte",
+    "empty_title": "Aún no tienes entrevistas",
+    "empty_subtitle": "Tus entrevistas programadas aparecerán aquí."
   }
 }
