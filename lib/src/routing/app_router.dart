@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../features/inbox/domain/entities/conversation_entity.dart';
 import '../features/setup/presentation/controllers/setup_account_view_model.dart';
 import '../imports/imports.dart';
 import '../shared/services/onboarding_service.dart';
@@ -30,6 +31,7 @@ const _protectedRoutes = [
   AppRoutes.search,
   AppRoutes.interviews,
   AppRoutes.inbox,
+  AppRoutes.messageDetail,
   AppRoutes.notifications,
   AppRoutes.accountLanguage,
   AppRoutes.accountAppearance,
@@ -252,6 +254,18 @@ final GoRouter appRouter = GoRouter(
         state: state,
         child: const NotificationsScreen(),
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.messageDetail,
+      name: 'messageDetail',
+      pageBuilder: (context, state) {
+        final conversation = state.extra as ConversationEntity;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: ChatScreen(conversation: conversation),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.accountLanguage,

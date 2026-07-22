@@ -16,6 +16,7 @@ This document contains all SQL scripts needed to set up the Supabase database fo
 8. [Notifications table](#8-notifications-table-and-rls-policies)
 9. [Bookmarks table](#9-bookmarks-table-and-rls-policies)
 10. [Interviews table](#10-interviews-table-and-rls-policies)
+11. [Conversations & Messages tables](#11-conversations--messages-tables-and-rls-policies)
 
 ---
 
@@ -635,5 +636,167 @@ INSERT INTO public.interviews (
     'Frontend Developer', 'Shopify',
     'https://cdn-icons-png.flaticon.com/128/5968/5968919.png',
     now() - interval '20 days', 'Google Meet', NULL, 'history'
+  );
+```
+
+---
+
+## 11. Conversations & Messages tables and RLS policies
+
+Powers the Inbox (message list) and the Chat details screen. A `conversation`
+is a thread between the current user and a contact; `messages` holds the
+individual chat bubbles.
+
+```sql
+-- ===== Conversations =====
+CREATE TABLE public.conversations (
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  contact_name TEXT NOT NULL,
+  contact_avatar_url TEXT NOT NULL,
+  last_message TEXT,
+  last_message_at TIMESTAMP WITH TIME ZONE,
+  unread_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX idx_conversations_user_last_message_at
+  ON public.conversations(user_id, last_message_at DESC);
+
+ALTER TABLE public.conversations ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own conversations"
+ON public.conversations FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert their own conversations"
+ON public.conversations FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own conversations"
+ON public.conversations FOR UPDATE
+TO authenticated
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+
+-- ===== Messages =====
+CREATE TABLE public.messages (
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
+  conversation_id UUID NOT NULL REFERENCES public.conversations(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  is_mine BOOLEAN NOT NULL DEFAULT TRUE,
+  body TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX idx_messages_conversation_created_at
+  ON public.messages(conversation_id, created_at ASC);
+
+ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own messages"
+ON public.messages FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert their own messages"
+ON public.messages FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+```
+
+### Trigger: keep the conversation preview in sync
+
+Whenever a message is inserted, update the parent conversation's
+`last_message` / `last_message_at` automatically.
+
+```sql
+CREATE OR REPLACE FUNCTION public.handle_new_message()
+RETURNS trigger AS $$
+BEGIN
+  UPDATE public.conversations
+  SET last_message = NEW.body,
+      last_message_at = NEW.created_at
+  WHERE id = NEW.conversation_id;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_message_created
+  AFTER INSERT ON public.messages
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_message();
+```
+
+### Column reference — conversations
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID | Auto-generated primary key |
+| `user_id` | UUID | FK → `auth.users.id` — inbox owner |
+| `contact_name` | TEXT | Name of the other participant |
+| `contact_avatar_url` | TEXT | Avatar of the other participant |
+| `last_message` | TEXT | Preview of the latest message (kept by trigger) |
+| `last_message_at` | TIMESTAMPTZ | Timestamp of the latest message (ordering) |
+| `unread_count` | INTEGER | Unread messages counter |
+| `created_at` | TIMESTAMPTZ | Row creation timestamp |
+
+### Column reference — messages
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID | Auto-generated primary key |
+| `conversation_id` | UUID | FK → `conversations.id` |
+| `user_id` | UUID | FK → `auth.users.id` — owner (for RLS) |
+| `is_mine` | BOOLEAN | `true` when sent by the current user |
+| `body` | TEXT | Message text |
+| `created_at` | TIMESTAMPTZ | When the message was sent |
+
+### Seed examples (ready to run)
+
+> Replace the `user_id` with a real `auth.users.id` from your project.
+
+```sql
+-- Conversations
+INSERT INTO public.conversations (
+  id, user_id, contact_name, contact_avatar_url, last_message, last_message_at, unread_count
+) VALUES
+  (
+    'b2c3d4e5-0001-4000-8000-000000000001',
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'Olivia Bennett', 'https://i.pravatar.cc/150?img=5',
+    'Lorem Ipsum is simply dummy text of the printing.', now() - interval '1 hour', 2
+  ),
+  (
+    'b2c3d4e5-0002-4000-8000-000000000002',
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'William Parker', 'https://i.pravatar.cc/150?img=12',
+    'The Sr. Java Developer position is a great opportunity.', now() - interval '2 hours', 2
+  ),
+  (
+    'b2c3d4e5-0003-4000-8000-000000000003',
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba',
+    'Noah Henderson', 'https://i.pravatar.cc/150?img=33',
+    'Lorem Ipsum is simply dummy text.', now() - interval '1 day', 0
+  );
+
+-- Messages for the William Parker conversation
+INSERT INTO public.messages (conversation_id, user_id, is_mine, body, created_at) VALUES
+  (
+    'b2c3d4e5-0002-4000-8000-000000000002',
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba', TRUE,
+    'Hi! I recently came across the Sr. Java Developer position at Netflix on your profile, and I''m really interested. Could you share more details about the role and what qualifications you''re looking for?',
+    now() - interval '2 hours 5 minutes'
+  ),
+  (
+    'b2c3d4e5-0002-4000-8000-000000000002',
+    'a1314df4-9f26-4c7c-8dcb-487a74fc4fba', FALSE,
+    'Hi John Doe! Thanks for reaching out. The Sr. Java Developer position at Netflix is a great opportunity. We''re looking for someone with experience in java programming, and ideally someone who has worked in entertainment. Could you tell me a little about your background?',
+    now() - interval '2 hours'
   );
 ```

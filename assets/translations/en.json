@@ -199,5 +199,16 @@
     "generic_error": "Failed to load interviews",
     "empty_title": "No interviews yet",
     "empty_subtitle": "Your scheduled interviews will appear here."
+  },
+  "inbox": {
+    "title": "Messages",
+    "search_hint": "Search name or message",
+    "today": "Today",
+    "type_message": "Type a message",
+    "no_messages": "No messages yet. Say hello!",
+    "generic_error": "Failed to load messages",
+    "error_subtitle": "Pull down to try again.",
+    "empty_title": "No messages yet",
+    "empty_subtitle": "Your conversations will appear here."
   }
 }

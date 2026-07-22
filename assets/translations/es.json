@@ -199,5 +199,16 @@
     "generic_error": "No se pudieron cargar las entrevistas",
     "empty_title": "Aún no tienes entrevistas",
     "empty_subtitle": "Tus entrevistas programadas aparecerán aquí."
+  },
+  "inbox": {
+    "title": "Mensajes",
+    "search_hint": "Buscar nombre o mensaje",
+    "today": "Hoy",
+    "type_message": "Escribe un mensaje",
+    "no_messages": "Aún no hay mensajes. ¡Saluda!",
+    "generic_error": "No se pudieron cargar los mensajes",
+    "error_subtitle": "Desliza hacia abajo para reintentar.",
+    "empty_title": "Aún no tienes mensajes",
+    "empty_subtitle": "Tus conversaciones aparecerán aquí."
   }
 }
