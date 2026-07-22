@@ -135,10 +135,7 @@ class _InterviewsBody extends StatelessWidget {
       ),
       InterviewsState.error => _RefreshableScrollView(
         onRefresh: onRefresh,
-        child: _InterviewsError(
-          message: viewModel.errorMessage,
-          onRetry: onRefresh,
-        ),
+        child: _InterviewsError(message: viewModel.errorMessage),
       ),
       InterviewsState.empty => _RefreshableScrollView(
         onRefresh: onRefresh,
@@ -239,12 +236,12 @@ class _RefreshableScrollView extends StatelessWidget {
   }
 }
 
-/// Error state with a retry action.
+/// Error state shown with a friendly icon + description.
+/// Retrying is handled by pull-to-refresh (see [_RefreshableScrollView]).
 class _InterviewsError extends StatelessWidget {
-  const _InterviewsError({required this.message, required this.onRetry});
+  const _InterviewsError({required this.message});
 
   final String? message;
-  final Future<void> Function() onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -252,15 +249,23 @@ class _InterviewsError extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Icon(
+            IconsaxPlusLinear.message_question,
+            size: SizesTokens.size48,
+            color: context.dsColors.onSurfaceVariant,
+          ),
+          const SizedBox(height: SpacingTokens.spacing12),
           Text(
             message ?? context.tr('interviews.generic_error'),
-            textAlign: TextAlign.center,
-            style: context.dsTextTheme.bodyLarge,
+            style: context.dsTextTheme.bodyMedium,
           ),
-          const SizedBox(height: SpacingTokens.spacing16),
-          ElevatedButton(
-            onPressed: onRetry,
-            child: Text(context.tr('home.retry')),
+          const SizedBox(height: SpacingTokens.spacing8),
+          Text(
+            context.tr('interviews.error_subtitle'),
+            textAlign: TextAlign.center,
+            style: context.dsTextTheme.bodyMedium?.copyWith(
+              color: context.dsColors.onSurfaceVariant,
+            ),
           ),
         ],
       ),

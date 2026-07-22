@@ -197,6 +197,7 @@
     "join_unavailable": "No hay enlace de reunión para esta entrevista.",
     "join_error": "No se pudo abrir el enlace de la reunión.",
     "generic_error": "No se pudieron cargar las entrevistas",
+    "error_subtitle": "Desliza hacia abajo para reintentar.",
     "empty_title": "Aún no tienes entrevistas",
     "empty_subtitle": "Tus entrevistas programadas aparecerán aquí."
   },
