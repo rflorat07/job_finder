@@ -53,11 +53,11 @@ Screen → ViewModel → Repository Interface → Repository Impl → Datasource
 | **Onboarding** | ✅ | 3-step introduction carousel |
 | **Auth** | ✅ | Login, Register, Forgot Password, OTP verification |
 | **Account Setup** | ✅ | 4-step profile setup (country, expertises, accounts, avatar) |
-| **Home** | 🔄 | Hot Vacancies, Best Matches (with filters), Most Recent jobs |
+| **Home** | ✅ | Hot Vacancies, Best Matches (with filters), Most Recent jobs |
 | **Search** | 🏗️ | Job search with filters |
-| **Interviews** | 🏗️ | Interview tracking |
-| **Inbox** | 🏗️ | Messages |
-| **Account** | 🏗️ | Profile settings |
+| **Interviews** | ✅ | Interview tracking |
+| **Inbox** | ✅ | Messages |
+| **Account** | 🔄 | Profile settings |
 
 > ✅ Complete · 🔄 In Progress · 🏗️ Planned
 
