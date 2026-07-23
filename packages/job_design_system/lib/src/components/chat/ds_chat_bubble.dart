@@ -64,12 +64,13 @@ class DSChatBubble extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: SpacingTokens.spacing6),
+        const SizedBox(height: SpacingTokens.spacing8),
         Text(
           time,
           style: context.dsTextTheme.labelSmall?.copyWith(
             color: context.dsColors.secondary,
-            fontWeight: TypographyTokens.fontWeightRegular,
+            fontWeight: TypographyTokens.fontWeightMedium,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
       ],

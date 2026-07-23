@@ -38,6 +38,7 @@ class DSSearchField extends StatelessWidget {
     final hintColor = context.dsColors.secondary;
 
     return Container(
+      height: SizesTokens.size52,
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.spacing16),
       decoration: BoxDecoration(
         color: backgroundColor ?? context.dsColors.secondaryContainer,

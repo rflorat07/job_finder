@@ -13,6 +13,9 @@ class DSMessageInputBar extends StatelessWidget {
   /// Placeholder text.
   final String hintText;
 
+  /// Trailing icon (e.g. camera). Hidden when null.
+  final IconData icon;
+
   /// Called when the send button is tapped.
   final VoidCallback? onSend;
 
@@ -25,6 +28,7 @@ class DSMessageInputBar extends StatelessWidget {
     required this.hintText,
     this.onSend,
     this.onAttach,
+    this.icon = Icons.photo_camera_outlined,
   });
 
   @override
@@ -35,52 +39,55 @@ class DSMessageInputBar extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(
               left: SpacingTokens.spacing16,
-              right: SpacingTokens.spacing8,
+              right: SpacingTokens.spacing16,
             ),
             decoration: BoxDecoration(
               color: context.dsColors.secondaryContainer,
               borderRadius: RadiusTokens.fullRadius,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    minLines: 1,
-                    maxLines: 4,
-                    textInputAction: TextInputAction.newline,
-                    cursorColor: context.dsColors.primary,
-                    style: context.dsTextTheme.bodyMedium?.copyWith(
-                      color: context.dsColors.onSurface,
-                      fontWeight: TypographyTokens.fontWeightRegular,
-                    ),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: SpacingTokens.spacing16,
-                      ),
-                      hintText: hintText,
-                      hintStyle: context.dsTextTheme.bodyMedium?.copyWith(
-                        color: context.dsColors.secondary,
+            child: ClipRRect(
+              borderRadius: RadiusTokens.fullRadius,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      minLines: 1,
+                      maxLines: 4,
+                      textInputAction: TextInputAction.newline,
+                      cursorColor: context.dsColors.primary,
+                      style: context.dsTextTheme.bodyMedium?.copyWith(
+                        color: context.dsColors.onSurface,
                         fontWeight: TypographyTokens.fontWeightRegular,
                       ),
+                      decoration: InputDecoration(
+                        isDense: true,
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: SpacingTokens.spacing16,
+                        ),
+                        hintText: hintText,
+                        hintStyle: context.dsTextTheme.bodyMedium?.copyWith(
+                          color: context.dsColors.secondary,
+                          fontWeight: TypographyTokens.fontWeightRegular,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                if (onAttach != null)
-                  GestureDetector(
-                    onTap: onAttach,
-                    behavior: HitTestBehavior.opaque,
-                    child: Icon(
-                      Icons.photo_camera_outlined,
-                      color: context.dsColors.secondary,
-                      size: SizesTokens.size24,
+                  if (onAttach != null)
+                    GestureDetector(
+                      onTap: onAttach,
+                      behavior: HitTestBehavior.opaque,
+                      child: Icon(
+                        icon,
+                        color: context.dsColors.secondary,
+                        size: SizesTokens.size24,
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -115,7 +122,7 @@ class _SendButton extends StatelessWidget {
           child: Icon(
             Icons.send_rounded,
             color: context.dsColors.onPrimary,
-            size: SizesTokens.size24,
+            size: SizesTokens.size20,
           ),
         ),
       ),

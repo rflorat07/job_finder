@@ -127,6 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               child: DSMessageInputBar(
                 controller: _inputController,
+                icon: IconsaxPlusLinear.camera,
                 hintText: context.tr('inbox.type_message'),
                 onAttach: () {},
                 onSend: _onSend,
@@ -174,7 +175,7 @@ class _MessagesList extends StatelessWidget {
         final message = messages[index - 1];
         return DSChatBubble(
           message: message.body,
-          time: DateFormat('h.mm a').format(message.createdAt),
+          time: DateFormat('h.mm a', 'en_US').format(message.createdAt),
           isMine: message.isMine,
         );
       },
@@ -195,7 +196,7 @@ class _DateBadge extends StatelessWidget {
           vertical: SpacingTokens.spacing4,
         ),
         decoration: BoxDecoration(
-          color: context.dsColors.secondary,
+          color: context.dsColors.secondaryContainer,
           borderRadius: RadiusTokens.lgRadius,
         ),
         child: Text(
@@ -203,6 +204,7 @@ class _DateBadge extends StatelessWidget {
           style: context.dsTextTheme.bodySmall?.copyWith(
             color: context.dsColors.onSurfaceVariant,
             fontWeight: TypographyTokens.fontWeightMedium,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
       ),

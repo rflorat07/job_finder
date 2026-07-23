@@ -59,13 +59,15 @@ class _InboxScreenState extends State<InboxScreen> {
             horizontal: SpacingTokens.spacing24,
           ),
           child: Column(
+            spacing: SpacingTokens.spacing16,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DSSearchField(
+                icon: IconsaxPlusLinear.search_normal_1,
                 hintText: context.tr('inbox.search_hint'),
                 onChanged: _viewModel.search,
               ),
-              const SizedBox(height: SpacingTokens.spacing16),
+
               Expanded(
                 child: ListenableBuilder(
                   listenable: _viewModel,
@@ -160,7 +162,10 @@ class _ConversationsList extends StatelessWidget {
             avatarUrl: conversation.contactAvatarUrl,
             lastMessage: conversation.lastMessage,
             time: conversation.lastMessageAt != null
-                ? DateFormat('h.mm a').format(conversation.lastMessageAt!)
+                ? DateFormat(
+                    'h.mm a',
+                    'en_US',
+                  ).format(conversation.lastMessageAt!)
                 : '',
             unreadCount: conversation.unreadCount,
             onTap: () => onOpen(conversation),
