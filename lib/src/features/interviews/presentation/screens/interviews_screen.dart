@@ -187,12 +187,17 @@ class _InterviewsList extends StatelessWidget {
               DSInterviewMeta(
                 icon: IconsaxPlusLinear.calendar_1,
                 label: context.tr('interviews.date'),
-                value: DateFormat('MMMM d, yyyy').format(interview.scheduledAt),
+                value: DateFormat(
+                  'MMMM d, yyyy',
+                ).format(interview.scheduledAt).capitalize(),
               ),
               DSInterviewMeta(
-                icon: IconsaxPlusLinear.clock,
+                icon: IconsaxPlusLinear.clock_1,
                 label: context.tr('interviews.time'),
-                value: DateFormat('h.mm a').format(interview.scheduledAt),
+                value: DateFormat(
+                  'h.mm a',
+                  'en_US',
+                ).format(interview.scheduledAt),
               ),
               DSInterviewMeta(
                 icon: IconsaxPlusLinear.gallery,

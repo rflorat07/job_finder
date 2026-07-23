@@ -171,7 +171,7 @@ class _MetaRow extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Flexible(
+        Expanded(
           child: Text(
             data.value,
             textAlign: TextAlign.right,

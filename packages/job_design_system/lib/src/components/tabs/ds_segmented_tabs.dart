@@ -89,6 +89,7 @@ class _Segment extends StatelessWidget {
               fontWeight: isSelected
                   ? TypographyTokens.fontWeightSemiBold
                   : TypographyTokens.fontWeightMedium,
+              height: TypographyTokens.lineHeightExtraRelaxed,
             ),
           ),
         ),
