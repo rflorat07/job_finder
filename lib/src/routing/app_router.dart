@@ -29,6 +29,7 @@ class GoRouterRefreshStream extends ChangeNotifier {
 const _protectedRoutes = [
   AppRoutes.home,
   AppRoutes.search,
+  AppRoutes.explore,
   AppRoutes.interviews,
   AppRoutes.inbox,
   AppRoutes.messageDetail,
@@ -294,6 +295,16 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.mostRecent,
       name: 'mostRecent',
       builder: (context, state) => const TrendingJobsScreen(),
+    ),
+
+    // Standalone Explore/Search route rendered on the root navigator.
+    // It reuses [SearchScreen] but lives OUTSIDE the StatefulShellRoute, so it
+    // can be safely pushed on top of other pages (e.g. Latest Jobs) without
+    // duplicating the shell's GlobalKeys.
+    GoRoute(
+      path: AppRoutes.explore,
+      name: 'explore',
+      builder: (context, state) => const SearchScreen(),
     ),
 
     StatefulShellRoute.indexedStack(

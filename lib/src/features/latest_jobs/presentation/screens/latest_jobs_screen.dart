@@ -55,6 +55,16 @@ class _LatestJobsScreenState extends State<LatestJobsScreen> {
           backgroundColor: context.dsColors.secondaryContainer,
           onPressed: () => context.pop(),
         ),
+        actions: [
+          DSCircularIcon.icon(
+            IconsaxPlusLinear.search_normal_1,
+            size: SizesTokens.size44,
+            iconSize: SizesTokens.size24,
+            backgroundColor: context.dsColors.secondaryContainer,
+            onPressed: () => context.push(AppRoutes.explore),
+          ),
+          const SizedBox(width: SpacingTokens.spacing16),
+        ],
         centerTitle: true,
       ),
       // Listen to ViewModel state changes

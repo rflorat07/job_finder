@@ -59,9 +59,7 @@ class _TrendingJobsScreenState extends State<TrendingJobsScreen> {
             size: SizesTokens.size44,
             iconSize: SizesTokens.size24,
             backgroundColor: context.dsColors.secondaryContainer,
-            onPressed: () {
-              // TODO: Navigate to search/filter
-            },
+            onPressed: () => context.push(AppRoutes.explore),
           ),
           const SizedBox(width: SpacingTokens.spacing16),
         ],
