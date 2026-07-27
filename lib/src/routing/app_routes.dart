@@ -17,6 +17,7 @@ abstract final class AppRoutes {
   static const String explore = '/explore';
   static const String mostRecent = '/most-recent';
   static const String latestJobs = '/latest-jobs';
+  static const String jobDetail = '/job-detail';
   static const String interviews = '/interviews';
   static const String inbox = '/inbox';
   static const String messageDetail = '/inbox/chat';

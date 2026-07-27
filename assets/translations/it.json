@@ -186,6 +186,24 @@
     "generic_error": "Errore nel caricamento dei lavori",
     "empty_title": "Nessun lavoro in tendenza"
   },
+  "job_detail": {
+    "title": "Dettaglio Lavoro",
+    "salary": "Stipendio",
+    "job_type": "Tipo",
+    "job_type_full_time": "Tempo Pieno",
+    "job_type_part_time": "Part Time",
+    "job_type_contract": "Contratto",
+    "level": "Livello",
+    "level_any": "N/D",
+    "description": "Descrizione del Lavoro",
+    "no_description": "Nessuna descrizione disponibile.",
+    "qualifications": "Requisiti",
+    "no_qualifications": "Nessun requisito specifico indicato.",
+    "apply": "Candidati",
+    "applied_success": "Candidatura inviata per {job}!",
+    "generic_error": "Errore nel caricamento del dettaglio",
+    "retry": "Riprova"
+  },
   "interviews": {
     "title": "Colloqui",
     "ongoing": "In corso",

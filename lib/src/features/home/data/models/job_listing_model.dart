@@ -13,6 +13,8 @@ class JobListingModel extends JobListingEntity {
     super.description,
     required super.workMode,
     required super.jobType,
+    super.experienceLevel,
+    super.qualifications,
     required super.tags,
     required super.postedAt,
   });
@@ -29,6 +31,8 @@ class JobListingModel extends JobListingEntity {
   ///   "description": "...",
   ///   "work_mode": "remote",
   ///   "job_type": "full-time",
+  ///   "experience_level": "Senior",
+  ///   "qualifications": ["3+ years experience", "Strong portfolio"],
   ///   "tags": ["Remote", "Full-time"],
   ///   "posted_at": "2026-06-05T10:00:00Z",
   ///   "companies": { "name": "Stripe", "logo_url": "https://..." }
@@ -47,6 +51,10 @@ class JobListingModel extends JobListingEntity {
       description: json['description'] as String?,
       workMode: json['work_mode'] as String,
       jobType: json['job_type'] as String,
+      experienceLevel: json['experience_level'] as String?,
+      qualifications:
+          (json['qualifications'] as List<dynamic>?)?.cast<String>() ??
+          const [],
       tags: (json['tags'] as List<dynamic>).cast<String>(),
       postedAt: DateTime.parse(json['posted_at'] as String),
     );

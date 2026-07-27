@@ -179,9 +179,10 @@ class _LatestJobsLoadedState extends State<_LatestJobsLoaded> {
               timeAgo: _formatTimeAgo(context, job.postedAt),
               isBookmarked: widget.bookmarksService.isBookmarked(job.id),
               onBookmark: () => widget.bookmarksService.toggleBookmark(job.id),
-              onTap: () {
-                // TODO: Navigate to job details
-              },
+              onTap: () => context.push(
+                AppRoutes.jobDetail,
+                extra: JobDetailArgs(id: job.id, initialJob: job),
+              ),
             ),
           );
         },

@@ -520,7 +520,10 @@ class _BestMatches extends StatelessWidget {
               timeAgo: _formatTimeAgo(context, job.postedAt),
               isBookmarked: bookmarksService.isBookmarked(job.id),
               onBookmark: () => bookmarksService.toggleBookmark(job.id),
-              onTap: () {},
+              onTap: () => context.push(
+                AppRoutes.jobDetail,
+                extra: JobDetailArgs(id: job.id, initialJob: job),
+              ),
             ),
           );
         },
@@ -601,7 +604,10 @@ class _MostRecent extends StatelessWidget {
                 tags: job.tags,
                 isBookmarked: bookmarksService.isBookmarked(job.id),
                 onBookmark: () => bookmarksService.toggleBookmark(job.id),
-                onTap: () {},
+                onTap: () => context.push(
+                  AppRoutes.jobDetail,
+                  extra: JobDetailArgs(id: job.id, initialJob: job),
+                ),
               ),
             );
           },

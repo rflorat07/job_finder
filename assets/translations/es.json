@@ -186,6 +186,24 @@
     "generic_error": "No se pudieron cargar los trabajos",
     "empty_title": "No se encontraron trabajos en tendencia"
   },
+  "job_detail": {
+    "title": "Detalle del Trabajo",
+    "salary": "Salario",
+    "job_type": "Tipo",
+    "job_type_full_time": "Tiempo Completo",
+    "job_type_part_time": "Medio Tiempo",
+    "job_type_contract": "Contrato",
+    "level": "Nivel",
+    "level_any": "N/D",
+    "description": "Descripción del Trabajo",
+    "no_description": "No hay descripción disponible.",
+    "qualifications": "Requisitos",
+    "no_qualifications": "No se especificaron requisitos.",
+    "apply": "Aplicar",
+    "applied_success": "¡Solicitud enviada para {job}!",
+    "generic_error": "No se pudo cargar el detalle del trabajo",
+    "retry": "Reintentar"
+  },
   "interviews": {
     "title": "Entrevistas",
     "ongoing": "En curso",

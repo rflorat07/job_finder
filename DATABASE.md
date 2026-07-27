@@ -162,6 +162,8 @@ CREATE TABLE public.job_listings (
   description TEXT,
   work_mode TEXT NOT NULL DEFAULT 'on-site',
   job_type TEXT NOT NULL DEFAULT 'full-time',
+  experience_level TEXT,
+  qualifications TEXT[] NOT NULL DEFAULT '{}',
   tags TEXT[] NOT NULL DEFAULT '{}',
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
   posted_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -198,6 +200,8 @@ USING (is_active = TRUE);
 | `description` | TEXT | Job description (nullable for listings without one) |
 | `work_mode` | TEXT | `remote`, `hybrid`, or `on-site` |
 | `job_type` | TEXT | `full-time`, `part-time`, or `contract` |
+| `experience_level` | TEXT | Seniority label shown on the detail screen (e.g. "Senior", nullable) |
+| `qualifications` | TEXT[] | Bullet-point requirements shown on the detail screen |
 | `tags` | TEXT[] | Display tags (e.g. `['Remote', 'Full-time']`) |
 | `is_active` | BOOLEAN | Soft-delete flag — RLS only shows active listings |
 | `posted_at` | TIMESTAMPTZ | When the job was posted (for ordering) |
@@ -209,6 +213,34 @@ USING (is_active = TRUE);
 |------------|--------|
 | `valid_work_mode` | `remote`, `hybrid`, `on-site` |
 | `valid_job_type` | `full-time`, `part-time`, `contract` |
+
+### Migration (existing databases)
+
+If the `job_listings` table already exists, add the new detail columns with:
+
+```sql
+ALTER TABLE public.job_listings
+  ADD COLUMN IF NOT EXISTS experience_level TEXT,
+  ADD COLUMN IF NOT EXISTS qualifications TEXT[] NOT NULL DEFAULT '{}';
+```
+
+Then backfill sample values for existing rows:
+
+```sql
+UPDATE public.job_listings
+SET
+  experience_level = CASE
+    WHEN job_title ILIKE 'Senior%' OR job_title ILIKE 'Sr.%' THEN 'Senior'
+    WHEN job_title ILIKE '%Lead%'  THEN 'Lead'
+    ELSE 'Mid-level'
+  END,
+  qualifications = ARRAY[
+    'Proven experience in a similar role.',
+    'Strong communication and collaboration skills.',
+    'Portfolio or references demonstrating relevant work.'
+  ]
+WHERE qualifications = '{}';
+```
 
 ---
 

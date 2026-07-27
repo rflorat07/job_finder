@@ -176,9 +176,10 @@ class _TrendingJobsLoadedState extends State<_TrendingJobsLoaded> {
               tags: job.tags,
               isBookmarked: widget.bookmarksService.isBookmarked(job.id),
               onBookmark: () => widget.bookmarksService.toggleBookmark(job.id),
-              onTap: () {
-                // TODO: Navigate to job details
-              },
+              onTap: () => context.push(
+                AppRoutes.jobDetail,
+                extra: JobDetailArgs(id: job.id, initialJob: job),
+              ),
             ),
           );
         },

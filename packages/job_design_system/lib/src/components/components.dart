@@ -11,6 +11,7 @@ export 'cards/ds_interview_card.dart';
 export 'cards/ds_job_card.dart';
 export 'cards/ds_notification_card.dart';
 export 'cards/ds_recent_job_card.dart';
+export 'cards/ds_stat_card.dart';
 export 'chat/ds_chat_bubble.dart';
 export 'chat/ds_message_input_bar.dart';
 export 'chip/ds_filter_chip.dart';

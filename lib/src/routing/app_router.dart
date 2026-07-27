@@ -38,6 +38,7 @@ const _protectedRoutes = [
   AppRoutes.accountAppearance,
   AppRoutes.latestJobs,
   AppRoutes.mostRecent,
+  AppRoutes.jobDetail,
   AppRoutes.account,
   AppRoutes.setupAccountStep1,
   AppRoutes.setupAccountStep2,
@@ -295,6 +296,19 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.mostRecent,
       name: 'mostRecent',
       builder: (context, state) => const TrendingJobsScreen(),
+    ),
+
+    GoRoute(
+      path: AppRoutes.jobDetail,
+      name: 'jobDetail',
+      pageBuilder: (context, state) {
+        final args = state.extra as JobDetailArgs;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: JobDetailScreen(args: args),
+        );
+      },
     ),
 
     // Standalone Explore/Search route rendered on the root navigator.

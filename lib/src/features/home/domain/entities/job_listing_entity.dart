@@ -12,6 +12,13 @@ class JobListingEntity {
   final String? description;
   final String workMode;
   final String jobType;
+
+  /// Seniority level shown in the detail screen (e.g. "Senior").
+  /// Nullable because not every listing specifies it.
+  final String? experienceLevel;
+
+  /// Bullet-point requirements shown in the detail screen.
+  final List<String> qualifications;
   final List<String> tags;
   final DateTime postedAt;
 
@@ -25,6 +32,8 @@ class JobListingEntity {
     this.description,
     required this.workMode,
     required this.jobType,
+    this.experienceLevel,
+    this.qualifications = const [],
     required this.tags,
     required this.postedAt,
   });

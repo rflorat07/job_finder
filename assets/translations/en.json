@@ -186,6 +186,24 @@
     "generic_error": "Failed to load jobs",
     "empty_title": "No trending jobs found"
   },
+  "job_detail": {
+    "title": "Job Detail",
+    "salary": "Salary",
+    "job_type": "Job Type",
+    "job_type_full_time": "Full Time",
+    "job_type_part_time": "Part Time",
+    "job_type_contract": "Contract",
+    "level": "Level",
+    "level_any": "N/A",
+    "description": "Job Description",
+    "no_description": "No description available.",
+    "qualifications": "Qualifications",
+    "no_qualifications": "No specific qualifications listed.",
+    "apply": "Apply Job",
+    "applied_success": "Application sent for {job}!",
+    "generic_error": "Failed to load job detail",
+    "retry": "Retry"
+  },
   "interviews": {
     "title": "Interviews",
     "ongoing": "Ongoing",

@@ -11,6 +11,7 @@ export '../features/dashboard/presentation/screens/screens.dart';
 export '../features/home/presentation/screens/screens.dart';
 export '../features/inbox/presentation/screens/screens.dart';
 export '../features/interviews/presentation/screens/screens.dart';
+export '../features/job_detail/presentation/screens/screens.dart';
 export '../features/latest_jobs/presentation/screens/screens.dart';
 export '../features/notifications/presentation/screens/screens.dart';
 export '../features/onboarding/presentation/screens/screens.dart';
