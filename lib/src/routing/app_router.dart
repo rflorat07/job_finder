@@ -36,6 +36,7 @@ const _protectedRoutes = [
   AppRoutes.notifications,
   AppRoutes.accountLanguage,
   AppRoutes.accountAppearance,
+  AppRoutes.accountPersonalData,
   AppRoutes.latestJobs,
   AppRoutes.mostRecent,
   AppRoutes.jobDetail,
@@ -285,6 +286,15 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const AccountAppearanceScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.accountPersonalData,
+      name: 'accountPersonalData',
+      pageBuilder: (context, state) => AppTransitions.slideRight(
+        context: context,
+        state: state,
+        child: const PersonalDataScreen(),
       ),
     ),
     GoRoute(

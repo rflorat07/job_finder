@@ -161,6 +161,26 @@
     "default_email": "correo@ejemplo.com",
     "generic_error": "Ocurrió un error al cargar tu cuenta."
   },
+  "personal_data": {
+    "title": "Datos personales",
+    "full_name": "Nombre completo",
+    "full_name_hint": "Ingresa tu nombre completo",
+    "full_name_required": "Ingresa tu nombre completo",
+    "phone_number": "Número de teléfono",
+    "phone_number_hint": "(555) 234-5678",
+    "email": "Correo electrónico",
+    "date_of_birth": "Fecha de nacimiento",
+    "date_of_birth_hint": "Selecciona tu fecha de nacimiento",
+    "gender": "Género",
+    "gender_hint": "Selecciona tu género",
+    "select_gender": "Selecciona el género",
+    "gender_male": "Masculino",
+    "gender_female": "Femenino",
+    "gender_other": "Otro",
+    "save_changes": "Guardar cambios",
+    "saved_success": "Tus datos personales se actualizaron correctamente.",
+    "generic_error": "Ocurrió un error al cargar tus datos personales."
+  },
   "notifications": {
     "inbox_title": "Bandeja de entrada",
     "open_notifications": "Abrir notificaciones",

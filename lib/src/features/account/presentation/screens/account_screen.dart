@@ -81,6 +81,7 @@ class _AccountScreenState extends State<AccountScreen> {
           AccountMenuItem(
             title: context.tr('account.personal_data'),
             icon: IconsaxPlusLinear.user,
+            onTap: () => context.push(AppRoutes.accountPersonalData),
           ),
           AccountMenuItem(
             title: context.tr('account.payment_account'),

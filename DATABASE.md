@@ -59,6 +59,18 @@ ON public.profiles FOR SELECT
 USING ( true );
 ```
 
+### Migration: Personal Data fields
+
+Adds the editable fields used by the "Personal Data" screen. Safe to re-run (idempotent).
+
+```sql
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS phone_number  TEXT,
+  ADD COLUMN IF NOT EXISTS date_of_birth DATE,
+  ADD COLUMN IF NOT EXISTS gender        TEXT
+    CHECK (gender IN ('male', 'female', 'other'));
+```
+
 ---
 
 ## 2. Auto-create profile on user signup (Trigger)

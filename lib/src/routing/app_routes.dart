@@ -23,6 +23,7 @@ abstract final class AppRoutes {
   static const String messageDetail = '/inbox/chat';
   static const String notifications = '/notifications';
   static const String account = '/account';
+  static const String accountPersonalData = '/account/personal-data';
   static const String accountLanguage = '/account/language';
   static const String accountAppearance = '/account/appearance';
   static const String setupAccountStep1 = '/setup-account/step-1';
