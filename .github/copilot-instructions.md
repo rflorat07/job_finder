@@ -168,7 +168,7 @@ Screen/Widget ──listens──▶ ViewModel (ChangeNotifier)
 - Use `context.tr('namespace.key')` for simple strings.
 - Use `context.tr('key', namedArgs: {'param': value})` for interpolated strings.
 - JSON keys follow nested namespace pattern: `"home.best_matches"`, `"auth.email_required"`.
-- Supported locales: `en`, `es`.
+- Supported locales: `en`, `es`, `it`.
 - Add new keys to ALL translation files when creating new UI.
 
 ---
