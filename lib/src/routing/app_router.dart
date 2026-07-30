@@ -39,6 +39,7 @@ const _protectedRoutes = [
   AppRoutes.accountAppearance,
   AppRoutes.accountPersonalData,
   AppRoutes.accountSecurity,
+  AppRoutes.accountPushNotifications,
   AppRoutes.accountEditProfile,
   AppRoutes.profileAboutMe,
   AppRoutes.profileEducation,
@@ -312,6 +313,15 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const AccountSecurityScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.accountPushNotifications,
+      name: 'accountPushNotifications',
+      pageBuilder: (context, state) => AppTransitions.slideRight(
+        context: context,
+        state: state,
+        child: const PushNotificationScreen(),
       ),
     ),
     GoRoute(

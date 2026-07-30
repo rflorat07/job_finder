@@ -110,6 +110,7 @@ class _AccountScreenState extends State<AccountScreen> {
           AccountMenuItem(
             title: context.tr('account.push_notifications'),
             icon: IconsaxPlusLinear.notification,
+            onTap: () => context.push(AppRoutes.accountPushNotifications),
           ),
           AccountMenuItem(
             title: context.tr('account.clear_cache'),
