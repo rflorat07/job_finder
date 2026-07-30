@@ -59,9 +59,11 @@ class PersonalDataViewModel extends ChangeNotifier {
   /// Persists the edited fields and returns `true` on success.
   Future<bool> save({
     required String fullName,
+    String? nickname,
     String? phoneNumber,
     DateTime? dateOfBirth,
     Gender? gender,
+    String? currentAddress,
   }) async {
     final current = _data;
     if (_disposed || current == null || _state == PersonalDataState.saving) {
@@ -77,9 +79,11 @@ class PersonalDataViewModel extends ChangeNotifier {
       email: current.email,
       avatarUrl: current.avatarUrl,
       fullName: fullName,
+      nickname: nickname,
       phoneNumber: phoneNumber,
       dateOfBirth: dateOfBirth,
       gender: gender,
+      currentAddress: currentAddress,
     );
 
     final result = await _repository.updatePersonalData(updated);

@@ -35,6 +35,7 @@ export 'layout/ds_setup_account_base_layout.dart';
 export 'layout/ds_system_ui_style.dart';
 export 'otp/ds_otp_input.dart';
 export 'preview/ds_preview_scaffold.dart';
+export 'state/ds_error_state.dart';
 export 'tabs/ds_segmented_tabs.dart';
 export 'text/ds_rich_text.dart';
 export 'toast/ds_toast.dart';

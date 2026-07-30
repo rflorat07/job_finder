@@ -7,9 +7,11 @@ class PersonalDataModel extends PersonalDataEntity {
     required super.id,
     required super.email,
     required super.fullName,
+    super.nickname,
     super.phoneNumber,
     super.dateOfBirth,
     super.gender,
+    super.currentAddress,
     super.avatarUrl,
   });
 
@@ -28,11 +30,13 @@ class PersonalDataModel extends PersonalDataEntity {
       id: json['id'] as String,
       email: email,
       fullName: (rawFullName?.trim().isNotEmpty ?? false) ? rawFullName! : '',
+      nickname: json['nickname'] as String?,
       phoneNumber: json['phone_number'] as String?,
       dateOfBirth: rawDateOfBirth != null
           ? DateTime.tryParse(rawDateOfBirth)
           : null,
       gender: Gender.fromValue(json['gender'] as String?),
+      currentAddress: json['current_address'] as String?,
       avatarUrl: json['avatar_url'] as String?,
     );
   }
@@ -43,9 +47,11 @@ class PersonalDataModel extends PersonalDataEntity {
       id: entity.id,
       email: entity.email,
       fullName: entity.fullName,
+      nickname: entity.nickname,
       phoneNumber: entity.phoneNumber,
       dateOfBirth: entity.dateOfBirth,
       gender: entity.gender,
+      currentAddress: entity.currentAddress,
       avatarUrl: entity.avatarUrl,
     );
   }
@@ -57,10 +63,12 @@ class PersonalDataModel extends PersonalDataEntity {
   Map<String, dynamic> toUpdateJson() {
     return {
       'full_name': fullName,
+      'nickname': nickname,
       'phone_number': phoneNumber,
       // Supabase `DATE` columns expect an ISO `yyyy-MM-dd` string.
       'date_of_birth': dateOfBirth?.toIso8601String().split('T').first,
       'gender': gender?.value,
+      'current_address': currentAddress,
     };
   }
 }

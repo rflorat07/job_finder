@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../features/inbox/domain/entities/conversation_entity.dart';
+import '../features/profile/presentation/controllers/controllers.dart';
 import '../features/setup/presentation/controllers/setup_account_view_model.dart';
 import '../imports/imports.dart';
 import '../shared/services/onboarding_service.dart';
@@ -37,6 +38,12 @@ const _protectedRoutes = [
   AppRoutes.accountLanguage,
   AppRoutes.accountAppearance,
   AppRoutes.accountPersonalData,
+  AppRoutes.accountEditProfile,
+  AppRoutes.profileAboutMe,
+  AppRoutes.profileEducation,
+  AppRoutes.profileWorkExperience,
+  AppRoutes.profileSkills,
+  AppRoutes.profileSalary,
   AppRoutes.latestJobs,
   AppRoutes.mostRecent,
   AppRoutes.jobDetail,
@@ -296,6 +303,75 @@ final GoRouter appRouter = GoRouter(
         state: state,
         child: const PersonalDataScreen(),
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.accountEditProfile,
+      name: 'accountEditProfile',
+      pageBuilder: (context, state) => AppTransitions.slideRight(
+        context: context,
+        state: state,
+        child: const ManageProfileScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.profileAboutMe,
+      name: 'profileAboutMe',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as ProfileViewModel;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: AboutMeScreen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.profileEducation,
+      name: 'profileEducation',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as ProfileViewModel;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: EducationScreen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.profileWorkExperience,
+      name: 'profileWorkExperience',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as ProfileViewModel;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: WorkExperienceScreen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.profileSkills,
+      name: 'profileSkills',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as ProfileViewModel;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: SkillsScreen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.profileSalary,
+      name: 'profileSalary',
+      pageBuilder: (context, state) {
+        final viewModel = state.extra as ProfileViewModel;
+        return AppTransitions.slideRight(
+          context: context,
+          state: state,
+          child: SalaryScreen(viewModel: viewModel),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.latestJobs,

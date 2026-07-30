@@ -161,6 +161,7 @@ class _AccountScreenState extends State<AccountScreen> {
             fullName: fullName,
             email: email,
             avatarUrl: profile?.avatarUrl,
+            onEditTap: () => context.push(AppRoutes.accountEditProfile),
           ),
           child: switch (_viewModel.state) {
             AccountState.loading => const Center(

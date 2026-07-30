@@ -26,7 +26,7 @@ class SupabasePersonalDataRemoteDataSource
     final profileMap = await _client
         .from('profiles')
         .select(
-          'id, full_name, phone_number, date_of_birth, gender, avatar_url',
+          'id, full_name, nickname, phone_number, date_of_birth, gender, current_address, avatar_url',
         )
         .eq('id', user.id)
         .single();

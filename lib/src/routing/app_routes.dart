@@ -26,6 +26,13 @@ abstract final class AppRoutes {
   static const String accountPersonalData = '/account/personal-data';
   static const String accountLanguage = '/account/language';
   static const String accountAppearance = '/account/appearance';
+  static const String accountEditProfile = '/account/edit-profile';
+  static const String profileAboutMe = '/account/edit-profile/about-me';
+  static const String profileEducation = '/account/edit-profile/education';
+  static const String profileWorkExperience =
+      '/account/edit-profile/work-experience';
+  static const String profileSkills = '/account/edit-profile/skills';
+  static const String profileSalary = '/account/edit-profile/salary';
   static const String setupAccountStep1 = '/setup-account/step-1';
   static const String setupAccountStep2 = '/setup-account/step-2';
   static const String setupAccountStep3 = '/setup-account/step-3';

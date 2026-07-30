@@ -34,18 +34,22 @@ class PersonalDataEntity {
   final String id;
   final String email;
   final String fullName;
+  final String? nickname;
   final String? phoneNumber;
   final DateTime? dateOfBirth;
   final Gender? gender;
+  final String? currentAddress;
   final String? avatarUrl;
 
   const PersonalDataEntity({
     required this.id,
     required this.email,
     required this.fullName,
+    this.nickname,
     this.phoneNumber,
     this.dateOfBirth,
     this.gender,
+    this.currentAddress,
     this.avatarUrl,
   });
 }

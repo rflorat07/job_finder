@@ -21,10 +21,12 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
 
   final _formKey = GlobalKey<FormState>();
   final _fullNameController = TextEditingController();
+  final _nicknameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _dateOfBirthController = TextEditingController();
   final _genderController = TextEditingController();
+  final _currentAddressController = TextEditingController();
 
   DateTime? _dateOfBirth;
   Gender? _gender;
@@ -48,10 +50,12 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
     _viewModel.removeListener(_hydrateFromViewModel);
     _viewModel.dispose();
     _fullNameController.dispose();
+    _nicknameController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
     _dateOfBirthController.dispose();
     _genderController.dispose();
+    _currentAddressController.dispose();
     super.dispose();
   }
 
@@ -64,8 +68,10 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
     _hydrated = true;
 
     _fullNameController.text = data.fullName;
+    _nicknameController.text = data.nickname ?? '';
     _phoneController.text = data.phoneNumber ?? '';
     _emailController.text = data.email;
+    _currentAddressController.text = data.currentAddress ?? '';
     _dateOfBirth = data.dateOfBirth;
     _gender = data.gender;
 
@@ -137,12 +143,16 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
     FocusScope.of(context).unfocus();
 
     final phone = _phoneController.text.trim();
+    final nickname = _nicknameController.text.trim();
+    final currentAddress = _currentAddressController.text.trim();
 
     final success = await _viewModel.save(
       fullName: _fullNameController.text.trim(),
+      nickname: nickname.isEmpty ? null : nickname,
       phoneNumber: phone.isEmpty ? null : phone,
       dateOfBirth: _dateOfBirth,
       gender: _gender,
+      currentAddress: currentAddress.isEmpty ? null : currentAddress,
     );
 
     if (!mounted) {
@@ -238,6 +248,14 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       const SizedBox(height: SpacingTokens.spacing16),
 
                       DSTextFormField(
+                        label: context.tr('personal_data.nickname'),
+                        hint: context.tr('personal_data.nickname_hint'),
+                        controller: _nicknameController,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: SpacingTokens.spacing16),
+
+                      DSTextFormField(
                         label: context.tr('personal_data.phone_number'),
                         hint: context.tr('personal_data.phone_number_hint'),
                         controller: _phoneController,
@@ -286,6 +304,17 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             ),
                           ),
                         ),
+                      ),
+                      const SizedBox(height: SpacingTokens.spacing16),
+
+                      DSTextFormField(
+                        label: context.tr('personal_data.current_address'),
+                        hint: context.tr('personal_data.current_address_hint'),
+                        controller: _currentAddressController,
+                        maxLines: 3,
+                        minLines: 1,
+                        keyboardType: TextInputType.streetAddress,
+                        textInputAction: TextInputAction.newline,
                       ),
                     ],
                   ),

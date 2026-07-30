@@ -71,6 +71,52 @@ ALTER TABLE public.profiles
     CHECK (gender IN ('male', 'female', 'other'));
 ```
 
+### Migration: Manage Profile fields
+
+Adds the editable fields used by the "Manage Profile" flow (About Me,
+Personal Data extras, Education, Work Experience, Skills and Salary). The
+`bio` column already exists and is reused for the "About Me" text. Safe to
+re-run (idempotent).
+
+```sql
+ALTER TABLE public.profiles
+  -- Personal Data extras
+  ADD COLUMN IF NOT EXISTS nickname                 TEXT,
+  ADD COLUMN IF NOT EXISTS current_address          TEXT,
+  -- Education
+  ADD COLUMN IF NOT EXISTS education_level          TEXT,
+  ADD COLUMN IF NOT EXISTS school                   TEXT,
+  ADD COLUMN IF NOT EXISTS study_program            TEXT,
+  ADD COLUMN IF NOT EXISTS education_start          DATE,
+  ADD COLUMN IF NOT EXISTS graduate_education       DATE,
+  ADD COLUMN IF NOT EXISTS organizational_experience TEXT,
+  -- Work Experience
+  ADD COLUMN IF NOT EXISTS company_name             TEXT,
+  ADD COLUMN IF NOT EXISTS contract_type            TEXT,
+  ADD COLUMN IF NOT EXISTS job_name                 TEXT,
+  ADD COLUMN IF NOT EXISTS field_of_work            TEXT,
+  ADD COLUMN IF NOT EXISTS job_description           TEXT,
+  -- Skills
+  ADD COLUMN IF NOT EXISTS skills                   TEXT[] NOT NULL DEFAULT '{}',
+  -- Salary
+  ADD COLUMN IF NOT EXISTS minimum_salary           INTEGER;
+
+-- Optional value constraints kept aligned with the app-side enums.
+ALTER TABLE public.profiles
+  DROP CONSTRAINT IF EXISTS profiles_education_level_check,
+  ADD CONSTRAINT profiles_education_level_check
+    CHECK (education_level IS NULL OR education_level IN (
+      'highSchool', 'associate', 'bachelor', 'master', 'doctorate', 'other'
+    ));
+
+ALTER TABLE public.profiles
+  DROP CONSTRAINT IF EXISTS profiles_contract_type_check,
+  ADD CONSTRAINT profiles_contract_type_check
+    CHECK (contract_type IS NULL OR contract_type IN (
+      'fullTime', 'partTime', 'contract', 'internship', 'freelance'
+    ));
+```
+
 ---
 
 ## 2. Auto-create profile on user signup (Trigger)
