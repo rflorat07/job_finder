@@ -189,8 +189,8 @@ class _ProfileSummary extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: SizesTokens.size80,
-          height: SizesTokens.size80,
+          width: SizesTokens.size72,
+          height: SizesTokens.size72,
           child: CircleAvatar(
             radius: SizesTokens.size40,
             backgroundColor: context.dsColors.secondaryContainer,
@@ -206,23 +206,25 @@ class _ProfileSummary extends StatelessWidget {
                   ),
           ),
         ),
-        const SizedBox(height: SpacingTokens.spacing12),
+        const SizedBox(height: SpacingTokens.spacing16),
         Text(
           profile.fullName.isNotEmpty
               ? profile.fullName
               : context.tr('profile.default_name'),
           textAlign: TextAlign.center,
-          style: context.dsTextTheme.bodyMedium?.copyWith(
+          style: context.dsTextTheme.bodySmall?.copyWith(
             color: context.dsColors.onSurface,
-            fontWeight: TypographyTokens.fontWeightSemiBold,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
-        const SizedBox(height: SpacingTokens.spacing4),
+        const SizedBox(height: SpacingTokens.spacing2),
         Text(
           profile.email,
           textAlign: TextAlign.center,
-          style: context.dsTextTheme.bodySmall?.copyWith(
+          style: context.dsTextTheme.labelSmall?.copyWith(
             color: context.dsColors.onSurfaceVariant,
+            fontWeight: TypographyTokens.fontWeightRegular,
+            height: TypographyTokens.lineHeightExtraRelaxed,
           ),
         ),
       ],
@@ -252,7 +254,7 @@ class _ProfileSectionCard extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingTokens.spacing16),
       decoration: BoxDecoration(
         color: context.dsColors.secondaryContainer,
-        borderRadius: BorderRadius.circular(RadiusTokens.lg),
+        borderRadius: RadiusTokens.lgRadius,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +266,7 @@ class _ProfileSectionCard extends StatelessWidget {
                 title,
                 style: context.dsTextTheme.bodyMedium?.copyWith(
                   color: context.dsColors.onSurface,
-                  fontWeight: TypographyTokens.fontWeightSemiBold,
+                  height: TypographyTokens.lineHeightExtraRelaxed,
                 ),
               ),
               GestureDetector(
@@ -274,21 +276,24 @@ class _ProfileSectionCard extends StatelessWidget {
                   context.tr('profile.edit'),
                   style: context.dsTextTheme.bodySmall?.copyWith(
                     color: context.dsColors.primary,
-                    fontWeight: TypographyTokens.fontWeightSemiBold,
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: SpacingTokens.spacing8),
+
           Text(
             hasPreview ? preview! : placeholder,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
             style: context.dsTextTheme.bodySmall?.copyWith(
               color: hasPreview
-                  ? context.dsColors.onSurfaceVariant
+                  ? context.dsColors.onPrimaryContainer
                   : context.dsColors.onSurfaceVariant.withAlpha(150),
+              fontWeight: hasPreview
+                  ? TypographyTokens.fontWeightRegular
+                  : TypographyTokens.fontWeightMedium,
+              height: TypographyTokens.lineHeightExtraRelaxed,
             ),
           ),
         ],

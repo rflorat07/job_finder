@@ -82,12 +82,23 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
             onSave: _onSave,
             children: [
               Text(
+                context.tr('profile.about_me_title'),
+                style: context.dsTextTheme.bodyMedium?.copyWith(
+                  color: context.dsColors.onSurface,
+                  height: TypographyTokens.lineHeightExtraRelaxed,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.spacing4),
+              Text(
                 context.tr('profile.about_me_description'),
                 style: context.dsTextTheme.bodySmall?.copyWith(
                   color: context.dsColors.onSurfaceVariant,
+                  fontWeight: TypographyTokens.fontWeightRegular,
+                  height: TypographyTokens.lineHeightExtraRelaxed,
                 ),
               ),
               const SizedBox(height: SpacingTokens.spacing24),
+
               DSTextFormField(
                 label: context.tr('profile.cover_letter'),
                 hint: context.tr('profile.cover_letter_hint'),
@@ -95,6 +106,11 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                 maxLines: 8,
                 minLines: 6,
                 keyboardType: TextInputType.multiline,
+                style: context.dsTextTheme.bodyMedium?.copyWith(
+                  color: context.dsColors.onPrimaryContainer,
+                  fontWeight: TypographyTokens.fontWeightRegular,
+                  height: TypographyTokens.lineHeightInput,
+                ),
                 validator: (value) => (value == null || value.trim().isEmpty)
                     ? context.tr('profile.cover_letter_required')
                     : null,

@@ -30,7 +30,7 @@ class ProfilePickerField extends StatelessWidget {
           hint: hint,
           readOnly: true,
           controller: controller,
-          suffixIcon: suffixIcon ?? const Icon(IconsaxPlusLinear.arrow_down_1),
+          suffixIcon: suffixIcon ?? const Icon(IconsaxPlusLinear.arrow_down),
         ),
       ),
     );

@@ -39,9 +39,9 @@ class AccountHeader extends StatelessWidget {
                   fullName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.dsTextTheme.bodyLarge?.copyWith(
-                    color: context.dsColors.tertiaryContainer,
-                    fontWeight: TypographyTokens.fontWeightBold,
+                  style: context.dsTextTheme.bodyMedium?.copyWith(
+                    color: const Color(PrimitiveColors.neutral0),
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.spacing4),
@@ -49,9 +49,10 @@ class AccountHeader extends StatelessWidget {
                   email,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.dsTextTheme.bodyMedium?.copyWith(
-                    color: context.dsColors.tertiaryContainer,
+                  style: context.dsTextTheme.bodySmall?.copyWith(
+                    color: const Color(PrimitiveColors.neutral0),
                     fontWeight: TypographyTokens.fontWeightRegular,
+                    height: TypographyTokens.lineHeightExtraRelaxed,
                   ),
                 ),
               ],
@@ -60,9 +61,8 @@ class AccountHeader extends StatelessWidget {
           const SizedBox(width: SpacingTokens.spacing12),
           DSCircularIcon.icon(
             IconsaxPlusLinear.edit_2,
-            size: SizesTokens.size40,
-            iconSize: SizesTokens.size20,
-            iconColor: context.dsColors.tertiaryContainer,
+            iconSize: SizesTokens.size24,
+            iconColor: const Color(PrimitiveColors.neutral0),
             backgroundColor: context.dsColors.primary.withAlpha(70),
             onPressed: onEditTap,
           ),

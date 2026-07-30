@@ -227,6 +227,11 @@ class _EducationScreenState extends State<EducationScreen> {
                 maxLines: 5,
                 minLines: 3,
                 keyboardType: TextInputType.multiline,
+                style: context.dsTextTheme.bodyMedium?.copyWith(
+                  color: context.dsColors.onPrimaryContainer,
+                  fontWeight: TypographyTokens.fontWeightRegular,
+                  height: TypographyTokens.lineHeightInput,
+                ),
               ),
             ],
           ),

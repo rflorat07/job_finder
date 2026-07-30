@@ -25,6 +25,7 @@ class DSTextFormField extends StatelessWidget {
     this.initialValue,
     this.autofocus = false,
     this.autovalidateMode,
+    this.style,
   });
 
   ///  Label text displayed above the input field
@@ -84,6 +85,9 @@ class DSTextFormField extends StatelessWidget {
   /// Autovalidate mode for the input field
   final AutovalidateMode? autovalidateMode;
 
+  /// Text style for the input field
+  final TextStyle? style;
+
   @override
   Widget build(BuildContext context) {
     final dsColors = context.dsColors;
@@ -117,10 +121,12 @@ class DSTextFormField extends StatelessWidget {
           maxLines: obscureText ? 1 : maxLines,
           minLines: minLines,
           autofocus: autofocus,
-          style: dsTextTheme.bodyMedium?.copyWith(
-            height: TypographyTokens.lineHeightInput,
-            fontWeight: FontWeight.w500,
-          ),
+          style:
+              style ??
+              dsTextTheme.bodyMedium?.copyWith(
+                height: TypographyTokens.lineHeightInput,
+                fontWeight: FontWeight.w500,
+              ),
           cursorColor: dsColors.primary,
           decoration: InputDecoration(
             isDense: true,
