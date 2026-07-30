@@ -282,32 +282,13 @@ class _SearchError extends StatelessWidget {
             children: [
               ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.spacing24,
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.error_outline,
-                          size: SizesTokens.size48,
-                        ),
-                        const SizedBox(height: SpacingTokens.spacing16),
-                        Text(
-                          message ?? context.tr('search.generic_error'),
-                          textAlign: TextAlign.center,
-                          style: context.dsTextTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: SpacingTokens.spacing16),
-                        ElevatedButton(
-                          onPressed: onRetry,
-                          child: Text(context.tr('search.retry')),
-                        ),
-                      ],
-                    ),
+                child: DSErrorState(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.spacing24,
                   ),
+                  message: message ?? context.tr('search.generic_error'),
+                  retryLabel: context.tr('search.retry'),
+                  onRetry: onRetry,
                 ),
               ),
             ],

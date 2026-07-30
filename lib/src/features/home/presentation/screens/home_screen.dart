@@ -123,24 +123,10 @@ class _HomeError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.error_outline, size: SizesTokens.size48),
-          const SizedBox(height: SpacingTokens.spacing16),
-          Text(
-            viewModel.errorMessage ?? '',
-            style: context.dsTextTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: SpacingTokens.spacing16),
-          FilledButton(
-            onPressed: viewModel.fetchHomeData,
-            child: Text(context.tr('home.retry')),
-          ),
-        ],
-      ),
+    return DSErrorState(
+      message: viewModel.errorMessage ?? '',
+      retryLabel: context.tr('home.retry'),
+      onRetry: viewModel.fetchHomeData,
     );
   }
 }

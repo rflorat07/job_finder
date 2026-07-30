@@ -431,24 +431,10 @@ class _JobDetailError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.error_outline, size: SizesTokens.size48),
-          const SizedBox(height: SpacingTokens.spacing16),
-          Text(
-            message ?? context.tr('job_detail.generic_error'),
-            style: context.dsTextTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: SpacingTokens.spacing16),
-          FilledButton(
-            onPressed: onRetry,
-            child: Text(context.tr('job_detail.retry')),
-          ),
-        ],
-      ),
+    return DSErrorState(
+      message: message ?? context.tr('job_detail.generic_error'),
+      retryLabel: context.tr('job_detail.retry'),
+      onRetry: onRetry,
     );
   }
 }
