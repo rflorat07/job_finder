@@ -46,39 +46,10 @@ class _SkillsScreenState extends State<SkillsScreen> {
   }
 
   Future<String?> _showAddSkillDialog() {
-    final controller = TextEditingController();
-
     return showDialog<String>(
       context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          backgroundColor: dialogContext.dsColors.secondaryContainer,
-          title: Text(
-            dialogContext.tr('profile.add_skill'),
-            style: dialogContext.dsTextTheme.bodyLarge?.copyWith(
-              fontWeight: TypographyTokens.fontWeightBold,
-            ),
-          ),
-          content: DSTextFormField(
-            hint: dialogContext.tr('profile.skill_hint'),
-            controller: controller,
-            autofocus: true,
-            textInputAction: TextInputAction.done,
-            onFieldSubmitted: (value) => Navigator.of(dialogContext).pop(value),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(dialogContext.tr('profile.cancel')),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(controller.text),
-              child: Text(dialogContext.tr('profile.add')),
-            ),
-          ],
-        );
-      },
-    ).whenComplete(controller.dispose);
+      builder: (dialogContext) => const _AddSkillDialog(),
+    );
   }
 
   Future<void> _onSave() async {
@@ -160,6 +131,61 @@ class _SkillsScreenState extends State<SkillsScreen> {
           ],
         );
       },
+    );
+  }
+}
+
+/// Dialog that owns its own [TextEditingController] and lets the user type a
+/// new skill. Returns the entered text on confirm, or `null` on cancel.
+class _AddSkillDialog extends StatefulWidget {
+  const _AddSkillDialog();
+
+  @override
+  State<_AddSkillDialog> createState() => _AddSkillDialogState();
+}
+
+class _AddSkillDialogState extends State<_AddSkillDialog> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: context.dsColors.secondaryContainer,
+      title: Text(
+        context.tr('profile.add_skill'),
+        style: context.dsTextTheme.bodyLarge?.copyWith(
+          fontWeight: TypographyTokens.fontWeightBold,
+        ),
+      ),
+      content: DSTextFormField(
+        hint: context.tr('profile.skill_hint'),
+        controller: _controller,
+        autofocus: true,
+        textInputAction: TextInputAction.done,
+        onFieldSubmitted: (value) => Navigator.of(context).pop(value),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(context.tr('profile.cancel')),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(_controller.text),
+          child: Text(context.tr('profile.add')),
+        ),
+      ],
     );
   }
 }
