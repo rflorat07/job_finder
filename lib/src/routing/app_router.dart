@@ -38,6 +38,7 @@ const _protectedRoutes = [
   AppRoutes.accountLanguage,
   AppRoutes.accountAppearance,
   AppRoutes.accountPersonalData,
+  AppRoutes.accountSecurity,
   AppRoutes.accountEditProfile,
   AppRoutes.profileAboutMe,
   AppRoutes.profileEducation,
@@ -302,6 +303,15 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const PersonalDataScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.accountSecurity,
+      name: 'accountSecurity',
+      pageBuilder: (context, state) => AppTransitions.slideRight(
+        context: context,
+        state: state,
+        child: const AccountSecurityScreen(),
       ),
     ),
     GoRoute(

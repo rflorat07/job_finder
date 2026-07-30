@@ -90,6 +90,7 @@ class _AccountScreenState extends State<AccountScreen> {
           AccountMenuItem(
             title: context.tr('account.account_security'),
             icon: IconsaxPlusLinear.security_safe,
+            onTap: () => context.push(AppRoutes.accountSecurity),
           ),
         ],
       ),

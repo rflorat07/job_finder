@@ -24,6 +24,7 @@ abstract final class AppRoutes {
   static const String notifications = '/notifications';
   static const String account = '/account';
   static const String accountPersonalData = '/account/personal-data';
+  static const String accountSecurity = '/account/security';
   static const String accountLanguage = '/account/language';
   static const String accountAppearance = '/account/appearance';
   static const String accountEditProfile = '/account/edit-profile';
